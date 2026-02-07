@@ -1,0 +1,42 @@
+---
+layout: default
+---
+<article class="container">
+  <div class="writeup-header">
+    <h1 class="writeup-title">{{ page.title }}</h1>
+    <div class="writeup-meta">
+      <span class="platform-badge {{ page.platform | downcase }}">{{ page.platform }}</span>
+      {% include difficulty-badge.html difficulty=page.difficulty %}
+      <span class="os-badge">{{ page.os }}</span>
+      <span class="badge badge-{{ page.status }}">{{ page.status }}</span>
+      <span class="meta-item">{{ page.date | date: "%B %d, %Y" }}</span>
+      {% if page.ttl %}<span class="meta-item">&#9202; {{ page.ttl }}</span>{% endif %}
+    </div>
+    <div class="flags">
+      <span class="flag {% if page.user_flag %}obtained{% else %}missing{% endif %}">&#9873; User flag</span>
+      <span class="flag {% if page.root_flag %}obtained{% else %}missing{% endif %}">&#9873; Root flag</span>
+    </div>
+    {% if page.tags.size > 0 %}
+    <div class="writeup-tags">
+      {% for tag in page.tags %}
+      <span class="tag">{{ tag }}</span>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+
+  {% if page.tools.size > 0 %}
+  <div class="tools-used">
+    <h3>Tools Used</h3>
+    <ul>
+      {% for tool in page.tools %}
+      <li>{{ tool }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  <div class="writeup-content">
+    {{ content }}
+  </div>
+</article>

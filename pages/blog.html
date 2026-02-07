@@ -1,0 +1,26 @@
+---
+title: "Blog"
+subtitle: "Thoughts on security, tooling, and the offensive mindset."
+permalink: /blog/
+---
+
+<div class="card-grid">
+  {% for post in site.posts %}
+  <a href="{{ post.url | relative_url }}" class="card">
+    <h3 class="card-title">{{ post.title }}</h3>
+    <p class="card-meta">{{ post.date | date: "%B %d, %Y" }}</p>
+    <p class="card-description">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+    {% if post.tags.size > 0 %}
+    <div class="card-tags">
+      {% for tag in post.tags %}
+      <span class="tag">{{ tag }}</span>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </a>
+  {% endfor %}
+</div>
+
+{% if site.posts.size == 0 %}
+<p class="empty-state">No posts yet. Watch this space.</p>
+{% endif %}

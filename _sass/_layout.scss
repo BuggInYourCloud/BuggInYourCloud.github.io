@@ -1,0 +1,128 @@
+.container {
+  max-width: $container-max;
+  margin: 0 auto;
+  padding: 0 $spacing-lg;
+}
+
+// Site header / nav
+.site-header {
+  background: $bg-secondary;
+  border-bottom: 1px solid $border;
+  padding: $spacing-md 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  background: rgba($bg-secondary, 0.95);
+}
+
+.nav-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-logo {
+  font-family: $font-mono;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: $neon-green;
+  text-decoration: none;
+
+  &:hover {
+    color: $neon-green;
+    text-shadow: 0 0 10px rgba($neon-green, 0.5);
+  }
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: $spacing-lg;
+  padding: 0;
+  margin: 0;
+
+  a {
+    color: $text-primary;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $radius-sm;
+    transition: all $transition;
+
+    &:hover, &.active {
+      color: $neon-green;
+    }
+  }
+}
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: $text-primary;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+// Main content
+.site-content {
+  flex: 1;
+  padding: $spacing-2xl 0;
+}
+
+// Page header
+.page-header {
+  margin-bottom: $spacing-2xl;
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: $spacing-sm;
+  }
+
+  .page-subtitle {
+    color: $text-muted;
+    font-size: 1.1rem;
+  }
+}
+
+// Grid layouts
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: $spacing-lg;
+}
+
+// Site footer
+.site-footer {
+  background: $bg-secondary;
+  border-top: 1px solid $border;
+  padding: $spacing-xl 0;
+  margin-top: auto;
+
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-text {
+    color: $text-muted;
+    font-size: 0.85rem;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: $spacing-lg;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    a {
+      color: $text-muted;
+      font-size: 0.85rem;
+
+      &:hover { color: $neon-green; }
+    }
+  }
+}

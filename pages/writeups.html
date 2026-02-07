@@ -1,0 +1,16 @@
+---
+title: "Write-ups"
+subtitle: "HTB & THM box write-ups — reconnaissance through root."
+permalink: /writeups/
+---
+
+<div class="card-grid">
+  {% assign sorted = site.writeups | sort: "date" | reverse %}
+  {% for writeup in sorted %}
+    {% include writeup-card.html writeup=writeup %}
+  {% endfor %}
+</div>
+
+{% if site.writeups.size == 0 %}
+<p class="empty-state">No write-ups yet. Boxes are being pwned — check back soon.</p>
+{% endif %}

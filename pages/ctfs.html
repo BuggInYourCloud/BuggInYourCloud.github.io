@@ -1,0 +1,38 @@
+---
+title: "CTF Write-ups"
+subtitle: "Challenge solutions from CTF competitions."
+permalink: /ctfs/
+---
+
+<div class="card-grid">
+  {% assign sorted = site.ctfs | sort: "date" | reverse %}
+  {% for ctf in sorted %}
+  <a href="{{ ctf.url | relative_url }}" class="card">
+    <div class="card-header">
+      <div>
+        <h3 class="card-title">{{ ctf.title }}</h3>
+        <div class="card-meta">
+          {% if ctf.event %}<span>{{ ctf.event }}</span>{% endif %}
+          {% if ctf.category %}&middot; <span class="badge badge-medium">{{ ctf.category }}</span>{% endif %}
+          {% if ctf.points %}&middot; <span>{{ ctf.points }} pts</span>{% endif %}
+        </div>
+      </div>
+    </div>
+    {% if ctf.excerpt %}
+    <p class="card-description">{{ ctf.excerpt | strip_html | truncatewords: 30 }}</p>
+    {% endif %}
+    <div class="card-tags">
+      {% for tag in ctf.tags %}
+      <span class="tag">{{ tag }}</span>
+      {% endfor %}
+    </div>
+    <div class="card-footer">
+      <span>{{ ctf.date | date: "%b %d, %Y" }}</span>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+
+{% if site.ctfs.size == 0 %}
+<p class="empty-state">No CTF write-ups yet. Stay tuned.</p>
+{% endif %}

@@ -1,0 +1,57 @@
+---
+layout: default
+title: "Home"
+---
+
+<div class="container">
+  <section class="hero">
+    <h1>~/Bugg<span class="accent">InYourCloud</span></h1>
+    <p class="hero-subtitle">Offensive security researcher. Breaking boxes, building tools, documenting everything.</p>
+  </section>
+
+  {% assign total = site.writeups | size %}
+  {% assign rooted = site.writeups | where: "status", "rooted" | size %}
+  {% assign tools_count = site.tools | size %}
+  {% assign certs_count = site.certs | size %}
+
+  <div class="quick-stats">
+    <div class="stat">
+      <span class="stat-number">{{ total }}</span>
+      <span class="stat-label">Boxes Attempted</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">{{ rooted }}</span>
+      <span class="stat-label">Rooted</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">{{ tools_count }}</span>
+      <span class="stat-label">Tools Built</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">{{ certs_count }}</span>
+      <span class="stat-label">Certifications</span>
+    </div>
+  </div>
+
+  {% if total > 0 %}
+  {% include stats-dashboard.html %}
+  {% endif %}
+
+  <h2 class="section-title"><span class="accent">#</span> Latest Write-ups</h2>
+  <div class="card-grid">
+    {% assign recent = site.writeups | sort: "date" | reverse %}
+    {% for writeup in recent limit:6 %}
+      {% include writeup-card.html writeup=writeup %}
+    {% endfor %}
+  </div>
+
+  {% if total > 6 %}
+  <p style="text-align: center; margin-top: 2rem;">
+    <a href="{{ '/writeups/' | relative_url }}" style="color: #9fef00;">View all write-ups &rarr;</a>
+  </p>
+  {% endif %}
+</div>
+
+{% if total > 0 %}
+<script src="{{ '/assets/js/stats.js' | relative_url }}"></script>
+{% endif %}

@@ -1,0 +1,17 @@
+---
+layout: default
+---
+<article class="container">
+  <div class="page-header">
+    <h1>{{ page.title }}</h1>
+    {% if page.issuer %}<p class="page-subtitle">{{ page.issuer }}</p>{% endif %}
+  </div>
+  <div class="writeup-meta" style="margin-bottom: 2rem;">
+    {% if page.earned %}<span class="meta-item">Earned: {{ page.earned }}</span>{% endif %}
+    {% if page.expires %}<span class="meta-item">Expires: {{ page.expires }}</span>{% endif %}
+    {% if page.credential_id %}<span class="meta-item">ID: {{ page.credential_id }}</span>{% endif %}
+  </div>
+  <div class="writeup-content">
+    {{ content }}
+  </div>
+</article>

@@ -1,0 +1,23 @@
+---
+title: "Tools"
+subtitle: "Security tools and utilities I've built."
+permalink: /tools/
+---
+
+<div class="card-grid">
+  {% for tool in site.tools %}
+  <a href="{{ tool.url | relative_url }}" class="card showcase-card">
+    <h3 class="card-title">{{ tool.title }}</h3>
+    {% if tool.tagline %}<p class="card-description">{{ tool.tagline }}</p>{% endif %}
+    <div class="card-tags">
+      {% for tag in tool.tags %}
+      <span class="tag">{{ tag }}</span>
+      {% endfor %}
+    </div>
+  </a>
+  {% endfor %}
+</div>
+
+{% if site.tools.size == 0 %}
+<p class="empty-state">Tools coming soon.</p>
+{% endif %}

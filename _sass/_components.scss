@@ -1,0 +1,236 @@
+// Write-up / content card
+.card {
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  transition: all $transition;
+  text-decoration: none;
+  display: block;
+  color: inherit;
+
+  &:hover {
+    border-color: $neon-green;
+    box-shadow: 0 0 20px rgba($neon-green, 0.1);
+    transform: translateY(-2px);
+    color: inherit;
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: $spacing-md;
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+    color: $text-heading;
+    margin-bottom: $spacing-xs;
+  }
+
+  .card-meta {
+    color: $text-muted;
+    font-size: 0.8rem;
+    margin-bottom: $spacing-sm;
+  }
+
+  .card-description {
+    color: $text-primary;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: $spacing-md;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-xs;
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: $spacing-md;
+    padding-top: $spacing-md;
+    border-top: 1px solid $border;
+    font-size: 0.8rem;
+    color: $text-muted;
+  }
+}
+
+// Badges
+.badge {
+  display: inline-block;
+  padding: 0.15em 0.6em;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: $font-mono;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+  &.badge-easy {
+    background: rgba($easy, 0.15);
+    color: $easy;
+  }
+  &.badge-medium {
+    background: rgba($medium, 0.15);
+    color: $medium;
+  }
+  &.badge-hard {
+    background: rgba($hard, 0.15);
+    color: $hard;
+  }
+  &.badge-insane {
+    background: rgba($insane, 0.15);
+    color: $insane;
+  }
+  &.badge-rooted {
+    background: rgba($neon-green, 0.15);
+    color: $neon-green;
+  }
+  &.badge-user-only {
+    background: rgba($neon-orange, 0.15);
+    color: $neon-orange;
+  }
+  &.badge-failed {
+    background: rgba($neon-red, 0.15);
+    color: $neon-red;
+  }
+}
+
+// Tags
+.tag {
+  display: inline-block;
+  padding: 0.15em 0.5em;
+  background: rgba($neon-blue, 0.1);
+  color: $neon-blue;
+  border-radius: $radius-sm;
+  font-size: 0.75rem;
+  font-family: $font-mono;
+}
+
+// Platform badge
+.platform-badge {
+  font-family: $font-mono;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2em 0.6em;
+  border-radius: $radius-sm;
+
+  &.htb {
+    background: rgba($neon-green, 0.15);
+    color: $neon-green;
+  }
+  &.thm {
+    background: rgba($neon-red, 0.15);
+    color: $neon-red;
+  }
+}
+
+// OS icon
+.os-badge {
+  font-size: 0.8rem;
+  color: $text-muted;
+}
+
+// Flag indicators
+.flags {
+  display: flex;
+  gap: $spacing-sm;
+  font-size: 0.85rem;
+
+  .flag {
+    &.obtained { color: $neon-green; }
+    &.missing { color: $text-muted; opacity: 0.4; }
+  }
+}
+
+// Hero section
+.hero {
+  text-align: center;
+  padding: $spacing-2xl 0;
+
+  h1 {
+    font-size: 3rem;
+    margin-bottom: $spacing-md;
+
+    .accent { color: $neon-green; }
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
+    color: $text-muted;
+    max-width: 600px;
+    margin: 0 auto $spacing-xl;
+  }
+}
+
+// Quick stats row
+.quick-stats {
+  display: flex;
+  justify-content: center;
+  gap: $spacing-xl;
+  margin-bottom: $spacing-2xl;
+  flex-wrap: wrap;
+
+  .stat {
+    text-align: center;
+
+    .stat-number {
+      font-family: $font-mono;
+      font-size: 2rem;
+      font-weight: 700;
+      color: $neon-green;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: $text-muted;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+  }
+}
+
+// Section title
+.section-title {
+  font-size: 1.5rem;
+  margin-bottom: $spacing-lg;
+  padding-bottom: $spacing-sm;
+  border-bottom: 2px solid $border;
+
+  .accent { color: $neon-green; }
+}
+
+// Empty state
+.empty-state {
+  text-align: center;
+  padding: $spacing-2xl;
+  color: $text-muted;
+  font-style: italic;
+}
+
+// Tool / cert card variant
+.showcase-card {
+  @extend .card;
+
+  .showcase-icon {
+    font-size: 2rem;
+    margin-bottom: $spacing-md;
+  }
+
+  .showcase-links {
+    display: flex;
+    gap: $spacing-md;
+    margin-top: $spacing-md;
+
+    a {
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+  }
+}

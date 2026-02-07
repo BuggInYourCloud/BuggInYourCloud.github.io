@@ -1,0 +1,127 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $font-body;
+  background-color: $bg-primary;
+  color: $text-primary;
+  line-height: 1.7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $text-heading;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: $spacing-md;
+}
+
+h1 { font-size: 2.25rem; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.375rem; }
+h4 { font-size: 1.125rem; }
+
+p {
+  margin-bottom: $spacing-md;
+}
+
+a {
+  color: $neon-blue;
+  text-decoration: none;
+  transition: color $transition;
+
+  &:hover {
+    color: $neon-green;
+  }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+code {
+  font-family: $font-mono;
+  font-size: 0.875em;
+  background: $surface;
+  padding: 0.15em 0.4em;
+  border-radius: $radius-sm;
+  color: $neon-green;
+}
+
+pre {
+  background: $bg-secondary;
+  border: 1px solid $border;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+  overflow-x: auto;
+  margin-bottom: $spacing-lg;
+
+  code {
+    background: none;
+    padding: 0;
+    font-size: 0.85rem;
+    color: $text-primary;
+  }
+}
+
+hr {
+  border: none;
+  border-top: 1px solid $border;
+  margin: $spacing-xl 0;
+}
+
+ul, ol {
+  padding-left: $spacing-xl;
+  margin-bottom: $spacing-md;
+}
+
+li {
+  margin-bottom: $spacing-xs;
+}
+
+blockquote {
+  border-left: 3px solid $neon-green;
+  padding-left: $spacing-lg;
+  color: $text-muted;
+  font-style: italic;
+  margin-bottom: $spacing-lg;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: $spacing-lg;
+
+  th, td {
+    padding: $spacing-sm $spacing-md;
+    border: 1px solid $border;
+    text-align: left;
+  }
+
+  th {
+    background: $surface;
+    color: $text-heading;
+    font-weight: 600;
+  }
+
+  tr:nth-child(even) {
+    background: rgba($surface, 0.5);
+  }
+}
+
+::selection {
+  background: rgba($neon-green, 0.3);
+  color: $text-heading;
+}

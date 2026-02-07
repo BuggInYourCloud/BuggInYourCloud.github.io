@@ -1,0 +1,83 @@
+// Write-up detail page
+.writeup-header {
+  margin-bottom: $spacing-2xl;
+
+  .writeup-title {
+    font-size: 2.5rem;
+    margin-bottom: $spacing-md;
+  }
+
+  .writeup-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-lg;
+    align-items: center;
+    margin-bottom: $spacing-lg;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: $spacing-xs;
+    color: $text-muted;
+    font-size: 0.9rem;
+  }
+
+  .writeup-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-sm;
+  }
+}
+
+// TOC-style tools list
+.tools-used {
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-xl;
+
+  h3 {
+    font-size: 1rem;
+    color: $neon-green;
+    margin-bottom: $spacing-sm;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-sm;
+
+    li {
+      font-family: $font-mono;
+      font-size: 0.8rem;
+      background: rgba($neon-blue, 0.1);
+      color: $neon-blue;
+      padding: 0.2em 0.6em;
+      border-radius: $radius-sm;
+    }
+  }
+}
+
+// Writeup body content
+.writeup-content {
+  h2 {
+    margin-top: $spacing-2xl;
+    padding-bottom: $spacing-sm;
+    border-bottom: 1px solid $border;
+  }
+
+  h3 {
+    margin-top: $spacing-xl;
+    color: $neon-blue;
+  }
+
+  img {
+    border-radius: $radius-md;
+    border: 1px solid $border;
+    margin: $spacing-lg 0;
+  }
+}

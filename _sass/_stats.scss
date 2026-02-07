@@ -1,0 +1,28 @@
+// Stats dashboard section
+.stats-dashboard {
+  margin-bottom: $spacing-2xl;
+
+  .charts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-lg;
+  }
+
+  .chart-card {
+    background: $surface;
+    border: 1px solid $border;
+    border-radius: $radius-lg;
+    padding: $spacing-lg;
+
+    h3 {
+      font-size: 1rem;
+      color: $text-heading;
+      margin-bottom: $spacing-md;
+      text-align: center;
+    }
+
+    canvas {
+      max-height: 250px;
+    }
+  }
+}

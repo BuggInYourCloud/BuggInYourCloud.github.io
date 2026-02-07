@@ -1,0 +1,19 @@
+---
+title: "Certifications"
+subtitle: "Professional certifications and credentials."
+permalink: /certs/
+---
+
+<div class="card-grid">
+  {% for cert in site.certs %}
+  <a href="{{ cert.url | relative_url }}" class="card showcase-card">
+    <h3 class="card-title">{{ cert.title }}</h3>
+    {% if cert.issuer %}<p class="card-meta">{{ cert.issuer }}</p>{% endif %}
+    {% if cert.earned %}<p class="card-description">Earned: {{ cert.earned }}</p>{% endif %}
+  </a>
+  {% endfor %}
+</div>
+
+{% if site.certs.size == 0 %}
+<p class="empty-state">Certifications coming soon.</p>
+{% endif %}
