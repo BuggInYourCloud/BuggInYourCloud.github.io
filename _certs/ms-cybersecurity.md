@@ -1,7 +1,7 @@
 ---
 title: "Master of Cybersecurity"
 issuer: "Master's Degree"
-earned: "2025 (In Progress)"
+status: "In Progress — Expected 2025"
 tags: [degree, cybersecurity, graduate]
 ---
 

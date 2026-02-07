@@ -8,6 +8,7 @@ layout: default
   </div>
   <div class="writeup-meta" style="margin-bottom: 2rem;">
     {% if page.earned %}<span class="meta-item">Earned: {{ page.earned }}</span>{% endif %}
+    {% if page.status %}<span class="meta-item">{{ page.status }}</span>{% endif %}
     {% if page.expires %}<span class="meta-item">Expires: {{ page.expires }}</span>{% endif %}
     {% if page.credential_id %}<span class="meta-item">ID: {{ page.credential_id }}</span>{% endif %}
   </div>

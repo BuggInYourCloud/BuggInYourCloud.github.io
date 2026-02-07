@@ -9,7 +9,8 @@ permalink: /certs/
   <a href="{{ cert.url | relative_url }}" class="card showcase-card">
     <h3 class="card-title">{{ cert.title }}</h3>
     {% if cert.issuer %}<p class="card-meta">{{ cert.issuer }}</p>{% endif %}
-    {% if cert.earned %}<p class="card-description">Earned: {{ cert.earned }}</p>{% endif %}
+    {% if cert.earned %}<p class="card-description">Earned: {{ cert.earned }}</p>
+    {% elsif cert.status %}<p class="card-description">{{ cert.status }}</p>{% endif %}
   </a>
   {% endfor %}
 </div>

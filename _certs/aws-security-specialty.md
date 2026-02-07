@@ -1,7 +1,7 @@
 ---
 title: "AWS Certified Security — Specialty"
 issuer: "Amazon Web Services"
-earned: "2025 (In Progress)"
+status: "In Progress"
 tags: [aws, cloud, security, specialty]
 ---
 
