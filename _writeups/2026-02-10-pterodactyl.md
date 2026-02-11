@@ -1,7 +1,7 @@
 ---
 title: "Pterodactyl"
 platform: "HTB"
-difficulty: "Easy"
+difficulty: "Medium"
 os: "Linux"
 date: 2026-02-10
 status: "rooted"
