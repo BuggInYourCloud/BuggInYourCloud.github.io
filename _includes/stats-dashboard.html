@@ -17,9 +17,6 @@
 {% assign linux = site.writeups | where: "os", "Linux" | size %}
 {% assign windows = site.writeups | where: "os", "Windows" | size %}
 
-{% assign htb = site.writeups | where: "platform", "HTB" | size %}
-{% assign thm = site.writeups | where: "platform", "THM" | size %}
-
 <script>
   window.siteStats = {
     total: {{ total }},
@@ -28,7 +25,7 @@
     failed: {{ failed_count }},
     difficulty: { veryEasy: {{ very_easy }}, easy: {{ easy }}, medium: {{ medium }}, hard: {{ hard }}, insane: {{ insane }} },
     os: { linux: {{ linux }}, windows: {{ windows }} },
-    platform: { htb: {{ htb }}, thm: {{ thm }} },
+    boxGoal: 100,
     timeline: [
       {% for writeup in site.writeups %}
       { date: "{{ writeup.date | date: '%Y-%m-%d' }}", title: {{ writeup.title | jsonify }}, status: "{{ writeup.status }}" }{% unless forloop.last %},{% endunless %}
@@ -49,8 +46,8 @@
       <canvas id="osChart"></canvas>
     </div>
     <div class="chart-card">
-      <h3>Platform</h3>
-      <canvas id="platformChart"></canvas>
+      <h3>2026 Goal: 100 Boxes</h3>
+      <canvas id="goalChart"></canvas>
     </div>
     <div class="chart-card">
       <h3>Progress Timeline</h3>
