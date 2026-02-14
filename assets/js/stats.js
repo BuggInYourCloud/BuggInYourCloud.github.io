@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
   Chart.defaults.color = chartDefaults.color;
   Chart.defaults.borderColor = chartDefaults.borderColor;
 
-  // Difficulty doughnut — build labels/data dynamically to skip zero-count entries
+  // Difficulty doughnut
   var diffLabels = [];
   var diffData = [];
   var diffColors = [];
@@ -56,32 +56,52 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // Platform bar
-  new Chart(document.getElementById('platformChart'), {
-    type: 'bar',
+  // 100-box goal gauge
+  var goal = stats.boxGoal || 100;
+  var done = stats.total;
+  var remaining = Math.max(0, goal - done);
+
+  new Chart(document.getElementById('goalChart'), {
+    type: 'doughnut',
     data: {
-      labels: ['HackTheBox', 'TryHackMe'],
+      labels: ['Completed', 'Remaining'],
       datasets: [{
-        data: [stats.platform.htb, stats.platform.thm],
-        backgroundColor: ['#9fef00', '#ff4444'],
-        borderRadius: 6,
-        barPercentage: 0.5
+        data: [done, remaining],
+        backgroundColor: ['#9fef00', 'rgba(107, 123, 149, 0.2)'],
+        borderWidth: 0
       }]
     },
     options: {
       responsive: true,
-      plugins: { legend: { display: false } },
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: { stepSize: 1 },
-          grid: { color: '#2a3a4e' }
-        },
-        x: {
-          grid: { display: false }
+      cutout: '70%',
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function(ctx) {
+              return ctx.label + ': ' + ctx.raw + ' boxes';
+            }
+          }
         }
       }
-    }
+    },
+    plugins: [{
+      id: 'goalText',
+      afterDraw: function(chart) {
+        var ctx = chart.ctx;
+        var w = chart.width;
+        var h = chart.height;
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#9fef00';
+        ctx.font = 'bold 2rem "JetBrains Mono", monospace';
+        ctx.fillText(done, w / 2, h / 2);
+        ctx.fillStyle = '#6b7b95';
+        ctx.font = '0.75rem "JetBrains Mono", monospace';
+        ctx.fillText('/ ' + goal, w / 2, h / 2 + 22);
+        ctx.restore();
+      }
+    }]
   });
 
   // Progress timeline
