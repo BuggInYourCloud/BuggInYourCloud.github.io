@@ -5,17 +5,25 @@ permalink: /about/
 ---
 
 <style>
-  .about-hero {
-    margin-bottom: 3.5rem;
-  }
+  /* ── Animated gradient heading ── */
   .about-hero h2 {
     font-size: 2.4rem;
     margin: 0 0 0.4rem 0;
     letter-spacing: -0.03em;
-    background: linear-gradient(135deg, #e2e8f0 30%, #60a5fa 70%, #a78bfa);
+    background: linear-gradient(135deg, #e2e8f0 0%, #60a5fa 50%, #a78bfa 100%);
+    background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    animation: gradient-shift 6s ease-in-out infinite;
+  }
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  .about-hero {
+    margin-bottom: 3.5rem;
   }
   .about-hero .tagline {
     font-size: 1rem;
@@ -30,6 +38,7 @@ permalink: /about/
     max-width: 720px;
   }
 
+  /* ── Sections ── */
   .about-section {
     margin-bottom: 3.5rem;
   }
@@ -54,7 +63,7 @@ permalink: /about/
     color: #e2e8f0;
   }
 
-  /* Focus cards */
+  /* ── Focus cards ── */
   .focus-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -65,9 +74,24 @@ permalink: /about/
     border: 1px solid rgba(96, 165, 250, 0.1);
     border-radius: 16px;
     padding: 1.75rem;
-    transition: all 320ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: box-shadow 320ms ease, background 320ms ease, border-color 320ms ease;
     position: relative;
     overflow: hidden;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+  .focus-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(96, 165, 250, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 320ms ease;
+  }
+  .focus-card:hover::before {
+    opacity: 1;
   }
   .focus-card::after {
     content: '';
@@ -75,7 +99,7 @@ permalink: /about/
     inset: 0;
     border-radius: 16px;
     padding: 1px;
-    background: linear-gradient(135deg, transparent 40%, rgba(96, 165, 250, 0.2));
+    background: linear-gradient(135deg, transparent 40%, rgba(96, 165, 250, 0.25));
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -83,26 +107,28 @@ permalink: /about/
     opacity: 0;
     transition: opacity 320ms ease;
   }
-  .focus-card:hover {
-    transform: scale(1.04);
-    background: rgba(15, 23, 42, 0.85);
-    box-shadow:
-      0 0 40px rgba(96, 165, 250, 0.1),
-      0 12px 40px rgba(0, 0, 0, 0.4);
-  }
   .focus-card:hover::after {
     opacity: 1;
+  }
+  .focus-card:hover {
+    background: rgba(15, 23, 42, 0.85);
+    border-color: rgba(96, 165, 250, 0.2);
+    box-shadow:
+      0 0 50px rgba(96, 165, 250, 0.1),
+      0 16px 48px rgba(0, 0, 0, 0.4);
   }
   .focus-card h3 {
     font-size: 1.1rem;
     color: #f1f5f9;
     margin: 0 0 0.6rem 0;
+    position: relative;
   }
   .focus-card p {
     font-size: 0.88rem;
     color: #64748b;
     margin: 0;
     line-height: 1.65;
+    position: relative;
   }
   .focus-card .sub-list {
     list-style: none;
@@ -111,6 +137,7 @@ permalink: /about/
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
+    position: relative;
   }
   .focus-card .sub-list li {
     font-family: 'JetBrains Mono', monospace;
@@ -127,7 +154,7 @@ permalink: /about/
     border-color: rgba(96, 165, 250, 0.2);
   }
 
-  /* Credential pills */
+  /* ── Credential pills ── */
   .cred-row {
     display: flex;
     flex-wrap: wrap;
@@ -151,7 +178,7 @@ permalink: /about/
     border-color: rgba(96, 165, 250, 0.35);
     background: rgba(15, 23, 42, 0.9);
     transform: scale(1.04);
-    box-shadow: 0 4px 20px rgba(96, 165, 250, 0.08);
+    box-shadow: 0 4px 20px rgba(96, 165, 250, 0.1);
     color: #e2e8f0;
   }
   .cred-pill .dot {
@@ -169,7 +196,7 @@ permalink: /about/
     box-shadow: 0 0 6px rgba(96, 165, 250, 0.4);
   }
 
-  /* Contact cards */
+  /* ── Contact cards ── */
   .contact-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -185,14 +212,15 @@ permalink: /about/
     display: flex;
     align-items: center;
     gap: 1rem;
-    transition: all 320ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: box-shadow 320ms ease, background 320ms ease, border-color 320ms ease;
+    transform-style: preserve-3d;
+    will-change: transform;
   }
   .contact-card:hover {
-    transform: scale(1.04);
     border-color: rgba(96, 165, 250, 0.3);
     box-shadow:
-      0 0 40px rgba(96, 165, 250, 0.1),
-      0 12px 40px rgba(0, 0, 0, 0.4);
+      0 0 50px rgba(96, 165, 250, 0.1),
+      0 16px 48px rgba(0, 0, 0, 0.4);
     background: rgba(15, 23, 42, 0.85);
     color: inherit;
   }
@@ -229,6 +257,44 @@ permalink: /about/
     word-break: break-all;
   }
 
+  /* ── Scroll reveal ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 600ms cubic-bezier(0.4, 0, 0.2, 1),
+                transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Staggered children ── */
+  .stagger-children > * {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 500ms cubic-bezier(0.4, 0, 0.2, 1),
+                transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .stagger-children.visible > * {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Hero entrance ── */
+  .hero-enter {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: hero-in 700ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  .hero-enter:nth-child(1) { animation-delay: 100ms; }
+  .hero-enter:nth-child(2) { animation-delay: 250ms; }
+  .hero-enter:nth-child(3) { animation-delay: 400ms; }
+  .hero-enter:nth-child(4) { animation-delay: 500ms; }
+  @keyframes hero-in {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
   @media (max-width: 768px) {
     .about-hero h2 { font-size: 1.8rem; }
     .focus-grid { grid-template-columns: 1fr; }
@@ -237,18 +303,18 @@ permalink: /about/
 </style>
 
 <div class="about-hero">
-  <h2>About Me</h2>
-  <p class="tagline">Offensive security, social engineering, and the human element.</p>
-  <p>Cybersecurity researcher from Australia with a focus on offensive security and red teaming. I'm drawn to the human side of security — social engineering, physical intrusion, understanding where people's trust breaks down — but I'm equally comfortable in a terminal working through boxes on HackTheBox.</p>
-  <p>Security doesn't stop at the network edge. Lockpicking, wardriving, signal cloning — if it can be bypassed, I want to understand how and why.</p>
+  <h2 class="hero-enter">About Me</h2>
+  <p class="tagline hero-enter">Offensive security, social engineering, and the human element.</p>
+  <p class="hero-enter">Cybersecurity researcher from Australia with a focus on offensive security and red teaming. I'm drawn to the human side of security — social engineering, physical intrusion, understanding where people's trust breaks down — but I'm equally comfortable in a terminal working through boxes on HackTheBox.</p>
+  <p class="hero-enter">Security doesn't stop at the network edge. Lockpicking, wardriving, signal cloning — if it can be bypassed, I want to understand how and why.</p>
 </div>
 
-<div class="about-section">
+<div class="about-section reveal">
   <h2>Background</h2>
   <p>Came up through a few desk jobs before committing to cybersecurity full-time. Finished my <strong>B.I.T</strong> in Information Technology (Cybersecurity &amp; Networking) at Southern Cross University and earned my <strong>CompTIA Security+</strong> in 2024. Currently finishing a <strong>Master of Cybersecurity</strong> (Cloud Security) at the University of Sydney and working toward the <strong>AWS Solutions Architect Associate</strong>.</p>
   <p>The goal is to contribute to Australia's cybersecurity space in a meaningful way — always looking for opportunities where I can keep learning and actually make an impact.</p>
 
-  <div class="cred-row">
+  <div class="cred-row stagger-children">
     <span class="cred-pill"><span class="dot green"></span>Bachelor of Information Technology — Southern Cross University</span>
     <span class="cred-pill"><span class="dot green"></span>CompTIA Security+</span>
     <span class="cred-pill"><span class="dot blue"></span>Master of Cybersecurity — University of Sydney</span>
@@ -256,18 +322,18 @@ permalink: /about/
   </div>
 </div>
 
-<div class="about-section">
+<div class="about-section reveal">
   <h2>What I'm Into</h2>
-  <div class="focus-grid">
-    <div class="focus-card">
+  <div class="focus-grid stagger-children" data-tilt-container>
+    <div class="focus-card" data-tilt>
       <h3>Social Engineering</h3>
       <p>The human side of security — phishing, pretexting, physical intrusion, and understanding where trust breaks down.</p>
     </div>
-    <div class="focus-card">
+    <div class="focus-card" data-tilt>
       <h3>Red Teaming</h3>
       <p>Full-scope adversary simulation. Thinking like an attacker to find what scanners miss.</p>
     </div>
-    <div class="focus-card">
+    <div class="focus-card" data-tilt>
       <h3>Physical Security</h3>
       <p>Security doesn't stop at the network edge. If it can be bypassed in the real world, I want to understand how.</p>
       <ul class="sub-list">
@@ -278,31 +344,31 @@ permalink: /about/
         <li>Replay Attacks</li>
       </ul>
     </div>
-    <div class="focus-card">
+    <div class="focus-card" data-tilt>
       <h3>Ethics in Cybersecurity</h3>
       <p>The grey areas of offensive security — responsible disclosure, dual-use tooling, where the line sits between research and harm.</p>
     </div>
   </div>
 </div>
 
-<div class="about-section">
+<div class="about-section reveal">
   <h2>Contact</h2>
-  <div class="contact-grid">
-    <a href="https://github.com/BuggInYourCloud" class="contact-card" target="_blank">
+  <div class="contact-grid stagger-children">
+    <a href="https://github.com/BuggInYourCloud" class="contact-card" data-tilt target="_blank">
       <div class="contact-icon">GH</div>
       <div>
         <div class="contact-label">GitHub</div>
         <div class="contact-value">BuggInYourCloud</div>
       </div>
     </a>
-    <a href="mailto:BuggInYourCloud@proton.me" class="contact-card">
+    <a href="mailto:BuggInYourCloud@proton.me" class="contact-card" data-tilt>
       <div class="contact-icon">@</div>
       <div>
         <div class="contact-label">Email</div>
         <div class="contact-value">BuggInYourCloud@proton.me</div>
       </div>
     </a>
-    <a href="https://bugginyourcloud.github.io" class="contact-card" target="_blank">
+    <a href="https://bugginyourcloud.github.io" class="contact-card" data-tilt target="_blank">
       <div class="contact-icon">W</div>
       <div>
         <div class="contact-label">Site</div>
@@ -311,3 +377,61 @@ permalink: /about/
     </a>
   </div>
 </div>
+
+<script>
+(function() {
+  // ── Scroll Reveal ──
+  var reveals = document.querySelectorAll('.reveal');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Stagger children inside
+        var children = entry.target.querySelectorAll('.stagger-children > *');
+        children.forEach(function(child, i) {
+          child.style.transitionDelay = (i * 100) + 'ms';
+        });
+        // Small delay then trigger children
+        setTimeout(function() {
+          entry.target.querySelectorAll('.stagger-children').forEach(function(el) {
+            el.classList.add('visible');
+          });
+        }, 200);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  reveals.forEach(function(el) { observer.observe(el); });
+
+  // ── 3D Card Tilt ──
+  var tiltCards = document.querySelectorAll('[data-tilt]');
+  var maxTilt = 8; // degrees
+
+  tiltCards.forEach(function(card) {
+    card.addEventListener('mousemove', function(e) {
+      var rect = card.getBoundingClientRect();
+      var x = (e.clientX - rect.left) / rect.width;
+      var y = (e.clientY - rect.top) / rect.height;
+      var tiltX = (0.5 - y) * maxTilt;
+      var tiltY = (x - 0.5) * maxTilt;
+      card.style.transform = 'perspective(600px) rotateX(' + tiltX + 'deg) rotateY(' + tiltY + 'deg) scale(1.02)';
+      // Update cursor glow position
+      card.style.setProperty('--mx', (x * 100) + '%');
+      card.style.setProperty('--my', (y * 100) + '%');
+    });
+
+    card.addEventListener('mouseleave', function() {
+      card.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg) scale(1)';
+    });
+
+    // Smooth transition on leave only
+    card.addEventListener('mouseenter', function() {
+      card.style.transition = 'box-shadow 320ms ease, background 320ms ease, border-color 320ms ease';
+    });
+    card.addEventListener('mouseleave', function() {
+      card.style.transition = 'all 500ms cubic-bezier(0.4, 0, 0.2, 1)';
+    });
+  });
+})();
+</script>
