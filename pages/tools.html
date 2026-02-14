@@ -1,5 +1,5 @@
 ---
-title: "Tools"
+title: "Tools & Scripts"
 subtitle: "Security tools and utilities I've built."
 permalink: /tools/
 ---
@@ -10,8 +10,13 @@ permalink: /tools/
     <h3 class="card-title">{{ tool.title }}</h3>
     {% if tool.tagline %}<p class="card-description">{{ tool.tagline }}</p>{% endif %}
     <div class="card-tags">
+      {% if tool.category == "script" %}
+        <span class="tag tag-script">script</span>
+      {% else %}
+        <span class="tag tag-tool">tool</span>
+      {% endif %}
       {% for tag in tool.tags %}
-      <span class="tag">{{ tag }}</span>
+        <span class="tag {% if tool.category == 'script' %}tag-script{% endif %}">{{ tag }}</span>
       {% endfor %}
     </div>
   </a>
