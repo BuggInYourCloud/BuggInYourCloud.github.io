@@ -4,9 +4,9 @@ subtitle: "Security projects and scripts I've built."
 permalink: /tools/
 ---
 
-<div class="card-grid">
+<div class="card-grid reveal reveal-stagger">
   {% for tool in site.tools %}
-  <a href="{{ tool.url | relative_url }}" class="card showcase-card">
+  <a href="{{ tool.url | relative_url }}" class="card showcase-card" data-tilt>
     <h3 class="card-title">{{ tool.title }}</h3>
     {% if tool.tagline %}<p class="card-description">{{ tool.tagline }}</p>{% endif %}
     <div class="card-tags">
