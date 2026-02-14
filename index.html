@@ -14,7 +14,7 @@ title: "Home"
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   }
   .tracker:hover {
-    border-color: rgba(159, 239, 0, 0.2);
+    border-color: rgba(96, 165, 250, 0.2);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
     transform: translateY(-2px);
   }
@@ -43,7 +43,7 @@ title: "Home"
     font-size: 0.9em;
   }
   .tracker-header h3 a:hover {
-    color: #9fef00;
+    color: #60a5fa;
   }
   .tracker-header h3 a:hover::after {
     opacity: 1;
@@ -55,8 +55,8 @@ title: "Home"
     border-radius: 4px;
   }
   .tracker-badge.green {
-    color: #9fef00;
-    background: rgba(159, 239, 0, 0.1);
+    color: #60a5fa;
+    background: rgba(96, 165, 250, 0.1);
   }
   .tracker-badge.orange {
     color: #ffab40;
@@ -86,7 +86,7 @@ title: "Home"
     flex: 1;
     position: relative;
   }
-  .progress-segment.completed { background: #9fef00; }
+  .progress-segment.completed { background: #60a5fa; }
   .progress-segment.current {
     background: #ffab40;
     animation: pulse-current 2s ease-in-out infinite;
@@ -104,7 +104,7 @@ title: "Home"
     color: #6b7b95;
     margin-bottom: 1.25rem;
   }
-  .progress-label .count { color: #9fef00; }
+  .progress-label .count { color: #60a5fa; }
   .unit-list {
     list-style: none;
     padding: 0;
@@ -126,7 +126,7 @@ title: "Home"
     border-radius: 50%;
     flex-shrink: 0;
   }
-  .unit-dot.done { background: #9fef00; }
+  .unit-dot.done { background: #60a5fa; }
   .unit-dot.now { background: #ffab40; animation: pulse-current 2s ease-in-out infinite; }
   .unit-dot.later { background: rgba(107, 123, 149, 0.3); }
   .unit-code {
@@ -166,7 +166,7 @@ title: "Home"
     border-radius: 6px;
     transition: width 0.5s ease;
   }
-  .progress-bar-fill.green { background: #9fef00; }
+  .progress-bar-fill.green { background: #60a5fa; }
   .progress-bar-fill.orange { background: #ffab40; }
   .progress-bar-fill.blue { background: #4fc3f7; }
 </style>
@@ -190,11 +190,11 @@ title: "Home"
 
 <div class="container">
   <section class="hero">
-    <h1>~/Bugg<span class="accent">InYourCloud</span></h1>
-    <p class="hero-subtitle">Offensive security researcher. Breaking boxes, building tools, documenting everything.</p>
+    <h1>Bugg<span class="accent">InYourCloud</span></h1>
+    <p class="hero-subtitle">Offensive security researcher. Breaking boxes and documenting everything.</p>
   </section>
 
-  <h2 class="section-title"><span class="accent">#</span> Current Path</h2>
+  <h2 class="section-title">Current Path</h2>
 
   <!-- Masters Tracker -->
   <div class="tracker">
@@ -279,7 +279,7 @@ title: "Home"
     </div>
   </div>
 
-  <h2 class="section-title" style="margin-top: 3rem;"><span class="accent">#</span> Latest Write-ups</h2>
+  <h2 class="section-title" style="margin-top: 3rem;">Latest Write-ups</h2>
   <div class="card-grid">
     {% assign recent = site.writeups | sort: "date" | reverse %}
     {% for writeup in recent limit:3 %}
@@ -290,7 +290,7 @@ title: "Home"
   {% assign total = site.writeups | size %}
   {% if total > 3 %}
   <p style="text-align: center; margin-top: 2rem;">
-    <a href="{{ '/ctfs/' | relative_url }}" style="color: #9fef00;">View all write-ups &rarr;</a>
+    <a href="{{ '/ctfs/' | relative_url }}" style="color: #60a5fa;">View all write-ups &rarr;</a>
   </p>
   {% endif %}
 </div>
