@@ -9,14 +9,23 @@ document.addEventListener('DOMContentLoaded', function () {
   Chart.defaults.color = chartDefaults.color;
   Chart.defaults.borderColor = chartDefaults.borderColor;
 
-  // Difficulty doughnut
+  // Difficulty doughnut — build labels/data dynamically to skip zero-count entries
+  var diffLabels = [];
+  var diffData = [];
+  var diffColors = [];
+  if (stats.difficulty.veryEasy) { diffLabels.push('Very Easy'); diffData.push(stats.difficulty.veryEasy); diffColors.push('#4fc3f7'); }
+  if (stats.difficulty.easy)     { diffLabels.push('Easy');      diffData.push(stats.difficulty.easy);     diffColors.push('#9fef00'); }
+  if (stats.difficulty.medium)   { diffLabels.push('Medium');    diffData.push(stats.difficulty.medium);   diffColors.push('#ffab40'); }
+  if (stats.difficulty.hard)     { diffLabels.push('Hard');      diffData.push(stats.difficulty.hard);     diffColors.push('#ff4444'); }
+  if (stats.difficulty.insane)   { diffLabels.push('Insane');    diffData.push(stats.difficulty.insane);   diffColors.push('#b388ff'); }
+
   new Chart(document.getElementById('difficultyChart'), {
     type: 'doughnut',
     data: {
-      labels: ['Easy', 'Medium', 'Hard', 'Insane'],
+      labels: diffLabels,
       datasets: [{
-        data: [stats.difficulty.easy, stats.difficulty.medium, stats.difficulty.hard, stats.difficulty.insane],
-        backgroundColor: ['#9fef00', '#ffab40', '#ff4444', '#b388ff'],
+        data: diffData,
+        backgroundColor: diffColors,
         borderWidth: 0
       }]
     },
