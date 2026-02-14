@@ -4,25 +4,516 @@ subtitle: "Security projects and scripts I've built."
 permalink: /tools/
 ---
 
-<div class="card-grid reveal reveal-stagger">
-  {% for tool in site.tools %}
-  <a href="{{ tool.url | relative_url }}" class="card showcase-card" data-tilt>
-    <h3 class="card-title">{{ tool.title }}</h3>
-    {% if tool.tagline %}<p class="card-description">{{ tool.tagline }}</p>{% endif %}
-    <div class="card-tags">
-      {% if tool.category == "script" %}
-        <span class="tag tag-script">script</span>
-      {% else %}
-        <span class="tag tag-tool">project</span>
-      {% endif %}
+<style>
+  /* ── Stats Header ── */
+  .proj-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+  .proj-stat {
+    background: rgba(15, 23, 42, 0.45);
+    border: 1px solid rgba(96, 165, 250, 0.06);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .proj-stat:hover {
+    background: rgba(15, 23, 42, 0.7);
+    border-color: rgba(96, 165, 250, 0.15);
+    box-shadow: 0 0 60px rgba(96, 165, 250, 0.06), 0 20px 50px rgba(0, 0, 0, 0.35);
+    transform: translateY(-3px);
+  }
+  .proj-stat .ps-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .proj-stat .ps-num.blue { color: #60a5fa; }
+  .proj-stat .ps-num.cyan { color: #4fc3f7; }
+  .proj-stat .ps-num.orange { color: #ffab40; }
+  .proj-stat .ps-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #475569;
+  }
+
+  /* ── Featured Project ── */
+  .featured-project {
+    background: rgba(15, 23, 42, 0.45);
+    border: 1px solid rgba(96, 165, 250, 0.06);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .featured-project:hover {
+    background: rgba(15, 23, 42, 0.7);
+    border-color: rgba(96, 165, 250, 0.15);
+    box-shadow: 0 0 60px rgba(96, 165, 250, 0.06), 0 20px 50px rgba(0, 0, 0, 0.35);
+  }
+  .featured-project::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: radial-gradient(
+      500px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(96, 165, 250, 0.05) 0%, transparent 100%
+    );
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 400ms ease;
+  }
+  .featured-project:hover::after { opacity: 1; }
+  .fp-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #818cf8;
+    background: rgba(129, 140, 248, 0.08);
+    padding: 0.25em 0.7em;
+    border-radius: 9999px;
+    border: 1px solid rgba(129, 140, 248, 0.1);
+    margin-bottom: 0.75rem;
+  }
+  .fp-title {
+    font-size: 1.5rem;
+    color: #e2e8f0;
+    margin: 0 0 0.3rem;
+  }
+  .fp-tagline {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Training Pipeline Flow */
+  .pipeline-flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 1.75rem;
+    flex-wrap: wrap;
+  }
+  .pipe-node {
+    background: rgba(96, 165, 250, 0.06);
+    border: 1px solid rgba(96, 165, 250, 0.1);
+    border-radius: 10px;
+    padding: 0.7rem 1.1rem;
+    text-align: center;
+    transition: all 400ms ease;
+    position: relative;
+  }
+  .pipe-node:hover {
+    background: rgba(96, 165, 250, 0.12);
+    border-color: rgba(96, 165, 250, 0.25);
+    transform: translateY(-2px);
+  }
+  .pipe-node .pn-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    display: block;
+  }
+  .pipe-node .pn-sub {
+    font-size: 0.62rem;
+    color: #475569;
+    margin-top: 0.15rem;
+    display: block;
+  }
+  .pipe-node.sft { border-color: rgba(96, 165, 250, 0.2); }
+  .pipe-node.sft .pn-label { color: #60a5fa; }
+  .pipe-node.dpo { border-color: rgba(74, 222, 128, 0.2); }
+  .pipe-node.dpo .pn-label { color: #4ade80; }
+  .pipe-node.grpo { border-color: rgba(129, 140, 248, 0.2); }
+  .pipe-node.grpo .pn-label { color: #818cf8; }
+  .pipe-arrow {
+    color: #334155;
+    font-size: 1.2rem;
+    padding: 0 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    user-select: none;
+  }
+  .pipe-arrow span {
+    display: inline-block;
+    animation: arrow-pulse 2s ease-in-out infinite;
+  }
+  .pipe-arrow:nth-of-type(2) span { animation-delay: 0.5s; }
+  @keyframes arrow-pulse {
+    0%, 100% { opacity: 0.3; transform: translateX(0); }
+    50%      { opacity: 1; transform: translateX(3px); }
+  }
+
+  /* Metric cards */
+  .fp-metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+  .fp-metric {
+    background: rgba(42, 58, 78, 0.2);
+    border-radius: 10px;
+    padding: 0.75rem;
+    text-align: center;
+    transition: all 300ms ease;
+  }
+  .fp-metric:hover {
+    background: rgba(42, 58, 78, 0.35);
+    transform: translateY(-2px);
+  }
+  .fp-metric .m-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #60a5fa;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .fp-metric .m-val.green { color: #4ade80; }
+  .fp-metric .m-val.orange { color: #ffab40; }
+  .fp-metric .m-val.purple { color: #818cf8; }
+  .fp-metric .m-key {
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #475569;
+  }
+
+  /* HTB box results strip */
+  .fp-boxes {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .fp-box {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    background: rgba(74, 222, 128, 0.06);
+    border: 1px solid rgba(74, 222, 128, 0.08);
+    border-radius: 6px;
+    padding: 0.3em 0.6em;
+    color: #4ade80;
+    transition: all 300ms ease;
+  }
+  .fp-box:hover {
+    background: rgba(74, 222, 128, 0.12);
+    border-color: rgba(74, 222, 128, 0.2);
+  }
+  .fp-box .check {
+    width: 6px;
+    height: 6px;
+    background: #4ade80;
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(74, 222, 128, 0.4);
+  }
+
+  /* Status tag */
+  .fp-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.2em 0.6em;
+    border-radius: 9999px;
+    margin-left: 0.75rem;
+  }
+  .fp-status.on-hold {
+    color: #ffab40;
+    background: rgba(255, 171, 64, 0.08);
+    border: 1px solid rgba(255, 171, 64, 0.12);
+  }
+  .fp-status.on-hold .status-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #ffab40;
+    animation: hold-pulse 2.5s ease-in-out infinite;
+  }
+  @keyframes hold-pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; box-shadow: 0 0 8px rgba(255, 171, 64, 0.5); }
+  }
+
+  /* ── Project Cards ── */
+  .proj-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+  }
+  .proj-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background: rgba(15, 23, 42, 0.45);
+    border: 1px solid rgba(96, 165, 250, 0.06);
+    border-radius: 16px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .proj-card:hover {
+    background: rgba(15, 23, 42, 0.7);
+    border-color: rgba(96, 165, 250, 0.15);
+    box-shadow: 0 0 60px rgba(96, 165, 250, 0.06), 0 20px 50px rgba(0, 0, 0, 0.35);
+    transform: translateY(-4px);
+    color: inherit;
+  }
+  .proj-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: radial-gradient(
+      350px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(96, 165, 250, 0.06) 0%, transparent 100%
+    );
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 400ms ease;
+  }
+  .proj-card:hover::after { opacity: 1; }
+  .proj-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 400ms ease;
+  }
+  .proj-card:hover::before { opacity: 1; }
+  .proj-card.cat-tool { --accent: #60a5fa; }
+  .proj-card.cat-script { --accent: #ffab40; }
+
+  .proj-card .pc-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+  }
+  .proj-card .pc-title {
+    font-size: 1.1rem;
+    color: #e2e8f0;
+    margin: 0;
+  }
+  .proj-card .pc-cat {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.2em 0.5em;
+    border-radius: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .pc-cat.tool {
+    color: #60a5fa;
+    background: rgba(96, 165, 250, 0.08);
+    border: 1px solid rgba(96, 165, 250, 0.08);
+  }
+  .pc-cat.script {
+    color: #ffab40;
+    background: rgba(255, 171, 64, 0.08);
+    border: 1px solid rgba(255, 171, 64, 0.08);
+  }
+  .proj-card .pc-desc {
+    color: #64748b;
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
+  }
+  .proj-card .pc-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+  .proj-card .pc-tag {
+    display: inline-block;
+    padding: 0.1em 0.45em;
+    background: rgba(79, 195, 247, 0.08);
+    color: #4fc3f7;
+    border-radius: 4px;
+    font-size: 0.68rem;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid rgba(79, 195, 247, 0.06);
+    transition: all 400ms ease;
+  }
+  .proj-card:hover .pc-tag {
+    background: rgba(79, 195, 247, 0.14);
+    border-color: rgba(79, 195, 247, 0.14);
+  }
+  .proj-card .pc-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-top: 0.6rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .pc-status.on-hold { color: #ffab40; }
+  .pc-status .sd {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  @media (max-width: 768px) {
+    .proj-stats { grid-template-columns: 1fr; }
+    .fp-metrics { grid-template-columns: repeat(2, 1fr); }
+    .pipeline-flow { justify-content: center; }
+    .proj-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+{% assign tools_list = site.tools %}
+{% assign total_projects = tools_list | size %}
+{% assign tool_count = tools_list | where: "category", "tool" | size %}
+{% assign script_count = tools_list | where: "category", "script" | size %}
+
+<!-- Stats Header -->
+<div class="proj-stats reveal reveal-stagger">
+  <div class="proj-stat">
+    <div class="ps-num blue" data-counter="{{ total_projects }}">0</div>
+    <div class="ps-label">Total Projects</div>
+  </div>
+  <div class="proj-stat">
+    <div class="ps-num cyan" data-counter="{{ tool_count }}">0</div>
+    <div class="ps-label">Tools</div>
+  </div>
+  <div class="proj-stat">
+    <div class="ps-num orange" data-counter="{{ script_count }}">0</div>
+    <div class="ps-label">Scripts</div>
+  </div>
+</div>
+
+<!-- Featured Project: CyberSec Qwen3 -->
+{% assign featured = tools_list | where: "title", "CyberSec Qwen3" | first %}
+{% if featured %}
+<div class="reveal">
+  <p class="section-label">Featured Project</p>
+</div>
+<div class="featured-project reveal" data-spotlight>
+  <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
+    <span class="fp-badge">Featured</span>
+    {% if featured.status == "on-hold" %}
+    <span class="fp-status on-hold"><span class="status-dot"></span> On Hold</span>
+    {% endif %}
+  </div>
+  <h3 class="fp-title">{{ featured.title }}</h3>
+  <p class="fp-tagline">{{ featured.tagline }}</p>
+
+  <!-- Training Pipeline Flow -->
+  <div class="pipeline-flow">
+    <div class="pipe-node sft">
+      <span class="pn-label">SFT</span>
+      <span class="pn-sub">4,308 samples</span>
+    </div>
+    <div class="pipe-arrow"><span>&rarr;</span></div>
+    <div class="pipe-node dpo">
+      <span class="pn-label">DPO</span>
+      <span class="pn-sub">175 pairs</span>
+    </div>
+    <div class="pipe-arrow"><span>&rarr;</span></div>
+    <div class="pipe-node grpo">
+      <span class="pn-label">GRPO</span>
+      <span class="pn-sub">2,220 prompts</span>
+    </div>
+  </div>
+
+  <!-- Key Metrics -->
+  <div class="fp-metrics">
+    <div class="fp-metric">
+      <div class="m-val green" data-counter="63">0</div>
+      <div class="m-key">Pass Rate %</div>
+    </div>
+    <div class="fp-metric">
+      <div class="m-val orange">+<span data-counter="27" data-decimals="1">0</span></div>
+      <div class="m-key">Reward Score</div>
+    </div>
+    <div class="fp-metric">
+      <div class="m-val" data-counter="4">0</div>
+      <div class="m-key">HTB Boxes</div>
+    </div>
+    <div class="fp-metric">
+      <div class="m-val purple" data-counter="14">0</div>
+      <div class="m-key">Model (B params)</div>
+    </div>
+  </div>
+
+  <!-- HTB Box Results -->
+  <div class="fp-boxes">
+    <div class="fp-box"><span class="check"></span> Facts</div>
+    <div class="fp-box"><span class="check"></span> CodePartTwo</div>
+    <div class="fp-box"><span class="check"></span> Pterodactyl</div>
+    <div class="fp-box"><span class="check"></span> Cap</div>
+  </div>
+</div>
+{% endif %}
+
+<!-- All Projects -->
+<div class="reveal" style="margin-top: 2rem;">
+  <p class="section-label">All Projects</p>
+</div>
+<div class="proj-grid reveal reveal-stagger">
+  {% for tool in tools_list %}
+  <a href="{{ tool.url | relative_url }}" class="proj-card cat-{{ tool.category }}" data-spotlight>
+    <div class="pc-top">
+      <h3 class="pc-title">{{ tool.title }}</h3>
+      <span class="pc-cat {{ tool.category }}">{{ tool.category }}</span>
+    </div>
+    {% if tool.tagline %}<p class="pc-desc">{{ tool.tagline }}</p>{% endif %}
+    <div class="pc-tags">
       {% for tag in tool.tags %}
-        <span class="tag {% if tool.category == 'script' %}tag-script{% endif %}">{{ tag }}</span>
+        <span class="pc-tag">{{ tag }}</span>
       {% endfor %}
     </div>
+    {% if tool.status == "on-hold" %}
+    <div class="pc-status on-hold"><span class="sd"></span> On Hold</div>
+    {% endif %}
   </a>
   {% endfor %}
 </div>
 
-{% if site.tools.size == 0 %}
+{% if tools_list.size == 0 %}
 <p class="empty-state">Projects coming soon.</p>
 {% endif %}
+
+<script>
+  // Cursor spotlight on project cards
+  document.querySelectorAll('[data-spotlight]').forEach(function(el) {
+    el.addEventListener('mousemove', function(e) {
+      var r = el.getBoundingClientRect();
+      var x = ((e.clientX - r.left) / r.width * 100);
+      var y = ((e.clientY - r.top) / r.height * 100);
+      el.style.setProperty('--mx', x + '%');
+      el.style.setProperty('--my', y + '%');
+    });
+  });
+</script>
