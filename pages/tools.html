@@ -1,6 +1,6 @@
 ---
-title: "Tools & Scripts"
-subtitle: "Security tools and utilities I've built."
+title: "Projects"
+subtitle: "Security projects and scripts I've built."
 permalink: /tools/
 ---
 
@@ -13,7 +13,7 @@ permalink: /tools/
       {% if tool.category == "script" %}
         <span class="tag tag-script">script</span>
       {% else %}
-        <span class="tag tag-tool">tool</span>
+        <span class="tag tag-tool">project</span>
       {% endif %}
       {% for tag in tool.tags %}
         <span class="tag {% if tool.category == 'script' %}tag-script{% endif %}">{{ tag }}</span>
@@ -24,5 +24,5 @@ permalink: /tools/
 </div>
 
 {% if site.tools.size == 0 %}
-<p class="empty-state">Tools coming soon.</p>
+<p class="empty-state">Projects coming soon.</p>
 {% endif %}
