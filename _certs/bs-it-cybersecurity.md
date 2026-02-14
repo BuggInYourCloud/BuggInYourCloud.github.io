@@ -5,7 +5,7 @@ earned: "November 2024"
 tags: [degree, cybersecurity, networking]
 ---
 
-![Bachelor of Information Technology — Southern Cross University]({{ '/assets/images/bit-testamur.png' | relative_url }})
+![B.I.T — Southern Cross University]({{ '/assets/images/bit-testamur.png' | relative_url }})
 
 ## About
 
