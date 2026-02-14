@@ -5,17 +5,21 @@ title: "Home"
 
 <style>
   .tracker {
-    background: #1e2a3a;
-    border: 1px solid #2a3a4e;
-    border-radius: 12px;
+    background: rgba(15, 23, 42, 0.45);
+    border: 1px solid rgba(96, 165, 250, 0.06);
+    border-radius: 16px;
     padding: 1.5rem;
     margin-bottom: 1.5rem;
-    transition: all 0.25s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
   }
   .tracker:hover {
-    border-color: rgba(96, 165, 250, 0.2);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    background: rgba(15, 23, 42, 0.7);
+    border-color: rgba(96, 165, 250, 0.15);
+    box-shadow:
+      0 0 60px rgba(96, 165, 250, 0.06),
+      0 20px 50px rgba(0, 0, 0, 0.35);
     transform: translateY(-2px);
   }
   .tracker-header {
@@ -34,12 +38,12 @@ title: "Home"
   .tracker-header h3 a {
     color: #e2e8f0;
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: color 400ms ease;
   }
   .tracker-header h3 a::after {
     content: ' \2192';
     opacity: 0;
-    transition: opacity 0.2s ease;
+    transition: opacity 400ms ease;
     font-size: 0.9em;
   }
   .tracker-header h3 a:hover {
@@ -52,19 +56,22 @@ title: "Home"
     font-family: 'JetBrains Mono', 'Fira Code', monospace;
     font-size: 0.85rem;
     padding: 0.2em 0.6em;
-    border-radius: 4px;
+    border-radius: 6px;
   }
   .tracker-badge.green {
     color: #60a5fa;
-    background: rgba(96, 165, 250, 0.1);
+    background: rgba(96, 165, 250, 0.08);
+    border: 1px solid rgba(96, 165, 250, 0.06);
   }
   .tracker-badge.orange {
     color: #ffab40;
-    background: rgba(255, 171, 64, 0.1);
+    background: rgba(255, 171, 64, 0.08);
+    border: 1px solid rgba(255, 171, 64, 0.06);
   }
   .tracker-badge.blue {
     color: #4fc3f7;
-    background: rgba(79, 195, 247, 0.1);
+    background: rgba(79, 195, 247, 0.08);
+    border: 1px solid rgba(79, 195, 247, 0.06);
   }
   .tracker-meta {
     color: #6b7b95;
@@ -72,7 +79,7 @@ title: "Home"
     margin-bottom: 1rem;
   }
   .progress-bar-container {
-    background: rgba(42, 58, 78, 0.5);
+    background: rgba(42, 58, 78, 0.3);
     border-radius: 6px;
     height: 28px;
     display: flex;
@@ -91,7 +98,7 @@ title: "Home"
     background: #ffab40;
     animation: pulse-current 2s ease-in-out infinite;
   }
-  .progress-segment.remaining { background: rgba(107, 123, 149, 0.2); }
+  .progress-segment.remaining { background: rgba(107, 123, 149, 0.15); }
   @keyframes pulse-current {
     0%, 100% { opacity: 0.6; }
     50% { opacity: 1; }
@@ -128,18 +135,18 @@ title: "Home"
   }
   .unit-dot.done { background: #60a5fa; }
   .unit-dot.now { background: #ffab40; animation: pulse-current 2s ease-in-out infinite; }
-  .unit-dot.later { background: rgba(107, 123, 149, 0.3); }
+  .unit-dot.later { background: rgba(107, 123, 149, 0.2); }
   .unit-code {
     color: #6b7b95;
     min-width: 72px;
   }
   .unit-name { color: #a4b1cd; }
-  .unit-name.dim { color: #6b7b95; }
+  .unit-name.dim { color: #475569; }
   .unit-section-label {
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #6b7b95;
+    color: #475569;
     margin-top: 0.75rem;
     margin-bottom: 0.25rem;
     padding-left: 1.1rem;
@@ -147,14 +154,13 @@ title: "Home"
   .specialisation-badge {
     font-size: 0.75rem;
     color: #4fc3f7;
-    background: rgba(79, 195, 247, 0.1);
+    background: rgba(79, 195, 247, 0.08);
     padding: 0.15em 0.5em;
     border-radius: 4px;
     font-family: 'JetBrains Mono', 'Fira Code', monospace;
   }
-  /* Continuous progress bar (HTB / AWS module bar) */
   .progress-bar-solid {
-    background: rgba(42, 58, 78, 0.5);
+    background: rgba(42, 58, 78, 0.3);
     border-radius: 6px;
     height: 22px;
     overflow: hidden;
@@ -190,14 +196,16 @@ title: "Home"
 
 <div class="container">
   <section class="hero">
-    <h1>Bugg<span class="accent">InYourCloud</span></h1>
-    <p class="hero-subtitle">Offensive security researcher. Breaking boxes and documenting everything.</p>
+    <h1 class="hero-fade">Bugg<span class="accent">InYourCloud</span></h1>
+    <p class="hero-subtitle hero-fade">Offensive security researcher. Breaking boxes and documenting everything.</p>
   </section>
 
-  <h2 class="section-title">Current Path</h2>
+  <div class="reveal">
+    <p class="section-label">Current Path</p>
+  </div>
 
   <!-- Masters Tracker -->
-  <div class="tracker">
+  <div class="tracker reveal">
     <div class="tracker-header">
       <div>
         <h3>{{ masters.program }}</h3>
@@ -240,7 +248,7 @@ title: "Home"
   </div>
 
   <!-- AWS SAA-C03 Tracker -->
-  <div class="tracker">
+  <div class="tracker reveal">
     <div class="tracker-header">
       <div>
         <h3><a href="{{ '/aws-study/' | relative_url }}">AWS Solutions Architect Associate</a></h3>
@@ -261,7 +269,7 @@ title: "Home"
   </div>
 
   <!-- HTB 100-Box Goal Tracker -->
-  <div class="tracker">
+  <div class="tracker reveal">
     <div class="tracker-header">
       <div>
         <h3><a href="{{ '/ctfs/' | relative_url }}">HackTheBox</a></h3>
@@ -279,8 +287,10 @@ title: "Home"
     </div>
   </div>
 
-  <h2 class="section-title" style="margin-top: 3rem;">Latest Write-ups</h2>
-  <div class="card-grid">
+  <div class="reveal">
+    <p class="section-label" style="margin-top: 3rem;">Latest Write-ups</p>
+  </div>
+  <div class="card-grid reveal reveal-stagger">
     {% assign recent = site.writeups | sort: "date" | reverse %}
     {% for writeup in recent limit:3 %}
       {% include writeup-card.html writeup=writeup %}
