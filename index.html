@@ -120,6 +120,15 @@ title: "Home"
   }
 </style>
 
+{% assign masters = site.data.masters %}
+{% assign completed_units = masters.units | where: "status", "completed" %}
+{% assign current_units = masters.units | where: "status", "current" %}
+{% assign remaining_units = masters.units | where: "status", "remaining" %}
+{% assign total_units = masters.units | size %}
+{% assign completed_count = completed_units | size %}
+{% assign current_count = current_units | size %}
+{% assign remaining_count = remaining_units | size %}
+
 <div class="container">
   <section class="hero">
     <h1>~/Bugg<span class="accent">InYourCloud</span></h1>
@@ -128,55 +137,47 @@ title: "Home"
 
   <h2 class="section-title"><span class="accent">#</span> Current Path</h2>
 
-  <!-- Masters Tracker -->
+  <!-- Masters Tracker (data-driven from _data/masters.yml) -->
   <div class="masters-tracker">
     <div class="masters-header">
       <div>
-        <h3>Master of Cybersecurity</h3>
-        <p class="masters-meta">University of Sydney &middot; Faculty of Engineering &middot; <span class="specialisation-badge">Cloud Security</span></p>
+        <h3>{{ masters.program }}</h3>
+        <p class="masters-meta">{{ masters.university }} &middot; {{ masters.faculty }} &middot; <span class="specialisation-badge">{{ masters.specialisation }}</span></p>
       </div>
-      <span class="masters-gpa">GPA 5.50</span>
+      <span class="masters-gpa">GPA {{ masters.gpa }}</span>
     </div>
 
     <div class="progress-bar-container">
-      <div class="progress-segment completed"></div>
-      <div class="progress-segment completed"></div>
-      <div class="progress-segment completed"></div>
-      <div class="progress-segment completed"></div>
-      <div class="progress-segment completed"></div>
-      <div class="progress-segment completed"></div>
-      <div class="progress-segment completed"></div>
-      <div class="progress-segment current"></div>
-      <div class="progress-segment current"></div>
-      <div class="progress-segment remaining"></div>
-      <div class="progress-segment remaining"></div>
-      <div class="progress-segment remaining"></div>
+      {% for unit in masters.units %}
+      <div class="progress-segment {{ unit.status }}"></div>
+      {% endfor %}
     </div>
     <div class="progress-label">
-      <span><span class="count">7</span> / 12 units completed</span>
-      <span>2 current &middot; 3 remaining</span>
+      <span><span class="count">{{ completed_count }}</span> / {{ total_units }} units completed</span>
+      <span>{{ current_count }} current &middot; {{ remaining_count }} remaining</span>
     </div>
 
     <ul class="unit-list">
-      <li class="unit-item"><span class="unit-dot done"></span><span class="unit-code">OINF5301</span><span class="unit-name">Information Security Management</span></li>
-      <li class="unit-item"><span class="unit-dot done"></span><span class="unit-code">OINF5992</span><span class="unit-name">Understanding IT Innovations</span></li>
-      <li class="unit-item"><span class="unit-dot done"></span><span class="unit-code">OCSE5616</span><span class="unit-name">Cybersecurity Engineering</span></li>
-      <li class="unit-item"><span class="unit-dot done"></span><span class="unit-code">OCMP5318</span><span class="unit-name">Machine Learning and Data Mining</span></li>
-      <li class="unit-item"><span class="unit-dot done"></span><span class="unit-code">OCSE5614</span><span class="unit-name">Data Privacy: Theory and Practice</span></li>
-      <li class="unit-item"><span class="unit-dot done"></span><span class="unit-code">OCMP5618</span><span class="unit-name">Applied Cybersecurity</span></li>
-      <li class="unit-item"><span class="unit-dot done"></span><span class="unit-code">OINF5990</span><span class="unit-name">Professional Practice in IT</span></li>
+      {% for unit in completed_units %}
+      <li class="unit-item"><span class="unit-dot done"></span><span class="unit-code">{{ unit.code }}</span><span class="unit-name">{{ unit.name }}</span></li>
+      {% endfor %}
     </ul>
+    {% if current_count > 0 %}
     <p class="unit-section-label">Currently Studying</p>
     <ul class="unit-list">
-      <li class="unit-item"><span class="unit-dot now"></span><span class="unit-code">OCSE5619</span><span class="unit-name">Applied Cryptography</span></li>
-      <li class="unit-item"><span class="unit-dot now"></span><span class="unit-code">OCSE5707</span><span class="unit-name">Cybersecurity Capstone Project A</span></li>
+      {% for unit in current_units %}
+      <li class="unit-item"><span class="unit-dot now"></span><span class="unit-code">{{ unit.code }}</span><span class="unit-name">{{ unit.name }}</span></li>
+      {% endfor %}
     </ul>
+    {% endif %}
+    {% if remaining_count > 0 %}
     <p class="unit-section-label">Remaining</p>
     <ul class="unit-list">
-      <li class="unit-item"><span class="unit-dot later"></span><span class="unit-code">OCSE5615</span><span class="unit-name dim">Theory and Practice of Cloud Security</span></li>
-      <li class="unit-item"><span class="unit-dot later"></span><span class="unit-code">OCSE5708</span><span class="unit-name dim">Cybersecurity Capstone Project B</span></li>
-      <li class="unit-item"><span class="unit-dot later"></span><span class="unit-code">OCMP5349</span><span class="unit-name dim">Cloud Computing</span></li>
+      {% for unit in remaining_units %}
+      <li class="unit-item"><span class="unit-dot later"></span><span class="unit-code">{{ unit.code }}</span><span class="unit-name dim">{{ unit.name }}</span></li>
+      {% endfor %}
     </ul>
+    {% endif %}
   </div>
 
   <!-- Other current path cards -->
