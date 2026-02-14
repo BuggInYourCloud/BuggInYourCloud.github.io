@@ -5,46 +5,131 @@ permalink: /certs/
 ---
 
 <style>
-  .edu-card {
+  /* ── Scroll-linked Timeline ── */
+  .cert-timeline {
+    position: relative;
+    padding-left: 48px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  /* Background track */
+  .cert-timeline::before {
+    content: '';
+    position: absolute;
+    left: 16px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: rgba(96, 165, 250, 0.06);
+  }
+  /* Scroll-fill line */
+  .cert-timeline::after {
+    content: '';
+    position: absolute;
+    left: 16px;
+    top: 0;
+    width: 2px;
+    height: var(--fill, 0%);
+    background: linear-gradient(180deg, #4ade80, #60a5fa, #818cf8);
+    transition: height 80ms ease-out;
+    border-radius: 0 0 2px 2px;
+  }
+
+  /* Node link */
+  .cert-node {
+    position: relative;
+    display: block;
+    margin-bottom: 2rem;
+    text-decoration: none;
+    color: inherit;
+  }
+  .cert-node:last-child { margin-bottom: 0; }
+
+  /* Dot */
+  .cert-node::before {
+    content: '';
+    position: absolute;
+    left: -36px;
+    top: 22px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #141d2b;
+    border: 2.5px solid rgba(96, 165, 250, 0.1);
+    z-index: 2;
+    transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .cert-node.earned::before {
+    background: #4ade80;
+    border-color: #4ade80;
+    box-shadow: 0 0 10px rgba(74, 222, 128, 0.3);
+  }
+  .cert-node.in-progress::before {
+    background: #141d2b;
+    border-color: #60a5fa;
+    box-shadow: 0 0 10px rgba(96, 165, 250, 0.3);
+    animation: pulse-dot 2.5s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { box-shadow: 0 0 6px rgba(96, 165, 250, 0.2); }
+    50%      { box-shadow: 0 0 18px rgba(96, 165, 250, 0.5); }
+  }
+  .cert-node:hover::before {
+    transform: scale(1.4);
+  }
+  .cert-node.earned:hover::before {
+    box-shadow: 0 0 20px rgba(74, 222, 128, 0.5);
+  }
+
+  /* Card */
+  .cert-card {
     background: rgba(15, 23, 42, 0.45);
     border: 1px solid rgba(96, 165, 250, 0.06);
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 1.5rem;
-    text-decoration: none;
-    display: block;
-    color: inherit;
     transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
-    will-change: transform;
   }
-  .edu-card.earned { border-left: 4px solid #60a5fa; }
-  .edu-card.in-progress { border-left: 4px solid #ffab40; }
-  .edu-card:hover {
+  .cert-node:hover .cert-card {
     background: rgba(15, 23, 42, 0.7);
     border-color: rgba(96, 165, 250, 0.15);
-    border-left-color: #60a5fa;
     box-shadow:
       0 0 60px rgba(96, 165, 250, 0.06),
       0 20px 50px rgba(0, 0, 0, 0.35);
-    color: inherit;
+    transform: translateX(6px);
   }
-  .edu-card.in-progress:hover { border-left-color: #ffab40; }
-  .edu-card .card-top {
+  /* Spotlight on hover */
+  .cert-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: radial-gradient(
+      400px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(96, 165, 250, 0.06) 0%, transparent 100%
+    );
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 400ms ease;
+  }
+  .cert-node:hover .cert-card::after { opacity: 1; }
+
+  .cert-card .card-top {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     gap: 0.75rem;
     margin-bottom: 0.5rem;
   }
-  .edu-card .card-title {
+  .cert-card .card-title {
     font-size: 1.15rem;
     color: #e2e8f0;
     margin: 0;
   }
-  .edu-card .status-pill {
+  .cert-card .status-pill {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     font-weight: 600;
     padding: 0.2em 0.6em;
     border-radius: 9999px;
@@ -53,80 +138,87 @@ permalink: /certs/
     white-space: nowrap;
     flex-shrink: 0;
   }
-  .edu-card .status-pill.earned {
+  .cert-card .status-pill.earned {
+    background: rgba(74, 222, 128, 0.08);
+    color: #4ade80;
+    border: 1px solid rgba(74, 222, 128, 0.1);
+  }
+  .cert-card .status-pill.in-progress {
     background: rgba(96, 165, 250, 0.08);
     color: #60a5fa;
-    border: 1px solid rgba(96, 165, 250, 0.06);
+    border: 1px solid rgba(96, 165, 250, 0.1);
+    animation: pulse-pill 2s ease-in-out infinite;
   }
-  .edu-card .status-pill.in-progress {
-    background: rgba(255, 171, 64, 0.08);
-    color: #ffab40;
-    border: 1px solid rgba(255, 171, 64, 0.06);
-    animation: pulse-status 2s ease-in-out infinite;
-  }
-  @keyframes pulse-status {
+  @keyframes pulse-pill {
     0%, 100% { opacity: 0.7; }
     50% { opacity: 1; }
   }
-  .edu-card .card-issuer {
-    color: #6b7b95;
+  .cert-card .card-issuer {
+    color: #475569;
     font-size: 0.85rem;
     margin-bottom: 0.75rem;
   }
-  .edu-card .card-dates {
+  .cert-card .card-dates {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    color: #6b7b95;
+    font-size: 0.72rem;
+    color: #334155;
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
   }
-  .edu-card .card-dates span { color: #a4b1cd; }
-  .edu-card .card-tags {
+  .cert-card .card-dates span { color: #64748b; }
+  .cert-card .card-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.25rem;
+    gap: 0.3rem;
     margin-top: 0.75rem;
   }
-  .edu-card .tag {
+  .cert-card .tag {
     display: inline-block;
     padding: 0.1em 0.45em;
     background: rgba(79, 195, 247, 0.08);
     color: #4fc3f7;
     border-radius: 4px;
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     font-family: 'JetBrains Mono', monospace;
     border: 1px solid rgba(79, 195, 247, 0.06);
     transition: all 400ms ease;
   }
-  .edu-card:hover .tag {
+  .cert-node:hover .tag {
     background: rgba(79, 195, 247, 0.14);
     border-color: rgba(79, 195, 247, 0.14);
   }
+
+  @media (max-width: 768px) {
+    .cert-timeline { padding-left: 36px; }
+    .cert-node::before { left: -26px; width: 12px; height: 12px; }
+  }
 </style>
 
-<div class="card-grid reveal reveal-stagger">
+<div class="cert-timeline reveal" data-scroll-fill>
   {% for cert in site.certs %}
-  <a href="{{ cert.url | relative_url }}" class="edu-card {% if cert.earned %}earned{% elsif cert.status %}in-progress{% endif %}" data-tilt>
-    <div class="card-top">
-      <h3 class="card-title">{{ cert.title }}</h3>
-      {% if cert.earned %}
-        <span class="status-pill earned">Earned</span>
-      {% elsif cert.status %}
-        <span class="status-pill in-progress">In Progress</span>
+  <a href="{{ cert.url | relative_url }}" class="cert-node {% if cert.earned %}earned{% elsif cert.status %}in-progress{% endif %}" data-tilt-card>
+    <div class="cert-card">
+      <div class="card-top">
+        <h3 class="card-title">{{ cert.title }}</h3>
+        {% if cert.earned %}
+          <span class="status-pill earned">Earned</span>
+        {% elsif cert.status %}
+          <span class="status-pill in-progress">In Progress</span>
+        {% endif %}
+      </div>
+      {% if cert.issuer %}<p class="card-issuer">{{ cert.issuer }}</p>{% endif %}
+      <div class="card-dates">
+        {% if cert.earned %}<span>{{ cert.earned }}</span>{% endif %}
+        {% if cert.expires %}<span>Exp: {{ cert.expires }}</span>{% endif %}
+        {% if cert.status and cert.status contains "2026" %}<span>Expected 2026</span>{% endif %}
+      </div>
+      {% if cert.tags.size > 0 %}
+      <div class="card-tags">
+        {% for tag in cert.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+      </div>
       {% endif %}
     </div>
-    {% if cert.issuer %}<p class="card-issuer">{{ cert.issuer }}</p>{% endif %}
-    <div class="card-dates">
-      {% if cert.earned %}<span>{{ cert.earned }}</span>{% endif %}
-      {% if cert.expires %}<span>Exp: {{ cert.expires }}</span>{% endif %}
-      {% if cert.status and cert.status contains "2026" %}<span>Expected 2026</span>{% endif %}
-    </div>
-    {% if cert.tags.size > 0 %}
-    <div class="card-tags">
-      {% for tag in cert.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
-    </div>
-    {% endif %}
   </a>
   {% endfor %}
 </div>
@@ -134,3 +226,18 @@ permalink: /certs/
 {% if site.certs.size == 0 %}
 <p class="empty-state">Education details coming soon.</p>
 {% endif %}
+
+<script>
+  // Cursor spotlight on cert cards
+  document.querySelectorAll('[data-tilt-card]').forEach(function(node) {
+    var card = node.querySelector('.cert-card');
+    if (!card) return;
+    node.addEventListener('mousemove', function(e) {
+      var r = card.getBoundingClientRect();
+      var x = ((e.clientX - r.left) / r.width * 100);
+      var y = ((e.clientY - r.top) / r.height * 100);
+      card.style.setProperty('--mx', x + '%');
+      card.style.setProperty('--my', y + '%');
+    });
+  });
+</script>
