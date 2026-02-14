@@ -12,14 +12,14 @@ status: on-hold
 
 ## Overview
 
-A week-long research sprint fine-tuning Qwen3 14B into a cybersecurity pentesting assistant using a three-phase training pipeline (SFT → DPO → GRPO). The model was benchmarked against live HackTheBox machines with an MCP tool bridge harness.
+A week-long research sprint fine-tuning Qwen3 14B into a cybersecurity pentesting assistant using a three-phase training pipeline (SFT, DPO, GRPO). The model was benchmarked against live HackTheBox machines with an MCP tool bridge harness.
 
 ## Training Pipeline
 
 ```
 SFT (Supervised Fine-Tuning)
- └─→ DPO (Direct Preference Optimization)
-      └─→ GRPO (Group Relative Policy Optimization)
+ > DPO (Direct Preference Optimization)
+    > GRPO (Group Relative Policy Optimization)
 ```
 
 - **Base Model**: Qwen3 14B (4-bit quantized via Unsloth)
@@ -38,12 +38,12 @@ SFT (Supervised Fine-Tuning)
 
 ### HTB Box Benchmarks
 
-| Box | Difficulty | User Flag | Root Flag | Rounds to User |
-|-----|-----------|-----------|-----------|----------------|
-| Facts | Easy | ✅ | ✅ | 17 |
-| CodePartTwo | Easy | ✅ | ✅ | 10 |
-| Pterodactyl | Easy | ✅ | ✅ | 22 |
-| Cap | Easy | ✅ | ✅ | 9 |
+| Box | Difficulty | Flags | Rounds to User |
+|-----|-----------|-------|----------------|
+| Facts | Easy | User + Root | 17 |
+| CodePartTwo | Easy | User + Root | 10 |
+| Pterodactyl | Easy | User + Root | 22 |
+| Cap | Easy | User + Root | 9 |
 
 ## Key Findings
 
@@ -62,7 +62,7 @@ SFT (Supervised Fine-Tuning)
 ## Technical Contributions
 
 - **DPO reference log-prob precomputation** — Solved Unsloth's class-level monkey-patching bug by computing reference model logprobs in a separate subprocess before Unsloth import
-- **Benchmark-to-dataset feedback loop** — Systematic pipeline: benchmark on HTB → identify failure patterns → generate correction data → retrain
+- **Benchmark-to-dataset feedback loop** — Systematic pipeline: benchmark on HTB, identify failure patterns, generate correction data, retrain
 - **Custom pentest reward function** — Multi-dimensional GRPO reward scoring structure, technique, knowledge, and hallucination signals
 
 <h2 id="next-steps">Next Steps</h2>
