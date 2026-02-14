@@ -4,6 +4,29 @@ subtitle: "HTB, THM, and competition challenge write-ups — reconnaissance thro
 permalink: /ctfs/
 ---
 
+{% assign total = site.writeups | size %}
+{% assign rooted = site.writeups | where: "status", "rooted" | size %}
+{% assign in_progress = site.writeups | where: "status", "in-progress" | size %}
+
+<div class="quick-stats" style="margin-bottom: 2rem;">
+  <div class="stat">
+    <span class="stat-number">{{ total }}</span>
+    <span class="stat-label">Boxes Attempted</span>
+  </div>
+  <div class="stat">
+    <span class="stat-number">{{ rooted }}</span>
+    <span class="stat-label">Completed</span>
+  </div>
+  <div class="stat">
+    <span class="stat-number">{{ in_progress }}</span>
+    <span class="stat-label">In Progress</span>
+  </div>
+</div>
+
+{% if total > 0 %}
+{% include stats-dashboard.html %}
+{% endif %}
+
 <div class="card-grid">
   {% assign sorted = site.writeups | sort: "date" | reverse %}
   {% for writeup in sorted %}
@@ -13,4 +36,8 @@ permalink: /ctfs/
 
 {% if site.writeups.size == 0 %}
 <p class="empty-state">No write-ups yet. Boxes are being pwned — check back soon.</p>
+{% endif %}
+
+{% if total > 0 %}
+<script src="{{ '/assets/js/stats.js' | relative_url }}"></script>
 {% endif %}
