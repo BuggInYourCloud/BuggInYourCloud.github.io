@@ -20,7 +20,7 @@ AWS Certified Solutions Architect - Associate (SAA-C03) validates the ability to
 
 Tracking my progress through the Cantrill course and Tutorials Dojo practice exams.
 
-<a href="{{ '/aws-study/' | relative_url }}" style="color: #9fef00; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;">View full study log &rarr;</a>
+<a href="{{ '/aws-study/' | relative_url }}" style="color: #60a5fa; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;">View full study log &rarr;</a>
 
 ## Relevance to Security
 
