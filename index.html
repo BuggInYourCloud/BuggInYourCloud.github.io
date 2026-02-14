@@ -10,6 +10,13 @@ title: "Home"
     border-radius: 12px;
     padding: 1.5rem;
     margin-bottom: 1.5rem;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+  .tracker:hover {
+    border-color: rgba(159, 239, 0, 0.2);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px);
   }
   .tracker-header {
     display: flex;
@@ -27,9 +34,19 @@ title: "Home"
   .tracker-header h3 a {
     color: #e2e8f0;
     text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .tracker-header h3 a::after {
+    content: ' \2192';
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    font-size: 0.9em;
   }
   .tracker-header h3 a:hover {
     color: #9fef00;
+  }
+  .tracker-header h3 a:hover::after {
+    opacity: 1;
   }
   .tracker-badge {
     font-family: 'JetBrains Mono', 'Fira Code', monospace;
