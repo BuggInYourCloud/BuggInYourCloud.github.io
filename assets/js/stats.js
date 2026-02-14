@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
         labels: ['Completed', 'Remaining'],
         datasets: [{
           data: [done, remaining],
-          backgroundColor: ['#9fef00', 'rgba(107, 123, 149, 0.2)'],
+          backgroundColor: ['#60a5fa', 'rgba(107, 123, 149, 0.2)'],
           borderWidth: 0
         }]
       },
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
           ctx.save();
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
-          ctx.fillStyle = '#9fef00';
+          ctx.fillStyle = '#60a5fa';
           ctx.font = 'bold 28px "JetBrains Mono", monospace';
           ctx.fillText(done, cx, cy - 8);
           ctx.fillStyle = '#6b7b95';
@@ -109,11 +109,11 @@ document.addEventListener('DOMContentLoaded', function () {
         datasets: [{
           label: 'Boxes Completed',
           data: cumulative,
-          borderColor: '#9fef00',
-          backgroundColor: 'rgba(159,239,0,0.1)',
+          borderColor: '#60a5fa',
+          backgroundColor: 'rgba(96,165,250,0.1)',
           fill: true,
           tension: 0.3,
-          pointBackgroundColor: '#9fef00',
+          pointBackgroundColor: '#60a5fa',
           pointRadius: 4
         }]
       },
