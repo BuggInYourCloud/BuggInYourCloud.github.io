@@ -23,15 +23,14 @@
 }
 
 .site-logo {
-  font-family: $font-mono;
+  font-family: $font-body;
   font-size: 1.25rem;
   font-weight: 700;
-  color: $neon-green;
+  color: $text-heading;
   text-decoration: none;
 
   &:hover {
     color: $neon-green;
-    text-shadow: 0 0 10px rgba($neon-green, 0.5);
   }
 }
 
