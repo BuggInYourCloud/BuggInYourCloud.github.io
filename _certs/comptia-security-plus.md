@@ -6,6 +6,8 @@ expires: "July 2027"
 tags: [comptia, security, foundational]
 ---
 
+![CompTIA Security+ Certificate]({{ '/assets/images/security-plus-cert.png' | relative_url }})
+
 ## About
 
 CompTIA Security+ (SY0-601) is a globally recognized certification validating baseline cybersecurity skills — threat detection, risk management, incident response, and security architecture.
