@@ -1,42 +1,239 @@
 ---
 layout: default
 ---
+
+<style>
+  .wu-detail {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .wu-hero {
+    background: rgba(15, 23, 42, 0.45);
+    border: 1px solid rgba(96, 165, 250, 0.06);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .wu-hero:hover {
+    background: rgba(15, 23, 42, 0.7);
+    border-color: rgba(96, 165, 250, 0.15);
+    box-shadow: 0 0 60px rgba(96, 165, 250, 0.06), 0 20px 50px rgba(0, 0, 0, 0.35);
+  }
+  .wu-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: radial-gradient(
+      500px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(96, 165, 250, 0.05) 0%, transparent 100%
+    );
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 400ms ease;
+  }
+  .wu-hero:hover::after { opacity: 1; }
+
+  .wu-hero .wu-breadcrumb {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: #475569;
+    margin-bottom: 1rem;
+  }
+  .wu-hero .wu-breadcrumb a {
+    color: #60a5fa;
+    text-decoration: none;
+    transition: color 300ms ease;
+  }
+  .wu-hero .wu-breadcrumb a:hover { color: #93c5fd; }
+  .wu-hero .wu-breadcrumb .sep { margin: 0 0.4rem; color: #334155; }
+
+  .wu-hero .wu-title {
+    font-size: 1.8rem;
+    color: #e2e8f0;
+    margin: 0 0 1rem;
+    line-height: 1.2;
+  }
+
+  .wu-hero .wu-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  .wu-hero .wu-flags {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .wu-flag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    padding: 0.25em 0.6em;
+    border-radius: 6px;
+    border: 1px solid;
+  }
+  .wu-flag.obtained {
+    color: #4ade80;
+    background: rgba(74, 222, 128, 0.06);
+    border-color: rgba(74, 222, 128, 0.1);
+  }
+  .wu-flag.missing {
+    color: #475569;
+    background: rgba(42, 58, 78, 0.2);
+    border-color: rgba(42, 58, 78, 0.15);
+  }
+  .wu-flag .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .wu-flag.obtained .dot {
+    box-shadow: 0 0 6px rgba(74, 222, 128, 0.4);
+  }
+
+  .wu-hero .wu-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+  .wu-hero .wu-tag {
+    display: inline-block;
+    padding: 0.1em 0.45em;
+    background: rgba(79, 195, 247, 0.08);
+    color: #4fc3f7;
+    border-radius: 4px;
+    font-size: 0.68rem;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid rgba(79, 195, 247, 0.06);
+    transition: all 400ms ease;
+  }
+  .wu-hero:hover .wu-tag {
+    background: rgba(79, 195, 247, 0.14);
+    border-color: rgba(79, 195, 247, 0.14);
+  }
+
+  /* Tools used strip */
+  .wu-tools {
+    background: rgba(15, 23, 42, 0.35);
+    border: 1px solid rgba(96, 165, 250, 0.04);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 2rem;
+    transition: all 400ms ease;
+  }
+  .wu-tools:hover {
+    border-color: rgba(96, 165, 250, 0.1);
+  }
+  .wu-tools h3 {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #475569;
+    margin: 0 0 0.5rem;
+  }
+  .wu-tools-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .wu-tools-list li {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    background: rgba(96, 165, 250, 0.06);
+    color: #60a5fa;
+    padding: 0.2em 0.5em;
+    border-radius: 4px;
+    border: 1px solid rgba(96, 165, 250, 0.06);
+    transition: all 300ms ease;
+  }
+  .wu-tools-list li:hover {
+    background: rgba(96, 165, 250, 0.12);
+  }
+
+  /* Content body */
+  .wu-body {
+    background: rgba(15, 23, 42, 0.3);
+    border: 1px solid rgba(96, 165, 250, 0.04);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 400ms ease;
+  }
+  .wu-body:hover { border-color: rgba(96, 165, 250, 0.08); }
+
+  @media (max-width: 768px) {
+    .wu-hero .wu-title { font-size: 1.4rem; }
+    .wu-hero, .wu-body { padding: 1.5rem; }
+  }
+</style>
+
 <article class="container">
-  <div class="writeup-header">
-    <h1 class="writeup-title">{{ page.title }}</h1>
-    <div class="writeup-meta">
-      <span class="platform-badge {{ page.platform | downcase }}">{{ page.platform }}</span>
-      {% include difficulty-badge.html difficulty=page.difficulty %}
-      <span class="os-badge">{{ page.os }}</span>
-      <span class="badge badge-{{ page.status }}">{{ page.status }}</span>
-      <span class="meta-item">{{ page.date | date: "%B %d, %Y" }}</span>
-      {% if page.ttl %}<span class="meta-item">&#9202; {{ page.ttl }}</span>{% endif %}
+  <div class="wu-detail reveal">
+    <div class="wu-hero" data-spotlight>
+      <div class="wu-breadcrumb">
+        <a href="{{ '/ctfs/' | relative_url }}">CTF Write-ups</a>
+        <span class="sep">/</span>
+        <span>{{ page.title }}</span>
+      </div>
+
+      <h1 class="wu-title">{{ page.title }}</h1>
+
+      <div class="wu-meta">
+        <span class="platform-badge {{ page.platform | downcase }}">{{ page.platform }}</span>
+        {% include difficulty-badge.html difficulty=page.difficulty %}
+        <span class="os-badge">{{ page.os }}</span>
+        <span class="badge badge-{{ page.status }}">{{ page.status }}</span>
+        <span style="color: #475569; font-size: 0.8rem;">{{ page.date | date: "%B %d, %Y" }}</span>
+        {% if page.ttl %}<span style="color: #475569; font-size: 0.8rem;">&#9202; {{ page.ttl }}</span>{% endif %}
+      </div>
+
+      <div class="wu-flags">
+        <span class="wu-flag {% if page.user_flag %}obtained{% else %}missing{% endif %}">
+          <span class="dot"></span> User flag
+        </span>
+        <span class="wu-flag {% if page.root_flag %}obtained{% else %}missing{% endif %}">
+          <span class="dot"></span> Root flag
+        </span>
+      </div>
+
+      {% if page.tags.size > 0 %}
+      <div class="wu-tags">
+        {% for tag in page.tags %}<span class="wu-tag">{{ tag }}</span>{% endfor %}
+      </div>
+      {% endif %}
     </div>
-    <div class="flags">
-      <span class="flag {% if page.user_flag %}obtained{% else %}missing{% endif %}">&#9873; User flag</span>
-      <span class="flag {% if page.root_flag %}obtained{% else %}missing{% endif %}">&#9873; Root flag</span>
-    </div>
-    {% if page.tags.size > 0 %}
-    <div class="writeup-tags">
-      {% for tag in page.tags %}
-      <span class="tag">{{ tag }}</span>
-      {% endfor %}
+
+    {% if page.tools.size > 0 %}
+    <div class="wu-tools reveal">
+      <h3>Tools Used</h3>
+      <ul class="wu-tools-list">
+        {% for tool in page.tools %}<li>{{ tool }}</li>{% endfor %}
+      </ul>
     </div>
     {% endif %}
-  </div>
 
-  {% if page.tools.size > 0 %}
-  <div class="tools-used">
-    <h3>Tools Used</h3>
-    <ul>
-      {% for tool in page.tools %}
-      <li>{{ tool }}</li>
-      {% endfor %}
-    </ul>
-  </div>
-  {% endif %}
-
-  <div class="writeup-content">
-    {{ content }}
+    <div class="wu-body writeup-content reveal">
+      {{ content }}
+    </div>
   </div>
 </article>
+
+<script>
+  document.querySelectorAll('[data-spotlight]').forEach(function(el) {
+    el.addEventListener('mousemove', function(e) {
+      var r = el.getBoundingClientRect();
+      el.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+      el.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+    });
+  });
+</script>
