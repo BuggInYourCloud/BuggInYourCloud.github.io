@@ -71,6 +71,10 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
 
+  &.badge-very-easy {
+    background: rgba($neon-blue, 0.15);
+    color: $neon-blue;
+  }
   &.badge-easy {
     background: rgba($easy, 0.15);
     color: $easy;
