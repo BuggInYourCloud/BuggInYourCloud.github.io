@@ -37,10 +37,6 @@ title: "Home"
     font-size: 0.85rem;
     margin-bottom: 1rem;
   }
-  .masters-meta a {
-    color: #4fc3f7;
-    text-decoration: none;
-  }
   .progress-bar-container {
     background: rgba(42, 58, 78, 0.5);
     border-radius: 6px;
@@ -56,16 +52,12 @@ title: "Home"
     flex: 1;
     position: relative;
   }
-  .progress-segment.completed {
-    background: #9fef00;
-  }
+  .progress-segment.completed { background: #9fef00; }
   .progress-segment.current {
     background: #ffab40;
     animation: pulse-current 2s ease-in-out infinite;
   }
-  .progress-segment.remaining {
-    background: rgba(107, 123, 149, 0.2);
-  }
+  .progress-segment.remaining { background: rgba(107, 123, 149, 0.2); }
   @keyframes pulse-current {
     0%, 100% { opacity: 0.6; }
     50% { opacity: 1; }
@@ -78,9 +70,7 @@ title: "Home"
     color: #6b7b95;
     margin-bottom: 1.25rem;
   }
-  .progress-label .count {
-    color: #9fef00;
-  }
+  .progress-label .count { color: #9fef00; }
   .unit-list {
     list-style: none;
     padding: 0;
@@ -109,12 +99,8 @@ title: "Home"
     color: #6b7b95;
     min-width: 72px;
   }
-  .unit-name {
-    color: #a4b1cd;
-  }
-  .unit-name.dim {
-    color: #6b7b95;
-  }
+  .unit-name { color: #a4b1cd; }
+  .unit-name.dim { color: #6b7b95; }
   .unit-section-label {
     font-size: 0.7rem;
     text-transform: uppercase;
@@ -139,30 +125,6 @@ title: "Home"
     <h1>~/Bugg<span class="accent">InYourCloud</span></h1>
     <p class="hero-subtitle">Offensive security researcher. Breaking boxes, building tools, documenting everything.</p>
   </section>
-
-  {% assign total = site.writeups | size %}
-  {% assign rooted = site.writeups | where: "status", "rooted" | size %}
-  {% assign tools_count = site.tools | size %}
-  {% assign certs_count = site.certs | size %}
-
-  <div class="quick-stats">
-    <div class="stat">
-      <span class="stat-number">{{ total }}</span>
-      <span class="stat-label">Boxes Attempted</span>
-    </div>
-    <div class="stat">
-      <span class="stat-number">{{ rooted }}</span>
-      <span class="stat-label">Rooted</span>
-    </div>
-    <div class="stat">
-      <span class="stat-number">{{ tools_count }}</span>
-      <span class="stat-label">Projects</span>
-    </div>
-    <div class="stat">
-      <span class="stat-number">{{ certs_count }}</span>
-      <span class="stat-label">Certifications</span>
-    </div>
-  </div>
 
   <h2 class="section-title"><span class="accent">#</span> Current Path</h2>
 
@@ -231,7 +193,7 @@ title: "Home"
     <div class="card">
       <h3 class="card-title">HackTheBox</h3>
       <p class="card-meta">Grinding CLI skills</p>
-      <p class="card-description">Working through boxes to build practical red team skills and command-line proficiency. 4 boxes rooted so far.</p>
+      <p class="card-description">Working through boxes to build practical red team skills and command-line proficiency.</p>
       <div class="card-tags">
         <span class="tag">htb</span>
         <span class="tag">offensive</span>
@@ -239,25 +201,18 @@ title: "Home"
     </div>
   </div>
 
-  {% if total > 0 %}
-  {% include stats-dashboard.html %}
-  {% endif %}
-
   <h2 class="section-title"><span class="accent">#</span> Latest Write-ups</h2>
   <div class="card-grid">
     {% assign recent = site.writeups | sort: "date" | reverse %}
-    {% for writeup in recent limit:6 %}
+    {% for writeup in recent limit:4 %}
       {% include writeup-card.html writeup=writeup %}
     {% endfor %}
   </div>
 
-  {% if total > 6 %}
+  {% assign total = site.writeups | size %}
+  {% if total > 4 %}
   <p style="text-align: center; margin-top: 2rem;">
     <a href="{{ '/ctfs/' | relative_url }}" style="color: #9fef00;">View all write-ups &rarr;</a>
   </p>
   {% endif %}
 </div>
-
-{% if total > 0 %}
-<script src="{{ '/assets/js/stats.js' | relative_url }}"></script>
-{% endif %}
