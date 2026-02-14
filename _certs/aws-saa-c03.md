@@ -1,7 +1,7 @@
 ---
 title: "AWS Solutions Architect Associate"
 issuer: "Amazon Web Services"
-earned: "2026"
+status: "In Progress"
 tags: [aws, cloud, architecture]
 ---
 
