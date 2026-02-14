@@ -4,81 +4,138 @@ title: "Home"
 ---
 
 <style>
-  .tracker {
+  /* ── Hero ── */
+  .hero h1 .accent {
+    background: linear-gradient(135deg, #60a5fa, #818cf8, #60a5fa);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-shift 6s ease-in-out infinite;
+  }
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50%      { background-position: 100% 50%; }
+  }
+
+  /* ── Dashboard Ring Row ── */
+  .ring-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .ring-card {
     background: rgba(15, 23, 42, 0.45);
     border: 1px solid rgba(96, 165, 250, 0.06);
     border-radius: 16px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
+    padding: 2rem 1.5rem;
+    text-align: center;
     transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
   }
-  .tracker:hover {
+  .ring-card:hover {
     background: rgba(15, 23, 42, 0.7);
     border-color: rgba(96, 165, 250, 0.15);
-    box-shadow:
-      0 0 60px rgba(96, 165, 250, 0.06),
-      0 20px 50px rgba(0, 0, 0, 0.35);
-    transform: translateY(-2px);
+    box-shadow: 0 0 60px rgba(96, 165, 250, 0.06), 0 20px 50px rgba(0, 0, 0, 0.35);
+    transform: translateY(-4px);
   }
-  .tracker-header {
+  .ring-wrap {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 1.25rem;
+  }
+  .ring-wrap svg { width: 100%; height: 100%; }
+  .ring-bg {
+    fill: none;
+    stroke: rgba(96, 165, 250, 0.06);
+    stroke-width: 8;
+  }
+  .ring-fill {
+    fill: none;
+    stroke-width: 8;
+    stroke-linecap: round;
+    transform-origin: center;
+    transform: rotate(-90deg);
+  }
+  .ring-fill.blue { stroke: #60a5fa; }
+  .ring-fill.orange { stroke: #ffab40; }
+  .ring-fill.cyan { stroke: #4fc3f7; }
+  .ring-center {
+    position: absolute;
+    inset: 0;
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 0.25rem;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
-  .tracker-header h3 {
+  .ring-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #60a5fa;
+    line-height: 1;
+  }
+  .ring-number.orange { color: #ffab40; }
+  .ring-number.cyan { color: #4fc3f7; }
+  .ring-of {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: #334155;
+    margin-top: 0.2rem;
+  }
+  .ring-label {
+    font-size: 0.85rem;
+    font-weight: 600;
     color: #e2e8f0;
-    font-size: 1.25rem;
-    margin: 0;
+    margin-bottom: 0.25rem;
   }
-  .tracker-header h3 a {
+  .ring-sub {
+    font-size: 0.72rem;
+    color: #475569;
+  }
+  .ring-card a {
     color: #e2e8f0;
     text-decoration: none;
     transition: color 400ms ease;
   }
-  .tracker-header h3 a::after {
-    content: ' \2192';
-    opacity: 0;
-    transition: opacity 400ms ease;
-    font-size: 0.9em;
+  .ring-card a:hover { color: #60a5fa; }
+
+  /* ── Tracker Detail ── */
+  .tracker-detail {
+    background: rgba(15, 23, 42, 0.35);
+    border: 1px solid rgba(96, 165, 250, 0.04);
+    border-radius: 16px;
+    padding: 1.75rem;
+    margin-bottom: 1.5rem;
+    transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .tracker-header h3 a:hover {
-    color: #60a5fa;
+  .tracker-detail:hover {
+    background: rgba(15, 23, 42, 0.6);
+    border-color: rgba(96, 165, 250, 0.1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
   }
-  .tracker-header h3 a:hover::after {
-    opacity: 1;
+  .tracker-detail h3 {
+    color: #e2e8f0;
+    font-size: 1.1rem;
+    margin: 0 0 0.5rem;
   }
-  .tracker-badge {
-    font-family: 'JetBrains Mono', 'Fira Code', monospace;
-    font-size: 0.85rem;
-    padding: 0.2em 0.6em;
-    border-radius: 6px;
+  .tracker-detail .meta {
+    color: #475569;
+    font-size: 0.8rem;
+    margin-bottom: 1.25rem;
   }
-  .tracker-badge.green {
-    color: #60a5fa;
-    background: rgba(96, 165, 250, 0.08);
-    border: 1px solid rgba(96, 165, 250, 0.06);
-  }
-  .tracker-badge.orange {
-    color: #ffab40;
-    background: rgba(255, 171, 64, 0.08);
-    border: 1px solid rgba(255, 171, 64, 0.06);
-  }
-  .tracker-badge.blue {
+  .specialisation-badge {
+    font-size: 0.72rem;
     color: #4fc3f7;
     background: rgba(79, 195, 247, 0.08);
-    border: 1px solid rgba(79, 195, 247, 0.06);
+    padding: 0.15em 0.5em;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
   }
-  .tracker-meta {
-    color: #6b7b95;
-    font-size: 0.85rem;
-    margin-bottom: 1rem;
-  }
-  .progress-bar-container {
+
+  /* ── Shimmer Progress Bar ── */
+  .prog-bar {
     background: rgba(42, 58, 78, 0.3);
     border-radius: 6px;
     height: 28px;
@@ -88,93 +145,103 @@ title: "Home"
     padding: 3px;
     margin-bottom: 0.75rem;
   }
-  .progress-segment {
+  .prog-seg {
     border-radius: 3px;
     flex: 1;
-    position: relative;
   }
-  .progress-segment.completed { background: #60a5fa; }
-  .progress-segment.current {
-    background: #ffab40;
-    animation: pulse-current 2s ease-in-out infinite;
+  .prog-seg.done {
+    background: linear-gradient(90deg, #3b82f6, #60a5fa, #93c5fd, #60a5fa, #3b82f6);
+    background-size: 300% 100%;
+    animation: shimmer 4s ease-in-out infinite;
   }
-  .progress-segment.remaining { background: rgba(107, 123, 149, 0.15); }
-  @keyframes pulse-current {
-    0%, 100% { opacity: 0.6; }
-    50% { opacity: 1; }
+  .prog-seg.now {
+    background: linear-gradient(90deg, #f59e0b, #ffab40, #fcd34d, #ffab40, #f59e0b);
+    background-size: 300% 100%;
+    animation: shimmer 4s ease-in-out infinite -1s;
   }
-  .progress-label {
+  .prog-seg.later { background: rgba(107, 123, 149, 0.1); }
+  @keyframes shimmer {
+    0%   { background-position: 100% 0; }
+    100% { background-position: -100% 0; }
+  }
+  .prog-label {
     display: flex;
     justify-content: space-between;
-    font-family: 'JetBrains Mono', 'Fira Code', monospace;
-    font-size: 0.75rem;
-    color: #6b7b95;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: #475569;
     margin-bottom: 1.25rem;
   }
-  .progress-label .count { color: #60a5fa; }
+  .prog-label .hl { color: #60a5fa; }
+
+  /* ── Unit List ── */
   .unit-list {
     list-style: none;
     padding: 0;
     margin: 0;
     display: grid;
-    gap: 0.35rem;
+    gap: 0.3rem;
   }
   .unit-item {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.8rem;
-    color: #a4b1cd;
-    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.78rem;
+    color: #94a3b8;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 0.2rem 0;
+    transition: all 300ms ease;
+  }
+  .unit-item:hover {
+    color: #e2e8f0;
+    transform: translateX(4px);
   }
   .unit-dot {
     width: 8px;
     height: 8px;
     border-radius: 50%;
     flex-shrink: 0;
+    transition: all 400ms ease;
   }
   .unit-dot.done { background: #60a5fa; }
-  .unit-dot.now { background: #ffab40; animation: pulse-current 2s ease-in-out infinite; }
-  .unit-dot.later { background: rgba(107, 123, 149, 0.2); }
+  .unit-dot.now {
+    background: #ffab40;
+    box-shadow: 0 0 8px rgba(255, 171, 64, 0.4);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  .unit-dot.later { background: rgba(107, 123, 149, 0.15); }
+  @keyframes pulse-dot {
+    0%, 100% { box-shadow: 0 0 4px rgba(255, 171, 64, 0.2); }
+    50%      { box-shadow: 0 0 12px rgba(255, 171, 64, 0.5); }
+  }
   .unit-code {
-    color: #6b7b95;
+    color: #475569;
     min-width: 72px;
   }
-  .unit-name { color: #a4b1cd; }
-  .unit-name.dim { color: #475569; }
-  .unit-section-label {
-    font-size: 0.7rem;
+  .unit-name { color: #94a3b8; }
+  .unit-name.dim { color: #334155; }
+  .unit-divider {
+    font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #475569;
+    color: #334155;
     margin-top: 0.75rem;
     margin-bottom: 0.25rem;
     padding-left: 1.1rem;
   }
-  .specialisation-badge {
-    font-size: 0.75rem;
-    color: #4fc3f7;
-    background: rgba(79, 195, 247, 0.08);
-    padding: 0.15em 0.5em;
-    border-radius: 4px;
-    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .ring-row {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .ring-wrap {
+      width: 120px;
+      height: 120px;
+    }
+    .ring-number { font-size: 1.5rem; }
   }
-  .progress-bar-solid {
-    background: rgba(42, 58, 78, 0.3);
-    border-radius: 6px;
-    height: 22px;
-    overflow: hidden;
-    margin-bottom: 0.75rem;
-    position: relative;
-  }
-  .progress-bar-fill {
-    height: 100%;
-    border-radius: 6px;
-    transition: width 0.5s ease;
-  }
-  .progress-bar-fill.green { background: #60a5fa; }
-  .progress-bar-fill.orange { background: #ffab40; }
-  .progress-bar-fill.blue { background: #4fc3f7; }
 </style>
 
 {% assign masters = site.data.masters %}
@@ -182,9 +249,9 @@ title: "Home"
 {% assign current_units = masters.units | where: "status", "current" %}
 {% assign remaining_units = masters.units | where: "status", "remaining" %}
 {% assign total_units = masters.units | size %}
-{% assign completed_count = completed_units | size %}
-{% assign current_count = current_units | size %}
-{% assign remaining_count = remaining_units | size %}
+{% assign done_count = completed_units | size %}
+{% assign now_count = current_units | size %}
+{% assign left_count = remaining_units | size %}
 
 {% assign aws = site.data.aws_study %}
 {% assign aws_done = aws.modules | where: "status", "completed" | size %}
@@ -200,28 +267,77 @@ title: "Home"
     <p class="hero-subtitle hero-fade">Offensive security researcher. Breaking boxes and documenting everything.</p>
   </section>
 
+  <!-- Dashboard Ring Summary -->
   <div class="reveal">
-    <p class="section-label">Current Path</p>
+    <p class="section-label">Progress Dashboard</p>
   </div>
 
-  <!-- Masters Tracker -->
-  <div class="tracker reveal">
-    <div class="tracker-header">
-      <div>
-        <h3>{{ masters.program }}</h3>
-        <p class="tracker-meta">{{ masters.university }} &middot; {{ masters.faculty }} &middot; <span class="specialisation-badge">{{ masters.specialisation }}</span></p>
+  <div class="ring-row reveal reveal-stagger">
+    <!-- Masters Ring -->
+    <div class="ring-card">
+      <div class="ring-wrap">
+        <svg viewBox="0 0 140 140">
+          <circle class="ring-bg" cx="70" cy="70" r="58"/>
+          <circle class="ring-fill blue" cx="70" cy="70" r="58"
+            data-progress="{{ done_count | times: 1.0 | divided_by: total_units }}"/>
+        </svg>
+        <div class="ring-center">
+          <span class="ring-number" data-counter="{{ done_count }}">0</span>
+          <span class="ring-of">/ {{ total_units }}</span>
+        </div>
       </div>
-      <span class="tracker-badge green">GPA {{ masters.gpa }}</span>
+      <div class="ring-label">{{ masters.program }}</div>
+      <div class="ring-sub">{{ masters.university }}</div>
     </div>
 
-    <div class="progress-bar-container">
+    <!-- AWS Ring -->
+    <div class="ring-card">
+      <div class="ring-wrap">
+        <svg viewBox="0 0 140 140">
+          <circle class="ring-bg" cx="70" cy="70" r="58"/>
+          <circle class="ring-fill orange" cx="70" cy="70" r="58"
+            data-progress="{{ aws_done | times: 1.0 | divided_by: aws_total }}"/>
+        </svg>
+        <div class="ring-center">
+          <span class="ring-number orange" data-counter="{{ aws_done }}">0</span>
+          <span class="ring-of">/ {{ aws_total }}</span>
+        </div>
+      </div>
+      <div class="ring-label"><a href="{{ '/aws-study/' | relative_url }}">AWS SAA-C03</a></div>
+      <div class="ring-sub">{{ aws_wip }} module{{ aws_wip | minus: 1 | at_most: 1 }}s in progress</div>
+    </div>
+
+    <!-- HTB Ring -->
+    <div class="ring-card">
+      <div class="ring-wrap">
+        <svg viewBox="0 0 140 140">
+          <circle class="ring-bg" cx="70" cy="70" r="58"/>
+          <circle class="ring-fill cyan" cx="70" cy="70" r="58"
+            data-progress="{{ box_count | times: 1.0 | divided_by: box_goal }}"/>
+        </svg>
+        <div class="ring-center">
+          <span class="ring-number cyan" data-counter="{{ box_count }}">0</span>
+          <span class="ring-of">/ {{ box_goal }}</span>
+        </div>
+      </div>
+      <div class="ring-label"><a href="{{ '/ctfs/' | relative_url }}">HackTheBox</a></div>
+      <div class="ring-sub">2026 goal: {{ box_goal }} boxes</div>
+    </div>
+  </div>
+
+  <!-- Masters Detail -->
+  <div class="tracker-detail reveal">
+    <h3>{{ masters.program }}</h3>
+    <p class="meta">{{ masters.university }} &middot; {{ masters.faculty }} &middot; <span class="specialisation-badge">{{ masters.specialisation }}</span> &middot; GPA <strong style="color: #60a5fa;">{{ masters.gpa }}</strong></p>
+
+    <div class="prog-bar">
       {% for unit in masters.units %}
-      <div class="progress-segment {{ unit.status }}"></div>
+      <div class="prog-seg {% if unit.status == 'completed' %}done{% elsif unit.status == 'current' %}now{% else %}later{% endif %}"></div>
       {% endfor %}
     </div>
-    <div class="progress-label">
-      <span><span class="count">{{ completed_count }}</span> / {{ total_units }} units completed</span>
-      <span>{{ current_count }} current &middot; {{ remaining_count }} remaining</span>
+    <div class="prog-label">
+      <span><span class="hl" data-counter="{{ done_count }}">0</span> / {{ total_units }} units</span>
+      <span>{{ now_count }} current &middot; {{ left_count }} remaining</span>
     </div>
 
     <ul class="unit-list">
@@ -229,16 +345,16 @@ title: "Home"
       <li class="unit-item"><span class="unit-dot done"></span><span class="unit-code">{{ unit.code }}</span><span class="unit-name">{{ unit.name }}</span></li>
       {% endfor %}
     </ul>
-    {% if current_count > 0 %}
-    <p class="unit-section-label">Currently Studying</p>
+    {% if now_count > 0 %}
+    <p class="unit-divider">Currently Studying</p>
     <ul class="unit-list">
       {% for unit in current_units %}
       <li class="unit-item"><span class="unit-dot now"></span><span class="unit-code">{{ unit.code }}</span><span class="unit-name">{{ unit.name }}</span></li>
       {% endfor %}
     </ul>
     {% endif %}
-    {% if remaining_count > 0 %}
-    <p class="unit-section-label">Remaining</p>
+    {% if left_count > 0 %}
+    <p class="unit-divider">Remaining</p>
     <ul class="unit-list">
       {% for unit in remaining_units %}
       <li class="unit-item"><span class="unit-dot later"></span><span class="unit-code">{{ unit.code }}</span><span class="unit-name dim">{{ unit.name }}</span></li>
@@ -247,48 +363,9 @@ title: "Home"
     {% endif %}
   </div>
 
-  <!-- AWS SAA-C03 Tracker -->
-  <div class="tracker reveal">
-    <div class="tracker-header">
-      <div>
-        <h3><a href="{{ '/aws-study/' | relative_url }}">AWS Solutions Architect Associate</a></h3>
-        <p class="tracker-meta">SAA-C03 &middot; {{ aws.course }} course &middot; {{ aws.practice }} practice exams</p>
-      </div>
-      <span class="tracker-badge orange">In Progress</span>
-    </div>
-
-    <div class="progress-bar-container">
-      {% for mod in aws.modules %}
-      <div class="progress-segment {{ mod.status }}"></div>
-      {% endfor %}
-    </div>
-    <div class="progress-label">
-      <span><span class="count">{{ aws_done }}</span> / {{ aws_total }} modules completed</span>
-      <span>{{ aws_wip }} current</span>
-    </div>
-  </div>
-
-  <!-- HTB 100-Box Goal Tracker -->
-  <div class="tracker reveal">
-    <div class="tracker-header">
-      <div>
-        <h3><a href="{{ '/ctfs/' | relative_url }}">HackTheBox</a></h3>
-        <p class="tracker-meta">2026 goal: {{ box_goal }} boxes pwned</p>
-      </div>
-      <span class="tracker-badge blue">{{ box_count }} / {{ box_goal }}</span>
-    </div>
-
-    <div class="progress-bar-solid">
-      <div class="progress-bar-fill green" style="width: {{ box_count | times: 100 | divided_by: box_goal }}%;"></div>
-    </div>
-    <div class="progress-label">
-      <span><span class="count">{{ box_count }}</span> boxes completed</span>
-      <span>{{ box_goal | minus: box_count }} to go</span>
-    </div>
-  </div>
-
-  <div class="reveal">
-    <p class="section-label" style="margin-top: 3rem;">Latest Write-ups</p>
+  <!-- Latest Write-ups -->
+  <div class="reveal" style="margin-top: 3rem;">
+    <p class="section-label">Latest Write-ups</p>
   </div>
   <div class="card-grid reveal reveal-stagger">
     {% assign recent = site.writeups | sort: "date" | reverse %}
