@@ -3,6 +3,137 @@ layout: default
 title: "Home"
 ---
 
+<style>
+  .masters-tracker {
+    background: #1e2a3a;
+    border: 1px solid #2a3a4e;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .masters-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.25rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .masters-header h3 {
+    color: #e2e8f0;
+    font-size: 1.25rem;
+    margin: 0;
+  }
+  .masters-gpa {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.85rem;
+    color: #9fef00;
+    background: rgba(159, 239, 0, 0.1);
+    padding: 0.2em 0.6em;
+    border-radius: 4px;
+  }
+  .masters-meta {
+    color: #6b7b95;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+  .masters-meta a {
+    color: #4fc3f7;
+    text-decoration: none;
+  }
+  .progress-bar-container {
+    background: rgba(42, 58, 78, 0.5);
+    border-radius: 6px;
+    height: 28px;
+    display: flex;
+    overflow: hidden;
+    gap: 2px;
+    padding: 3px;
+    margin-bottom: 0.75rem;
+  }
+  .progress-segment {
+    border-radius: 3px;
+    flex: 1;
+    position: relative;
+  }
+  .progress-segment.completed {
+    background: #9fef00;
+  }
+  .progress-segment.current {
+    background: #ffab40;
+    animation: pulse-current 2s ease-in-out infinite;
+  }
+  .progress-segment.remaining {
+    background: rgba(107, 123, 149, 0.2);
+  }
+  @keyframes pulse-current {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.75rem;
+    color: #6b7b95;
+    margin-bottom: 1.25rem;
+  }
+  .progress-label .count {
+    color: #9fef00;
+  }
+  .unit-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.35rem;
+  }
+  .unit-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: #a4b1cd;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  }
+  .unit-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .unit-dot.done { background: #9fef00; }
+  .unit-dot.now { background: #ffab40; animation: pulse-current 2s ease-in-out infinite; }
+  .unit-dot.later { background: rgba(107, 123, 149, 0.3); }
+  .unit-code {
+    color: #6b7b95;
+    min-width: 72px;
+  }
+  .unit-name {
+    color: #a4b1cd;
+  }
+  .unit-name.dim {
+    color: #6b7b95;
+  }
+  .unit-section-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #6b7b95;
+    margin-top: 0.75rem;
+    margin-bottom: 0.25rem;
+    padding-left: 1.1rem;
+  }
+  .specialisation-badge {
+    font-size: 0.75rem;
+    color: #4fc3f7;
+    background: rgba(79, 195, 247, 0.1);
+    padding: 0.15em 0.5em;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  }
+</style>
+
 <div class="container">
   <section class="hero">
     <h1>~/Bugg<span class="accent">InYourCloud</span></h1>
@@ -34,16 +165,60 @@ title: "Home"
   </div>
 
   <h2 class="section-title"><span class="accent">#</span> Current Path</h2>
-  <div class="card-grid">
-    <div class="card">
-      <h3 class="card-title">Master of Cybersecurity</h3>
-      <p class="card-meta">Completing mid-2026</p>
-      <p class="card-description">Finishing my Masters with a focus on security governance, incident response, and capstone research.</p>
-      <div class="card-tags">
-        <span class="tag">academic</span>
-        <span class="tag">in-progress</span>
+
+  <!-- Masters Tracker -->
+  <div class="masters-tracker">
+    <div class="masters-header">
+      <div>
+        <h3>Master of Cybersecurity</h3>
+        <p class="masters-meta">University of Sydney &middot; Faculty of Engineering &middot; <span class="specialisation-badge">Cloud Security</span></p>
       </div>
+      <span class="masters-gpa">GPA 5.50</span>
     </div>
+
+    <div class="progress-bar-container">
+      <div class="progress-segment completed"></div>
+      <div class="progress-segment completed"></div>
+      <div class="progress-segment completed"></div>
+      <div class="progress-segment completed"></div>
+      <div class="progress-segment completed"></div>
+      <div class="progress-segment completed"></div>
+      <div class="progress-segment completed"></div>
+      <div class="progress-segment current"></div>
+      <div class="progress-segment current"></div>
+      <div class="progress-segment remaining"></div>
+      <div class="progress-segment remaining"></div>
+      <div class="progress-segment remaining"></div>
+    </div>
+    <div class="progress-label">
+      <span><span class="count">7</span> / 12 units completed</span>
+      <span>2 current &middot; 3 remaining</span>
+    </div>
+
+    <ul class="unit-list">
+      <li class="unit-item"><span class="unit-dot done"></span><span class="unit-code">OINF5301</span><span class="unit-name">Information Security Management</span></li>
+      <li class="unit-item"><span class="unit-dot done"></span><span class="unit-code">OINF5992</span><span class="unit-name">Understanding IT Innovations</span></li>
+      <li class="unit-item"><span class="unit-dot done"></span><span class="unit-code">OCSE5616</span><span class="unit-name">Cybersecurity Engineering</span></li>
+      <li class="unit-item"><span class="unit-dot done"></span><span class="unit-code">OCMP5318</span><span class="unit-name">Machine Learning and Data Mining</span></li>
+      <li class="unit-item"><span class="unit-dot done"></span><span class="unit-code">OCSE5614</span><span class="unit-name">Data Privacy: Theory and Practice</span></li>
+      <li class="unit-item"><span class="unit-dot done"></span><span class="unit-code">OCMP5618</span><span class="unit-name">Applied Cybersecurity</span></li>
+      <li class="unit-item"><span class="unit-dot done"></span><span class="unit-code">OINF5990</span><span class="unit-name">Professional Practice in IT</span></li>
+    </ul>
+    <p class="unit-section-label">Currently Studying</p>
+    <ul class="unit-list">
+      <li class="unit-item"><span class="unit-dot now"></span><span class="unit-code">OCSE5619</span><span class="unit-name">Applied Cryptography</span></li>
+      <li class="unit-item"><span class="unit-dot now"></span><span class="unit-code">OCSE5707</span><span class="unit-name">Cybersecurity Capstone Project A</span></li>
+    </ul>
+    <p class="unit-section-label">Remaining</p>
+    <ul class="unit-list">
+      <li class="unit-item"><span class="unit-dot later"></span><span class="unit-code">OCSE5615</span><span class="unit-name dim">Theory and Practice of Cloud Security</span></li>
+      <li class="unit-item"><span class="unit-dot later"></span><span class="unit-code">OCSE5708</span><span class="unit-name dim">Cybersecurity Capstone Project B</span></li>
+      <li class="unit-item"><span class="unit-dot later"></span><span class="unit-code">OCMP5349</span><span class="unit-name dim">Cloud Computing</span></li>
+    </ul>
+  </div>
+
+  <!-- Other current path cards -->
+  <div class="card-grid">
     <div class="card">
       <h3 class="card-title">AWS Solutions Architect Associate</h3>
       <p class="card-meta">SAA-C03</p>
