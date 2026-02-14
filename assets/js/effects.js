@@ -53,4 +53,110 @@
       link.style.transition = 'background 400ms ease, border-color 400ms ease, box-shadow 400ms ease';
     });
   });
+
+  /* ── Animated Counters ── */
+  var counterObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (!e.isIntersecting) return;
+      var el = e.target;
+      var target = parseFloat(el.dataset.counter);
+      var dec = parseInt(el.dataset.decimals || '0');
+      var dur = parseInt(el.dataset.duration || '1500');
+      var start = performance.now();
+      function tick(now) {
+        var t = Math.min((now - start) / dur, 1);
+        var ease = 1 - Math.pow(1 - t, 3);
+        el.textContent = dec > 0 ? (target * ease).toFixed(dec) : Math.round(target * ease);
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+      counterObs.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-counter]').forEach(function(el) {
+    counterObs.observe(el);
+  });
+
+  /* ── SVG Ring Progress ── */
+  var ringObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (!e.isIntersecting) return;
+      var ring = e.target;
+      var pct = parseFloat(ring.dataset.progress);
+      var r = parseFloat(ring.getAttribute('r'));
+      var circ = 2 * Math.PI * r;
+      ring.style.strokeDasharray = circ;
+      ring.style.strokeDashoffset = circ;
+      setTimeout(function() {
+        ring.style.transition = 'stroke-dashoffset 1.8s cubic-bezier(0.4, 0, 0.2, 1)';
+        ring.style.strokeDashoffset = circ * (1 - pct);
+      }, 300);
+      ringObs.unobserve(ring);
+    });
+  }, { threshold: 0.4 });
+  document.querySelectorAll('[data-progress]').forEach(function(el) {
+    ringObs.observe(el);
+  });
+
+  /* ── Scroll-linked Timeline Fill ── */
+  var timeline = document.querySelector('[data-scroll-fill]');
+  if (timeline) {
+    function updateFill() {
+      var rect = timeline.getBoundingClientRect();
+      var viewH = window.innerHeight;
+      var scrolled = viewH - rect.top;
+      var pct = Math.max(0, Math.min(100, (scrolled / rect.height) * 100));
+      timeline.style.setProperty('--fill', pct + '%');
+    }
+    window.addEventListener('scroll', updateFill, { passive: true });
+    updateFill();
+  }
+
+  /* ── Activity Heatmap ── */
+  var heatmapEl = document.getElementById('heatmap');
+  if (heatmapEl && window.writeupDates) {
+    var today = new Date();
+    var start = new Date(today);
+    start.setDate(start.getDate() - 363);
+    while (start.getDay() !== 0) start.setDate(start.getDate() - 1);
+
+    var counts = {};
+    window.writeupDates.forEach(function(d) { counts[d] = (counts[d] || 0) + 1; });
+
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var lastMonth = -1;
+    var weekIndex = 0;
+    var cur = new Date(start);
+
+    while (cur <= today) {
+      var ds = cur.toISOString().split('T')[0];
+      var c = counts[ds] || 0;
+      var cell = document.createElement('div');
+      cell.className = 'hm-cell';
+      if (c === 0) cell.classList.add('c0');
+      else if (c === 1) cell.classList.add('c1');
+      else if (c === 2) cell.classList.add('c2');
+      else cell.classList.add('c3');
+      cell.title = ds + ': ' + c + ' box' + (c !== 1 ? 'es' : '');
+
+      var day = cur.getDay();
+      var col = Math.floor((cur - start) / (86400000 * 7));
+      cell.style.gridRow = (day + 1);
+      cell.style.gridColumn = (col + 1);
+      heatmapEl.appendChild(cell);
+
+      // Month labels
+      if (day === 0 && cur.getMonth() !== lastMonth) {
+        lastMonth = cur.getMonth();
+        var label = document.createElement('span');
+        label.className = 'hm-month';
+        label.textContent = months[cur.getMonth()];
+        label.style.gridColumn = (col + 1);
+        var monthRow = document.getElementById('heatmap-months');
+        if (monthRow) monthRow.appendChild(label);
+      }
+
+      cur.setDate(cur.getDate() + 1);
+    }
+  }
 })();
