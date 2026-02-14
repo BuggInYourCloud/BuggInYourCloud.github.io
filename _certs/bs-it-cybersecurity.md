@@ -1,13 +1,13 @@
 ---
-title: "B.S. Information Technology — Cybersecurity & Networking"
-issuer: "Bachelor's Degree"
-earned: "2024"
+title: "Bachelor of Information Technology"
+issuer: "Southern Cross University"
+earned: "November 2024"
 tags: [degree, cybersecurity, networking]
 ---
 
 ## About
 
-Bachelor of Science in Information Technology with a major in Cybersecurity and Networking. Covers network architecture, system administration, security operations, digital forensics, and offensive security fundamentals.
+Bachelor of Information Technology majoring in Networks and Cybersecurity. Covers network architecture, system administration, security operations, digital forensics, and offensive security fundamentals.
 
 ## Core Focus Areas
 
