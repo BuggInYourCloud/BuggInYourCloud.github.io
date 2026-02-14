@@ -1,18 +1,299 @@
 ---
 layout: default
 ---
+
+<style>
+  .tool-detail {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .tool-hero {
+    background: rgba(15, 23, 42, 0.45);
+    border: 1px solid rgba(96, 165, 250, 0.06);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .tool-hero:hover {
+    background: rgba(15, 23, 42, 0.7);
+    border-color: rgba(96, 165, 250, 0.15);
+    box-shadow: 0 0 60px rgba(96, 165, 250, 0.06), 0 20px 50px rgba(0, 0, 0, 0.35);
+  }
+  .tool-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: radial-gradient(
+      500px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(96, 165, 250, 0.05) 0%, transparent 100%
+    );
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 400ms ease;
+  }
+  .tool-hero:hover::after { opacity: 1; }
+
+  .tool-hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent, #60a5fa), transparent);
+    border-radius: 16px 16px 0 0;
+  }
+  .tool-hero.cat-script::before { --accent: #ffab40; }
+
+  .tool-hero .th-breadcrumb {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: #475569;
+    margin-bottom: 1rem;
+  }
+  .tool-hero .th-breadcrumb a {
+    color: #60a5fa;
+    text-decoration: none;
+    transition: color 300ms ease;
+  }
+  .tool-hero .th-breadcrumb a:hover { color: #93c5fd; }
+  .tool-hero .th-breadcrumb .sep { margin: 0 0.4rem; color: #334155; }
+
+  .tool-hero .th-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .tool-hero .th-title {
+    font-size: 1.8rem;
+    color: #e2e8f0;
+    margin: 0;
+    line-height: 1.2;
+  }
+  .tool-hero .th-cat {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.2em 0.55em;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .th-cat.tool {
+    color: #60a5fa;
+    background: rgba(96, 165, 250, 0.08);
+    border: 1px solid rgba(96, 165, 250, 0.08);
+  }
+  .th-cat.script {
+    color: #ffab40;
+    background: rgba(255, 171, 64, 0.08);
+    border: 1px solid rgba(255, 171, 64, 0.08);
+  }
+
+  .tool-hero .th-tagline {
+    color: #64748b;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+
+  .tool-hero .th-links {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  .tool-hero .th-link {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: #60a5fa;
+    background: rgba(96, 165, 250, 0.08);
+    padding: 0.35em 0.7em;
+    border-radius: 6px;
+    border: 1px solid rgba(96, 165, 250, 0.06);
+    text-decoration: none;
+    transition: all 400ms ease;
+  }
+  .tool-hero .th-link:hover {
+    background: rgba(96, 165, 250, 0.15);
+    border-color: rgba(96, 165, 250, 0.2);
+    box-shadow: 0 0 20px rgba(96, 165, 250, 0.1);
+  }
+
+  .tool-hero .th-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+  .tool-hero .th-tag {
+    display: inline-block;
+    padding: 0.1em 0.45em;
+    background: rgba(79, 195, 247, 0.08);
+    color: #4fc3f7;
+    border-radius: 4px;
+    font-size: 0.68rem;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid rgba(79, 195, 247, 0.06);
+    transition: all 400ms ease;
+  }
+  .tool-hero:hover .th-tag {
+    background: rgba(79, 195, 247, 0.14);
+    border-color: rgba(79, 195, 247, 0.14);
+  }
+  .tool-hero .th-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-left: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.2em 0.55em;
+    border-radius: 9999px;
+  }
+  .th-status.on-hold {
+    color: #ffab40;
+    background: rgba(255, 171, 64, 0.08);
+    border: 1px solid rgba(255, 171, 64, 0.1);
+  }
+  .th-status .sd {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: hold-blink 2.5s ease-in-out infinite;
+  }
+  @keyframes hold-blink {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  /* Content body */
+  .tool-body {
+    background: rgba(15, 23, 42, 0.3);
+    border: 1px solid rgba(96, 165, 250, 0.04);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 400ms ease;
+  }
+  .tool-body:hover {
+    border-color: rgba(96, 165, 250, 0.08);
+  }
+  .tool-body h2 {
+    color: #e2e8f0;
+    font-size: 1.2rem;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(96, 165, 250, 0.06);
+  }
+  .tool-body h2:first-child { margin-top: 0; }
+  .tool-body h3 {
+    color: #4fc3f7;
+    font-size: 1rem;
+    margin-top: 1.5rem;
+  }
+  .tool-body p { color: #94a3b8; line-height: 1.7; margin-bottom: 1rem; }
+  .tool-body strong { color: #e2e8f0; }
+  .tool-body ul, .tool-body ol { color: #94a3b8; padding-left: 1.2rem; margin-bottom: 1rem; }
+  .tool-body li { margin-bottom: 0.35rem; line-height: 1.6; }
+  .tool-body a {
+    color: #60a5fa;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(96, 165, 250, 0.2);
+    transition: all 300ms ease;
+  }
+  .tool-body a:hover { color: #93c5fd; border-color: rgba(96, 165, 250, 0.5); }
+  .tool-body table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 1.5rem;
+  }
+  .tool-body th {
+    text-align: left;
+    color: #475569;
+    font-weight: 600;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid rgba(96, 165, 250, 0.06);
+  }
+  .tool-body td {
+    padding: 0.5rem 0.75rem;
+    color: #94a3b8;
+    border-bottom: 1px solid rgba(42, 58, 78, 0.2);
+    transition: all 300ms ease;
+  }
+  .tool-body td:first-child { color: #4fc3f7; white-space: nowrap; }
+  .tool-body tr:last-child td { border-bottom: none; }
+  .tool-body tr:hover td { background: rgba(96, 165, 250, 0.03); color: #e2e8f0; }
+
+  @media (max-width: 768px) {
+    .tool-hero .th-title { font-size: 1.4rem; }
+    .tool-hero, .tool-body { padding: 1.5rem; }
+  }
+</style>
+
 <article class="container">
-  <div class="page-header">
-    <h1>{{ page.title }}</h1>
-    {% if page.tagline %}<p class="page-subtitle">{{ page.tagline }}</p>{% endif %}
-  </div>
-  {% if page.repo or page.demo %}
-  <div class="showcase-links" style="margin-bottom: 2rem; display: flex; gap: 1rem;">
-    {% if page.repo %}<a href="{{ page.repo }}" target="_blank" rel="noopener">GitHub Repo</a>{% endif %}
-    {% if page.demo %}<a href="{{ page.demo }}" target="_blank" rel="noopener">Live Demo</a>{% endif %}
-  </div>
-  {% endif %}
-  <div class="writeup-content">
-    {{ content }}
+  <div class="tool-detail reveal">
+    <div class="tool-hero {% if page.category == 'script' %}cat-script{% endif %}" data-spotlight>
+      <div class="th-breadcrumb">
+        <a href="{{ '/tools/' | relative_url }}">Projects</a>
+        <span class="sep">/</span>
+        <span>{{ page.title }}</span>
+      </div>
+
+      <div class="th-top">
+        <h1 class="th-title">{{ page.title }}</h1>
+        <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+          {% if page.category %}
+            <span class="th-cat {{ page.category }}">{{ page.category }}</span>
+          {% endif %}
+          {% if page.status == "on-hold" %}
+            <span class="th-status on-hold"><span class="sd"></span> On Hold</span>
+          {% endif %}
+        </div>
+      </div>
+
+      {% if page.tagline %}<p class="th-tagline">{{ page.tagline }}</p>{% endif %}
+
+      {% if page.repo or page.demo %}
+      <div class="th-links">
+        {% if page.repo %}<a href="{{ page.repo }}" class="th-link" target="_blank" rel="noopener">GitHub Repo &rarr;</a>{% endif %}
+        {% if page.demo %}<a href="{{ page.demo }}" class="th-link" target="_blank" rel="noopener">Live Demo &rarr;</a>{% endif %}
+      </div>
+      {% endif %}
+
+      {% if page.tags.size > 0 %}
+      <div class="th-tags">
+        {% for tag in page.tags %}<span class="th-tag">{{ tag }}</span>{% endfor %}
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="tool-body writeup-content reveal">
+      {{ content }}
+    </div>
   </div>
 </article>
+
+<script>
+  document.querySelectorAll('[data-spotlight]').forEach(function(el) {
+    el.addEventListener('mousemove', function(e) {
+      var r = el.getBoundingClientRect();
+      el.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+      el.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+    });
+  });
+</script>
