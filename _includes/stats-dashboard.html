@@ -8,6 +8,7 @@
 {% assign user_only = site.writeups | where: "status", "user-only" | size %}
 {% assign failed_count = site.writeups | where: "status", "failed" | size %}
 
+{% assign very_easy = site.writeups | where: "difficulty", "Very Easy" | size %}
 {% assign easy = site.writeups | where: "difficulty", "Easy" | size %}
 {% assign medium = site.writeups | where: "difficulty", "Medium" | size %}
 {% assign hard = site.writeups | where: "difficulty", "Hard" | size %}
@@ -25,12 +26,12 @@
     rooted: {{ rooted }},
     userOnly: {{ user_only }},
     failed: {{ failed_count }},
-    difficulty: { easy: {{ easy }}, medium: {{ medium }}, hard: {{ hard }}, insane: {{ insane }} },
+    difficulty: { veryEasy: {{ very_easy }}, easy: {{ easy }}, medium: {{ medium }}, hard: {{ hard }}, insane: {{ insane }} },
     os: { linux: {{ linux }}, windows: {{ windows }} },
     platform: { htb: {{ htb }}, thm: {{ thm }} },
     timeline: [
       {% for writeup in site.writeups %}
-      { date: "{{ writeup.date | date: '%Y-%m-%d' }}", title: "{{ writeup.title | escape }}", status: "{{ writeup.status }}" }{% unless forloop.last %},{% endunless %}
+      { date: "{{ writeup.date | date: '%Y-%m-%d' }}", title: {{ writeup.title | jsonify }}, status: "{{ writeup.status }}" }{% unless forloop.last %},{% endunless %}
       {% endfor %}
     ]
   };
