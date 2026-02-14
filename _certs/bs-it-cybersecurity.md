@@ -5,6 +5,8 @@ earned: "November 2024"
 tags: [degree, cybersecurity, networking]
 ---
 
+![Bachelor of Information Technology — Southern Cross University]({{ '/assets/images/bit-testamur.png' | relative_url }})
+
 ## About
 
 Bachelor of Information Technology majoring in Networks and Cybersecurity. Covers network architecture, system administration, security operations, digital forensics, and offensive security fundamentals.
