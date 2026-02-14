@@ -4,10 +4,16 @@
   {% include head.html %}
 </head>
 <body>
+  <div class="orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
   {% include header.html %}
   <main class="site-content">
     {{ content }}
   </main>
   {% include footer.html %}
+  <script src="{{ '/assets/js/effects.js' | relative_url }}"></script>
 </body>
 </html>
