@@ -7,50 +7,46 @@ date: 2026-02-14
 status: "rooted"
 user_flag: true
 root_flag: false
-tags: [web, idor, broken-access-control, flask, socketio, owasp-top-10]
+seasonal: true
+tags: [web, idor, broken-access-control, flask, socketio, owasp-top-10, valentines-2026]
 tools: [nmap, burpsuite, flask-unsign]
 ttl: "30m"
 ---
 
-OnlyHacks is a Valentine's Day themed HTB web challenge — a Tinder-style dating app built on Flask + Socket.IO. The core vulnerability is an IDOR on the chat room endpoint that lets you read other users' private messages.
+<div style="background: rgba(255, 68, 68, 0.08); border: 1px solid rgba(255, 68, 68, 0.25); border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;">
+  <span style="font-size: 1.2rem;">&#9829;</span>
+  <div>
+    <strong style="color: #ff4444;">Valentine's Day 2026 — Seasonal Challenge</strong>
+    <p style="margin: 0.25rem 0 0; color: #a4b1cd; font-size: 0.85rem;">This is an active limited-time challenge. Key details have been redacted.</p>
+  </div>
+</div>
+
+OnlyHacks is a Valentine's Day themed HTB web challenge — a Tinder-style dating app built on Flask + Socket.IO. The core vulnerability is a classic OWASP Top 10 access control flaw.
 
 ## Reconnaissance
 
-### Port Scan
-
-```
-PORT      STATE SERVICE
-32652/tcp open  http    Flask web application
-```
-
-Login page redirects to `/login`. Registered an account to explore authenticated functionality.
-
 ### Application Overview
 
-"OnlyHacks — Where Love is the Ultimate Life Hack" — dating app with:
-- Registration with profile picture upload
-- Swipe-style dashboard showing 4 profiles
-- Like functionality that opens Socket.IO chat rooms
-- Chat rooms identified by sequential integer `rid` parameter
+Dating app with registration, profile swiping, and real-time chat via Socket.IO. Chat rooms are identified by sequential integer IDs passed as a URL parameter.
 
 ## Exploitation
 
-### IDOR on Chat Rooms
+### The Vulnerability
 
-After liking a profile and landing in `/chat/?rid=6`, noticed the room ID is just a GET parameter with no server-side authorization check.
+<div style="background: rgba(107, 123, 149, 0.1); border-radius: 6px; padding: 1rem; margin: 1rem 0;">
+  <p style="color: #6b7b95; font-style: italic; margin: 0;">Redacted — active challenge. The vulnerability class is <strong style="color: #ffab40;">Broken Access Control (IDOR)</strong>.</p>
+</div>
 
-Enumerated rooms `rid=1` through `rid=10`:
-- Rooms 3 and 6 returned HTTP 200
-- All others returned 500
-
-Accessed `/chat/?rid=3` — read another user's private conversation containing the flag embedded in a scam message.
+The attack leverages insufficient authorization checks on a parameterised endpoint, allowing access to resources belonging to other users.
 
 ### Other Vectors Tested
 
-- **SSTI in bio/chat**: `{%raw%}{{7*7}}{%endraw%}` rendered literally — not vulnerable
-- **File upload abuse**: Profile picture rejected non-image uploads
-- **Flask session cracking**: flask-unsign available but not needed — the IDOR was sufficient
+- **SSTI in bio/chat**: Not vulnerable
+- **File upload abuse**: Rejected non-image uploads
+- **Flask session cracking**: Not needed
 
 ## Key Takeaway
 
-IDOR is OWASP #1 (Broken Access Control) for a reason. Sequential integer IDs on chat endpoints are trivially enumerable. Always check whether the server validates that the authenticated user actually belongs to the resource they're requesting.
+IDOR is OWASP #1 (Broken Access Control) for a reason. Always check whether the server validates that the authenticated user actually belongs to the resource they're requesting. Sequential integer IDs are trivially enumerable.
+
+<p style="color: #6b7b95; font-size: 0.8rem; margin-top: 2rem; font-style: italic;">Full writeup will be unredacted after the seasonal event ends.</p>
