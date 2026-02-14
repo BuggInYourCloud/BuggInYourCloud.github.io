@@ -1,13 +1,14 @@
 ---
 title: "CompTIA Security+"
 issuer: "CompTIA"
-earned: "2024"
+earned: "July 2024"
+expires: "July 2027"
 tags: [comptia, security, foundational]
 ---
 
 ## About
 
-CompTIA Security+ (SY0-601/701) is a globally recognized certification validating baseline cybersecurity skills — threat detection, risk management, incident response, and security architecture.
+CompTIA Security+ (SY0-601) is a globally recognized certification validating baseline cybersecurity skills — threat detection, risk management, incident response, and security architecture.
 
 ## Key Domains
 
