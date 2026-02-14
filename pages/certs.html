@@ -6,34 +6,30 @@ permalink: /certs/
 
 <style>
   .edu-card {
-    background: #1e2a3a;
-    border: 1px solid #2a3a4e;
+    background: rgba(15, 23, 42, 0.45);
+    border: 1px solid rgba(96, 165, 250, 0.06);
     border-radius: 12px;
     padding: 1.5rem;
     text-decoration: none;
     display: block;
     color: inherit;
-    transition: all 0.2s ease;
+    transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+    will-change: transform;
   }
-  .edu-card::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    border-radius: 12px 0 0 12px;
-  }
-  .edu-card.earned::before { background: #60a5fa; }
-  .edu-card.in-progress::before { background: #ffab40; }
+  .edu-card.earned { border-left: 4px solid #60a5fa; }
+  .edu-card.in-progress { border-left: 4px solid #ffab40; }
   .edu-card:hover {
-    border-color: #60a5fa;
-    box-shadow: 0 0 20px rgba(96, 165, 250, 0.1);
-    transform: translateY(-2px);
+    background: rgba(15, 23, 42, 0.7);
+    border-color: rgba(96, 165, 250, 0.15);
+    border-left-color: #60a5fa;
+    box-shadow:
+      0 0 60px rgba(96, 165, 250, 0.06),
+      0 20px 50px rgba(0, 0, 0, 0.35);
     color: inherit;
   }
+  .edu-card.in-progress:hover { border-left-color: #ffab40; }
   .edu-card .card-top {
     display: flex;
     justify-content: space-between;
@@ -58,12 +54,14 @@ permalink: /certs/
     flex-shrink: 0;
   }
   .edu-card .status-pill.earned {
-    background: rgba(96, 165, 250, 0.15);
+    background: rgba(96, 165, 250, 0.08);
     color: #60a5fa;
+    border: 1px solid rgba(96, 165, 250, 0.06);
   }
   .edu-card .status-pill.in-progress {
-    background: rgba(255, 171, 64, 0.15);
+    background: rgba(255, 171, 64, 0.08);
     color: #ffab40;
+    border: 1px solid rgba(255, 171, 64, 0.06);
     animation: pulse-status 2s ease-in-out infinite;
   }
   @keyframes pulse-status {
@@ -93,17 +91,23 @@ permalink: /certs/
   .edu-card .tag {
     display: inline-block;
     padding: 0.1em 0.45em;
-    background: rgba(79, 195, 247, 0.1);
+    background: rgba(79, 195, 247, 0.08);
     color: #4fc3f7;
     border-radius: 4px;
     font-size: 0.7rem;
     font-family: 'JetBrains Mono', monospace;
+    border: 1px solid rgba(79, 195, 247, 0.06);
+    transition: all 400ms ease;
+  }
+  .edu-card:hover .tag {
+    background: rgba(79, 195, 247, 0.14);
+    border-color: rgba(79, 195, 247, 0.14);
   }
 </style>
 
-<div class="card-grid">
+<div class="card-grid reveal reveal-stagger">
   {% for cert in site.certs %}
-  <a href="{{ cert.url | relative_url }}" class="edu-card {% if cert.earned %}earned{% elsif cert.status %}in-progress{% endif %}">
+  <a href="{{ cert.url | relative_url }}" class="edu-card {% if cert.earned %}earned{% elsif cert.status %}in-progress{% endif %}" data-tilt>
     <div class="card-top">
       <h3 class="card-title">{{ cert.title }}</h3>
       {% if cert.earned %}
