@@ -110,6 +110,16 @@
   border-radius: $radius-sm;
   font-size: 0.75rem;
   font-family: $font-mono;
+
+  &.tag-tool {
+    background: rgba($neon-blue, 0.1);
+    color: $neon-blue;
+  }
+
+  &.tag-script {
+    background: rgba($neon-orange, 0.1);
+    color: $neon-orange;
+  }
 }
 
 // Platform badge
