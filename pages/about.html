@@ -4,23 +4,553 @@ subtitle: ""
 permalink: /about/
 ---
 
-<div class="writeup-content">
-  <h2>About Me</h2>
-  <p>Cybersecurity researcher from Australia with a focus on offensive security and red teaming. I'm drawn to the human side of security — social engineering, physical intrusion, understanding where people's trust breaks down — but I'm equally comfortable in a terminal working through boxes on HackTheBox.</p>
-  <p>Security doesn't stop at the network edge. Lockpicking, wardriving, signal cloning — if it can be bypassed, I want to understand how and why.</p>
+<style>
+  /* ━━ Ambient gradient orbs ━━ */
+  .orbs {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+  }
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.06;
+  }
+  .orb-1 {
+    width: 500px; height: 500px;
+    background: #60a5fa;
+    top: -15%; right: -10%;
+    animation: drift 25s ease-in-out infinite;
+  }
+  .orb-2 {
+    width: 400px; height: 400px;
+    background: #818cf8;
+    bottom: 10%; left: -8%;
+    animation: drift 25s ease-in-out infinite -8s;
+  }
+  .orb-3 {
+    width: 350px; height: 350px;
+    background: #60a5fa;
+    top: 50%; right: 15%;
+    animation: drift 25s ease-in-out infinite -16s;
+  }
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25%      { transform: translate(40px, -30px) scale(1.05); }
+    50%      { transform: translate(-25px, 35px) scale(0.95); }
+    75%      { transform: translate(20px, 15px) scale(1.02); }
+  }
 
-  <h2>Background</h2>
-  <p>Came up through a few desk jobs before committing to cybersecurity full-time. Finished my <strong>B.I.T</strong> in Information Technology (Cybersecurity &amp; Networking) at Southern Cross University and earned my <strong>CompTIA Security+</strong> in 2024. Currently finishing a <strong>Master of Cybersecurity</strong> (Cloud Security) at the University of Sydney and working toward the <strong>AWS Solutions Architect Associate</strong>.</p>
-  <p>The goal is to contribute to Australia's cybersecurity space in a meaningful way — always looking for opportunities where I can keep learning and actually make an impact.</p>
+  /* ━━ Noise texture overlay ━━ */
+  .about-wrap::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 50;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px;
+  }
 
-  <h2>What I'm Into</h2>
-  <ul>
-    <li><strong>Social Engineering</strong> — The human side of security, from phishing to physical intrusion</li>
-    <li><strong>Red Teaming</strong> — Full-scope adversary simulation</li>
-    <li><strong>Physical Security</strong> — Lockpicking, wardriving, DeAuth, cloning, replay attacks</li>
-    <li><strong>Ethics in Cybersecurity</strong> — Responsible disclosure, dual-use tooling, where research meets harm</li>
-  </ul>
+  /* ━━ Intro ━━ */
+  .about-intro {
+    margin-bottom: 4rem;
+    max-width: 640px;
+  }
+  .about-intro .lead {
+    font-size: 1.15rem;
+    color: #cbd5e1;
+    line-height: 1.85;
+    margin-bottom: 1rem;
+  }
+  .about-intro .lead:first-of-type::first-line {
+    color: #f1f5f9;
+    font-weight: 600;
+  }
+  .about-intro p {
+    color: #94a3b8;
+    line-height: 1.8;
+    font-size: 1rem;
+  }
+  .about-intro .accent-line {
+    width: 48px;
+    height: 3px;
+    background: linear-gradient(90deg, #60a5fa, #818cf8);
+    border-radius: 3px;
+    margin-bottom: 1.75rem;
+  }
 
-  <h2>Contact</h2>
-  <p>Find me on <a href="https://github.com/BuggInYourCloud">GitHub</a> or reach out at <a href="mailto:BuggInYourCloud@proton.me">BuggInYourCloud@proton.me</a>.</p>
+  /* ━━ Section label ━━ */
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #60a5fa;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ━━ Credential timeline ━━ */
+  .timeline {
+    position: relative;
+    display: flex;
+    margin-bottom: 4rem;
+    padding: 0 1rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; right: 0;
+    top: 7px;
+    height: 2px;
+    background: linear-gradient(90deg, #4ade80 0%, #4ade80 38%, #60a5fa 50%, #1e293b 62%, #1e293b 100%);
+    border-radius: 2px;
+  }
+  .timeline-node {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    padding-top: 28px;
+    cursor: default;
+    transition: transform 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .timeline-node:hover {
+    transform: translateY(-3px);
+  }
+  .timeline-node::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    z-index: 2;
+    background: #141d2b;
+    transition: all 400ms ease;
+  }
+  .timeline-node.earned::before {
+    background: #4ade80;
+    box-shadow: 0 0 10px rgba(74, 222, 128, 0.4);
+  }
+  .timeline-node:hover.earned::before {
+    box-shadow: 0 0 20px rgba(74, 222, 128, 0.6);
+    transform: translateX(-50%) scale(1.3);
+  }
+  .timeline-node.active::before {
+    background: #141d2b;
+    border: 2.5px solid #60a5fa;
+    box-shadow: 0 0 10px rgba(96, 165, 250, 0.3);
+    animation: pulse-node 2.5s ease-in-out infinite;
+  }
+  @keyframes pulse-node {
+    0%, 100% { box-shadow: 0 0 8px rgba(96, 165, 250, 0.2); }
+    50%      { box-shadow: 0 0 18px rgba(96, 165, 250, 0.5); }
+  }
+  .timeline-node.pending::before {
+    background: #141d2b;
+    border: 2px solid #1e293b;
+  }
+  .node-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    margin-bottom: 0.15rem;
+  }
+  .node-org {
+    font-size: 0.72rem;
+    color: #475569;
+    margin-bottom: 0.25rem;
+  }
+  .node-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: #334155;
+  }
+  .timeline-node.earned .node-date { color: #4ade80; }
+  .timeline-node.active .node-date { color: #60a5fa; }
+
+  /* ━━ Bento grid ━━ */
+  .bento-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1rem;
+    margin-bottom: 4rem;
+  }
+  .bento-card {
+    background: rgba(15, 23, 42, 0.45);
+    border: 1px solid rgba(96, 165, 250, 0.06);
+    border-radius: 16px;
+    padding: 1.75rem;
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: box-shadow 400ms ease, background 400ms ease, border-color 400ms ease;
+  }
+  .bento-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: radial-gradient(
+      500px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(96, 165, 250, 0.06) 0%,
+      transparent 100%
+    );
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 400ms ease;
+  }
+  .bento-card:hover::before { opacity: 1; }
+  .bento-card:hover {
+    background: rgba(15, 23, 42, 0.7);
+    border-color: rgba(96, 165, 250, 0.15);
+    box-shadow:
+      0 0 60px rgba(96, 165, 250, 0.06),
+      0 20px 50px rgba(0, 0, 0, 0.35);
+  }
+  .bento-card:nth-child(1) {
+    grid-row: 1 / 3;
+  }
+  .bento-card:nth-child(4) {
+    grid-column: 2 / 4;
+  }
+  .bento-card h3 {
+    font-size: 1.05rem;
+    color: #f1f5f9;
+    margin: 0 0 0.6rem 0;
+    position: relative;
+  }
+  .bento-card .card-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: #334155;
+    margin-bottom: 0.75rem;
+    position: relative;
+  }
+  .bento-card p {
+    font-size: 0.88rem;
+    color: #64748b;
+    margin: 0;
+    line-height: 1.7;
+    position: relative;
+  }
+  .bento-card .sub-tags {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    position: relative;
+  }
+  .bento-card .sub-tags li {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: #60a5fa;
+    background: rgba(96, 165, 250, 0.08);
+    border: 1px solid rgba(96, 165, 250, 0.06);
+    padding: 0.2em 0.55em;
+    border-radius: 6px;
+    transition: all 400ms ease;
+  }
+  .bento-card:hover .sub-tags li {
+    background: rgba(96, 165, 250, 0.14);
+    border-color: rgba(96, 165, 250, 0.14);
+  }
+
+  /* ━━ Contact ━━ */
+  .contact-section {
+    margin-bottom: 2rem;
+  }
+  .contact-row {
+    display: flex;
+    gap: 1rem;
+  }
+  .contact-link {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: 14px;
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid rgba(96, 165, 250, 0.06);
+    text-decoration: none;
+    color: inherit;
+    transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+  .contact-link:hover {
+    background: rgba(15, 23, 42, 0.7);
+    border-color: rgba(96, 165, 250, 0.2);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+    color: inherit;
+  }
+  .contact-link .c-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    background: rgba(96, 165, 250, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: #60a5fa;
+    flex-shrink: 0;
+    transition: all 400ms ease;
+  }
+  .contact-link:hover .c-icon {
+    background: rgba(96, 165, 250, 0.12);
+    box-shadow: 0 0 12px rgba(96, 165, 250, 0.1);
+  }
+  .contact-link .c-label {
+    font-size: 0.68rem;
+    color: #334155;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 0.15rem;
+  }
+  .contact-link .c-value {
+    font-size: 0.88rem;
+    color: #e2e8f0;
+    word-break: break-all;
+  }
+
+  /* ━━ Scroll reveal ━━ */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 700ms cubic-bezier(0.4, 0, 0.2, 1),
+                transform 700ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .reveal.vis { opacity: 1; transform: none; }
+
+  .reveal-stagger > * {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 500ms cubic-bezier(0.4, 0, 0.2, 1),
+                transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .reveal-stagger.vis > * { opacity: 1; transform: none; }
+
+  .hero-fade {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 650ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  .hero-fade:nth-child(1) { animation-delay: 80ms; }
+  .hero-fade:nth-child(2) { animation-delay: 180ms; }
+  .hero-fade:nth-child(3) { animation-delay: 300ms; }
+  .hero-fade:nth-child(4) { animation-delay: 400ms; }
+  @keyframes fadeUp {
+    to { opacity: 1; transform: none; }
+  }
+
+  /* ━━ Responsive ━━ */
+  @media (max-width: 768px) {
+    .bento-grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+    }
+    .bento-card:nth-child(1) { grid-row: auto; }
+    .bento-card:nth-child(4) { grid-column: auto; }
+    .timeline { flex-direction: column; gap: 0.5rem; padding: 0; }
+    .timeline::before {
+      width: 2px; height: 100%;
+      top: 0; left: 7px; right: auto;
+      background: linear-gradient(180deg, #4ade80 0%, #4ade80 38%, #60a5fa 50%, #1e293b 62%, #1e293b 100%);
+    }
+    .timeline-node {
+      text-align: left;
+      padding-top: 0;
+      padding-left: 32px;
+      padding-bottom: 1.25rem;
+    }
+    .timeline-node::before {
+      left: 0; top: 3px;
+      transform: none;
+    }
+    .timeline-node:hover.earned::before {
+      transform: scale(1.3);
+    }
+    .contact-row { flex-direction: column; }
+  }
+</style>
+
+<!-- Ambient orbs -->
+<div class="orbs">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
 </div>
+
+<div class="about-wrap">
+
+  <!-- Intro -->
+  <div class="about-intro">
+    <div class="accent-line hero-fade"></div>
+    <p class="lead hero-fade">Cybersecurity researcher from Australia with a focus on offensive security and red teaming.</p>
+    <p class="hero-fade">I'm drawn to the human side of security — social engineering, physical intrusion, understanding where people's trust breaks down — but I'm equally comfortable in a terminal working through boxes on HackTheBox.</p>
+    <p class="hero-fade">Security doesn't stop at the network edge. Lockpicking, wardriving, signal cloning — if it can be bypassed, I want to understand how and why.</p>
+  </div>
+
+  <!-- Credentials -->
+  <div class="reveal">
+    <p class="section-label">Background</p>
+    <p style="color: #94a3b8; line-height: 1.8; margin-bottom: 2rem;">Came up through a few desk jobs before committing to cybersecurity full-time. The goal is to contribute to Australia's cybersecurity space in a meaningful way — always looking for opportunities where I can keep learning and actually make an impact.</p>
+    <div class="timeline reveal-stagger">
+      <div class="timeline-node earned">
+        <div class="node-title">B.I.T</div>
+        <div class="node-org">Southern Cross University</div>
+        <div class="node-date">Nov 2024</div>
+      </div>
+      <div class="timeline-node earned">
+        <div class="node-title">CompTIA Security+</div>
+        <div class="node-org">CompTIA</div>
+        <div class="node-date">Jul 2024</div>
+      </div>
+      <div class="timeline-node active">
+        <div class="node-title">Master of Cybersecurity</div>
+        <div class="node-org">University of Sydney</div>
+        <div class="node-date">Expected 2026</div>
+      </div>
+      <div class="timeline-node pending">
+        <div class="node-title">AWS SAA-C03</div>
+        <div class="node-org">Amazon Web Services</div>
+        <div class="node-date">In Progress</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Focus areas -->
+  <div class="reveal">
+    <p class="section-label">Focus Areas</p>
+    <div class="bento-grid reveal-stagger">
+      <div class="bento-card" data-tilt>
+        <span class="card-num">01</span>
+        <h3>Social Engineering</h3>
+        <p>The human side of security — phishing, pretexting, physical intrusion, and understanding where trust breaks down. People are always the most interesting attack surface.</p>
+      </div>
+      <div class="bento-card" data-tilt>
+        <span class="card-num">02</span>
+        <h3>Red Teaming</h3>
+        <p>Full-scope adversary simulation. Thinking like an attacker to find what scanners miss.</p>
+      </div>
+      <div class="bento-card" data-tilt>
+        <span class="card-num">03</span>
+        <h3>Ethics in Cybersecurity</h3>
+        <p>The grey areas of offensive security — responsible disclosure, dual-use tooling, where the line sits between research and harm.</p>
+      </div>
+      <div class="bento-card" data-tilt>
+        <span class="card-num">04</span>
+        <h3>Physical Security</h3>
+        <p>Security doesn't stop at the network edge. If it can be bypassed in the real world, I want to understand how.</p>
+        <ul class="sub-tags">
+          <li>Lockpicking</li>
+          <li>Wardriving</li>
+          <li>DeAuth</li>
+          <li>Cloning</li>
+          <li>Replay Attacks</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact -->
+  <div class="contact-section reveal">
+    <p class="section-label">Contact</p>
+    <div class="contact-row reveal-stagger">
+      <a href="https://github.com/BuggInYourCloud" class="contact-link" data-magnetic target="_blank">
+        <div class="c-icon">GH</div>
+        <div>
+          <div class="c-label">GitHub</div>
+          <div class="c-value">BuggInYourCloud</div>
+        </div>
+      </a>
+      <a href="mailto:BuggInYourCloud@proton.me" class="contact-link" data-magnetic>
+        <div class="c-icon">@</div>
+        <div>
+          <div class="c-label">Email</div>
+          <div class="c-value">BuggInYourCloud@proton.me</div>
+        </div>
+      </a>
+      <a href="https://bugginyourcloud.github.io" class="contact-link" data-magnetic target="_blank">
+        <div class="c-icon">W</div>
+        <div>
+          <div class="c-label">Website</div>
+          <div class="c-value">bugginyourcloud.github.io</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  /* ── Scroll Reveal ── */
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('vis');
+      var children = e.target.querySelectorAll('.reveal-stagger');
+      children.forEach(function(c) {
+        Array.from(c.children).forEach(function(child, i) {
+          child.style.transitionDelay = (i * 120) + 'ms';
+        });
+        setTimeout(function() { c.classList.add('vis'); }, 150);
+      });
+      io.unobserve(e.target);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach(function(el) { io.observe(el); });
+
+  /* ── 3D Tilt + Cursor Spotlight ── */
+  document.querySelectorAll('[data-tilt]').forEach(function(card) {
+    card.addEventListener('mousemove', function(e) {
+      var r = card.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width;
+      var y = (e.clientY - r.top) / r.height;
+      card.style.transform = 'perspective(800px) rotateX(' + ((0.5-y)*10) + 'deg) rotateY(' + ((x-0.5)*10) + 'deg) scale(1.02)';
+      card.style.setProperty('--mx', (x*100)+'%');
+      card.style.setProperty('--my', (y*100)+'%');
+    });
+    card.addEventListener('mouseleave', function() {
+      card.style.transform = '';
+      card.style.transition = 'all 600ms cubic-bezier(0.4, 0, 0.2, 1)';
+    });
+    card.addEventListener('mouseenter', function() {
+      card.style.transition = 'box-shadow 400ms ease, background 400ms ease, border-color 400ms ease';
+    });
+  });
+
+  /* ── Magnetic Contact Links ── */
+  document.querySelectorAll('[data-magnetic]').forEach(function(link) {
+    link.addEventListener('mousemove', function(e) {
+      var r = link.getBoundingClientRect();
+      var cx = r.left + r.width / 2;
+      var cy = r.top + r.height / 2;
+      var dx = (e.clientX - cx) * 0.15;
+      var dy = (e.clientY - cy) * 0.15;
+      link.style.transform = 'translate(' + dx + 'px, ' + dy + 'px)';
+    });
+    link.addEventListener('mouseleave', function() {
+      link.style.transform = '';
+      link.style.transition = 'all 500ms cubic-bezier(0.4, 0, 0.2, 1)';
+    });
+    link.addEventListener('mouseenter', function() {
+      link.style.transition = 'background 400ms ease, border-color 400ms ease, box-shadow 400ms ease';
+    });
+  });
+})();
+</script>
