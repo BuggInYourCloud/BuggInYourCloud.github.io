@@ -10,23 +10,30 @@ permalink: /aws-study/
     margin-bottom: 2rem;
     font-family: 'JetBrains Mono', 'Fira Code', monospace;
     font-size: 0.85rem;
-    color: #9fef00;
-    background: rgba(159, 239, 0, 0.08);
+    color: #60a5fa;
+    background: rgba(96, 165, 250, 0.08);
     padding: 0.4em 0.8em;
     border-radius: 6px;
-    border: 1px solid rgba(159, 239, 0, 0.2);
+    border: 1px solid rgba(96, 165, 250, 0.06);
     text-decoration: none;
+    transition: all 400ms ease;
   }
   .study-repo-link:hover {
-    background: rgba(159, 239, 0, 0.15);
-    border-color: rgba(159, 239, 0, 0.4);
+    background: rgba(96, 165, 250, 0.15);
+    border-color: rgba(96, 165, 250, 0.2);
   }
   .progress-overview {
-    background: #1e2a3a;
-    border: 1px solid #2a3a4e;
-    border-radius: 12px;
+    background: rgba(15, 23, 42, 0.45);
+    border: 1px solid rgba(96, 165, 250, 0.06);
+    border-radius: 16px;
     padding: 1.5rem;
     margin-bottom: 2rem;
+    transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .progress-overview:hover {
+    background: rgba(15, 23, 42, 0.7);
+    border-color: rgba(96, 165, 250, 0.15);
+    box-shadow: 0 0 60px rgba(96, 165, 250, 0.06), 0 20px 50px rgba(0, 0, 0, 0.35);
   }
   .progress-overview h3 {
     color: #e2e8f0;
@@ -42,29 +49,35 @@ permalink: /aws-study/
   }
   .module-table th {
     text-align: left;
-    color: #6b7b95;
+    color: #475569;
     font-weight: 600;
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     padding: 0.5rem 0.75rem;
-    border-bottom: 1px solid #2a3a4e;
+    border-bottom: 1px solid rgba(96, 165, 250, 0.06);
   }
   .module-table td {
     padding: 0.5rem 0.75rem;
     color: #a4b1cd;
-    border-bottom: 1px solid rgba(42, 58, 78, 0.5);
+    border-bottom: 1px solid rgba(42, 58, 78, 0.3);
   }
   .module-table tr:last-child td { border-bottom: none; }
-  .status-done { color: #9fef00; }
+  .status-done { color: #60a5fa; }
   .status-wip { color: #ffab40; }
-  .status-todo { color: #6b7b95; }
+  .status-todo { color: #475569; }
   .keyword-table {
-    background: #1e2a3a;
-    border: 1px solid #2a3a4e;
-    border-radius: 12px;
+    background: rgba(15, 23, 42, 0.45);
+    border: 1px solid rgba(96, 165, 250, 0.06);
+    border-radius: 16px;
     padding: 1.5rem;
     margin-bottom: 2rem;
+    transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .keyword-table:hover {
+    background: rgba(15, 23, 42, 0.7);
+    border-color: rgba(96, 165, 250, 0.15);
+    box-shadow: 0 0 60px rgba(96, 165, 250, 0.06), 0 20px 50px rgba(0, 0, 0, 0.35);
   }
   .keyword-table h3 {
     color: #e2e8f0;
@@ -79,18 +92,18 @@ permalink: /aws-study/
   }
   .keyword-table th {
     text-align: left;
-    color: #6b7b95;
+    color: #475569;
     font-weight: 600;
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     padding: 0.5rem 0.75rem;
-    border-bottom: 1px solid #2a3a4e;
+    border-bottom: 1px solid rgba(96, 165, 250, 0.06);
   }
   .keyword-table td {
     padding: 0.5rem 0.75rem;
     color: #a4b1cd;
-    border-bottom: 1px solid rgba(42, 58, 78, 0.5);
+    border-bottom: 1px solid rgba(42, 58, 78, 0.3);
   }
   .keyword-table td:first-child {
     color: #4fc3f7;
@@ -99,11 +112,17 @@ permalink: /aws-study/
   }
   .keyword-table tr:last-child td { border-bottom: none; }
   .exam-scores {
-    background: #1e2a3a;
-    border: 1px solid #2a3a4e;
-    border-radius: 12px;
+    background: rgba(15, 23, 42, 0.45);
+    border: 1px solid rgba(96, 165, 250, 0.06);
+    border-radius: 16px;
     padding: 1.5rem;
     margin-bottom: 2rem;
+    transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .exam-scores:hover {
+    background: rgba(15, 23, 42, 0.7);
+    border-color: rgba(96, 165, 250, 0.15);
+    box-shadow: 0 0 60px rgba(96, 165, 250, 0.06), 0 20px 50px rgba(0, 0, 0, 0.35);
   }
   .exam-scores h3 {
     color: #e2e8f0;
@@ -113,12 +132,12 @@ permalink: /aws-study/
   }
 </style>
 
-<a href="https://github.com/BuggInYourCloud/aws-saa-c03-journey" class="study-repo-link" target="_blank">github.com/BuggInYourCloud/aws-saa-c03-journey</a>
+<a href="https://github.com/BuggInYourCloud/aws-saa-c03-journey" class="study-repo-link hero-fade" target="_blank">github.com/BuggInYourCloud/aws-saa-c03-journey</a>
 
-<p style="color: #a4b1cd; margin-bottom: 2rem;">Following the Cantrill course with Tutorials Dojo practice exams. Target: pass SAA-C03 in 8 weeks.</p>
+<p class="hero-fade" style="color: #a4b1cd; margin-bottom: 2rem;">Following the Cantrill course with Tutorials Dojo practice exams. Target: pass SAA-C03 in 8 weeks.</p>
 
 <!-- Week 1-2 -->
-<div class="progress-overview">
+<div class="progress-overview reveal">
   <h3>Week 1-2: Foundations &amp; Core Services</h3>
   <table class="module-table">
     <tr><th>#</th><th>Module</th><th>Cantrill</th><th>Quiz</th><th>Status</th></tr>
@@ -131,7 +150,7 @@ permalink: /aws-study/
 </div>
 
 <!-- Week 3-4 -->
-<div class="progress-overview">
+<div class="progress-overview reveal">
   <h3>Week 3-4: Compute &amp; Databases</h3>
   <table class="module-table">
     <tr><th>#</th><th>Module</th><th>Cantrill</th><th>Quiz</th><th>Status</th></tr>
@@ -144,7 +163,7 @@ permalink: /aws-study/
 </div>
 
 <!-- Week 5-6 -->
-<div class="progress-overview">
+<div class="progress-overview reveal">
   <h3>Week 5-6: Storage, HA &amp; Serverless</h3>
   <table class="module-table">
     <tr><th>#</th><th>Module</th><th>Cantrill</th><th>Quiz</th><th>Status</th></tr>
@@ -156,7 +175,7 @@ permalink: /aws-study/
 </div>
 
 <!-- Week 7-8 -->
-<div class="progress-overview">
+<div class="progress-overview reveal">
   <h3>Week 7-8: Advanced &amp; Exam Prep</h3>
   <table class="module-table">
     <tr><th>#</th><th>Module</th><th>Cantrill</th><th>Quiz</th><th>Status</th></tr>
@@ -171,7 +190,7 @@ permalink: /aws-study/
 </div>
 
 <!-- Exam Keywords -->
-<div class="keyword-table">
+<div class="keyword-table reveal">
   <h3>Exam Keywords Quick Reference</h3>
   <table>
     <tr><th>Keyword</th><th>Think...</th></tr>
@@ -187,7 +206,7 @@ permalink: /aws-study/
 </div>
 
 <!-- Practice Exam Scores -->
-<div class="exam-scores">
+<div class="exam-scores reveal">
   <h3>Practice Exam Scores</h3>
   <table class="module-table">
     <tr><th>Exam</th><th>Score</th><th>Date</th><th>Pass?</th></tr>
