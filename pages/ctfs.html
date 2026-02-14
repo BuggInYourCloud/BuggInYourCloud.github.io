@@ -8,7 +8,7 @@ permalink: /ctfs/
 {% assign rooted = site.writeups | where: "status", "rooted" | size %}
 {% assign in_progress = site.writeups | where: "status", "in-progress" | size %}
 
-<div class="quick-stats" style="margin-bottom: 2rem;">
+<div class="quick-stats reveal" style="margin-bottom: 2rem;">
   <div class="stat">
     <span class="stat-number">{{ total }}</span>
     <span class="stat-label">Boxes Attempted</span>
@@ -27,7 +27,7 @@ permalink: /ctfs/
 {% include stats-dashboard.html %}
 {% endif %}
 
-<div class="card-grid">
+<div class="card-grid reveal reveal-stagger">
   {% assign sorted = site.writeups | sort: "date" | reverse %}
   {% for writeup in sorted %}
     {% include writeup-card.html writeup=writeup %}
