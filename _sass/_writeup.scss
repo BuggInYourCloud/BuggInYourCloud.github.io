@@ -76,12 +76,13 @@
   }
 
   img {
-    max-width: 480px;
+    max-width: 420px;
     width: 100%;
     height: auto;
     display: block;
-    border-radius: $radius-md;
+    margin: $spacing-lg auto;
+    border-radius: $radius-lg;
     border: 1px solid $border;
-    margin: $spacing-lg 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   }
 }
