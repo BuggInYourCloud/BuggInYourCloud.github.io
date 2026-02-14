@@ -17,7 +17,8 @@ permalink: /about/
     margin: 0 0 0.5rem 0;
   }
   .about-hero .hero-text h2 span {
-    color: #9fef00;
+    color: #a4b1cd;
+    font-weight: 400;
   }
   .about-hero .hero-text .tagline {
     font-family: 'JetBrains Mono', monospace;
@@ -35,7 +36,7 @@ permalink: /about/
   }
   .about-section h2 {
     font-size: 1.3rem;
-    color: #9fef00;
+    color: #e2e8f0;
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid #2a3a4e;
@@ -70,17 +71,12 @@ permalink: /about/
   }
   .focus-card:nth-child(1)::before { background: #ff4444; }
   .focus-card:nth-child(2)::before { background: #9fef00; }
-  .focus-card:nth-child(3)::before { background: #4fc3f7; }
+  .focus-card:nth-child(3)::before { background: #ffab40; }
   .focus-card:nth-child(4)::before { background: #b388ff; }
-  .focus-card:nth-child(5)::before { background: #ffab40; }
   .focus-card:hover {
     border-color: #4fc3f7;
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  }
-  .focus-card .card-icon {
-    font-size: 1.4rem;
-    margin-bottom: 0.5rem;
   }
   .focus-card h3 {
     font-size: 1rem;
@@ -92,6 +88,22 @@ permalink: /about/
     color: #6b7b95;
     margin: 0;
     line-height: 1.5;
+  }
+  .focus-card .sub-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+  .focus-card .sub-list li {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    background: rgba(255, 171, 64, 0.1);
+    color: #ffab40;
+    padding: 0.15em 0.45em;
+    border-radius: 4px;
   }
 
   .cred-row {
@@ -125,7 +137,7 @@ permalink: /about/
 
   .contact-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1rem;
   }
   .contact-card {
@@ -147,7 +159,9 @@ permalink: /about/
     color: inherit;
   }
   .contact-card .contact-icon {
-    font-size: 1.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
     flex-shrink: 0;
     width: 40px;
     height: 40px;
@@ -188,10 +202,10 @@ permalink: /about/
 
 <div class="about-hero">
   <div class="hero-text">
-    <h2>$ whoami<span>_</span></h2>
-    <p class="tagline">cybersecurity researcher // breaking boxes & building tools</p>
-    <p>Cybersecurity guy from Australia focused on red teaming and offensive security. I lean toward the human side — social engineering, physical security, understanding where people's trust breaks down — but I spend plenty of time in terminals too, breaking boxes on HackTheBox and building tooling to make the process better.</p>
-    <p>I also picked up lockpicking along the way, because security doesn't stop at the keyboard.</p>
+    <h2>About<span> Me</span></h2>
+    <p class="tagline">Offensive security, social engineering, and the human element.</p>
+    <p>Cybersecurity researcher from Australia with a focus on offensive security and red teaming. I'm drawn to the human side of security — social engineering, physical intrusion, understanding where people's trust breaks down — but I'm equally comfortable in a terminal working through boxes on HackTheBox.</p>
+    <p>Security doesn't stop at the network edge. Lockpicking, wardriving, signal cloning — if it can be bypassed, I want to understand how and why.</p>
   </div>
 </div>
 
@@ -201,9 +215,9 @@ permalink: /about/
   <p>The goal is to contribute to Australia's cybersecurity space in a meaningful way — always looking for opportunities where I can keep learning and actually make an impact.</p>
 
   <div class="cred-row">
-    <span class="cred-pill"><span class="dot green"></span>B.I.T — SCU</span>
+    <span class="cred-pill"><span class="dot green"></span>Bachelor of Information Technology — Southern Cross University</span>
     <span class="cred-pill"><span class="dot green"></span>CompTIA Security+</span>
-    <span class="cred-pill"><span class="dot orange"></span>MCS — USyd</span>
+    <span class="cred-pill"><span class="dot orange"></span>Master of Cybersecurity — University of Sydney</span>
     <span class="cred-pill"><span class="dot orange"></span>AWS SAA-C03</span>
   </div>
 </div>
@@ -212,29 +226,27 @@ permalink: /about/
   <h2>What I'm Into</h2>
   <div class="focus-grid">
     <div class="focus-card">
-      <div class="card-icon">🎭</div>
       <h3>Social Engineering</h3>
       <p>The human side of security — phishing, pretexting, physical intrusion, and understanding where trust breaks down.</p>
     </div>
     <div class="focus-card">
-      <div class="card-icon">🔴</div>
       <h3>Red Teaming</h3>
       <p>Full-scope adversary simulation. Thinking like an attacker to find what scanners miss.</p>
     </div>
     <div class="focus-card">
-      <div class="card-icon">🤖</div>
-      <h3>AI + Security</h3>
-      <p>Fine-tuning LLMs for offensive security workflows. Building smarter tooling with local models.</p>
+      <h3>Physical Security</h3>
+      <p>Security doesn't stop at the network edge. If it can be bypassed in the real world, I want to understand how.</p>
+      <ul class="sub-list">
+        <li>Lockpicking</li>
+        <li>Wardriving</li>
+        <li>DeAuth</li>
+        <li>Cloning</li>
+        <li>Replay Attacks</li>
+      </ul>
     </div>
     <div class="focus-card">
-      <div class="card-icon">🔓</div>
-      <h3>Lockpicking</h3>
-      <p>Physical security is still security. Bypassing locks, understanding mechanism design.</p>
-    </div>
-    <div class="focus-card">
-      <div class="card-icon">🛠️</div>
-      <h3>Tool Development</h3>
-      <p>Building what I need when it doesn't exist — scanners, harnesses, automation pipelines.</p>
+      <h3>Ethics in Cybersecurity</h3>
+      <p>The grey areas of offensive security — responsible disclosure, dual-use tooling, where the line sits between research and harm.</p>
     </div>
   </div>
 </div>
@@ -243,7 +255,7 @@ permalink: /about/
   <h2>Contact</h2>
   <div class="contact-grid">
     <a href="https://github.com/BuggInYourCloud" class="contact-card" target="_blank">
-      <div class="contact-icon gh">⟩</div>
+      <div class="contact-icon gh">GH</div>
       <div>
         <div class="contact-label">GitHub</div>
         <div class="contact-value">BuggInYourCloud</div>
@@ -257,7 +269,7 @@ permalink: /about/
       </div>
     </a>
     <a href="https://bugginyourcloud.github.io" class="contact-card" target="_blank">
-      <div class="contact-icon site">⟡</div>
+      <div class="contact-icon site">W</div>
       <div>
         <div class="contact-label">Site</div>
         <div class="contact-value">bugginyourcloud.github.io</div>
