@@ -1,31 +1,9 @@
 ---
-title: "Master of Cybersecurity — Progress & Notes"
+title: "Master of Cybersecurity — Progress"
 date: 2026-02-14
-tags: [masters, study-notes, academic]
+tags: [masters, academic, cybersecurity]
 ---
 
-Tracking coursework, key concepts, and useful references from my **Master of Cybersecurity** program.
+Currently completing my **Master of Cybersecurity**, expected mid-2026. Capstone project in progress.
 
-## Progress
-
-| Unit | Topic | Status |
-|------|-------|--------|
-| — | — | — |
-
-*Fill in as semester progresses.*
-
-## Key Concepts & References
-
-### Governance & Risk
-- NIST CSF, ISO 27001/27002, Essential Eight
-- Risk assessment frameworks and quantitative methods
-
-### Incident Response
-- PICERL model (Preparation, Identification, Containment, Eradication, Recovery, Lessons Learned)
-- Chain of custody and forensic evidence handling
-
-### Network Security
-- Defence in depth, zero trust architecture
-- Network segmentation and microsegmentation
-
-*More sections added per unit.*
+*More details after graduation.*
