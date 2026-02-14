@@ -4,26 +4,264 @@ subtitle: ""
 permalink: /about/
 ---
 
-<div class="writeup-content">
-  <h2>whoami</h2>
-  <p>Cybersecurity guy from Australia focused on red teaming and offensive security. I've always leaned more toward the human side — social engineering, physical security, understanding where people's trust breaks down — but I spend plenty of time in terminals too, breaking boxes on HackTheBox and TryHackMe and building tooling to make the process better.</p>
+<style>
+  .about-hero {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    margin-bottom: 2.5rem;
+  }
+  .about-hero .hero-text h2 {
+    font-size: 1.8rem;
+    color: #e2e8f0;
+    margin: 0 0 0.5rem 0;
+  }
+  .about-hero .hero-text h2 span {
+    color: #9fef00;
+  }
+  .about-hero .hero-text .tagline {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: #6b7b95;
+    margin-bottom: 1rem;
+  }
+  .about-hero .hero-text p {
+    color: #a4b1cd;
+    line-height: 1.7;
+  }
 
-  <p>I also picked up lockpicking along the way, because security doesn't stop at the keyboard.</p>
+  .about-section {
+    margin-bottom: 2.5rem;
+  }
+  .about-section h2 {
+    font-size: 1.3rem;
+    color: #9fef00;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #2a3a4e;
+  }
+  .about-section p {
+    color: #a4b1cd;
+    line-height: 1.7;
+  }
 
+  .focus-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+  .focus-card {
+    background: #1e2a3a;
+    border: 1px solid #2a3a4e;
+    border-radius: 10px;
+    padding: 1.25rem;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .focus-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    border-radius: 10px 10px 0 0;
+  }
+  .focus-card:nth-child(1)::before { background: #ff4444; }
+  .focus-card:nth-child(2)::before { background: #9fef00; }
+  .focus-card:nth-child(3)::before { background: #4fc3f7; }
+  .focus-card:nth-child(4)::before { background: #b388ff; }
+  .focus-card:nth-child(5)::before { background: #ffab40; }
+  .focus-card:hover {
+    border-color: #4fc3f7;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+  .focus-card .card-icon {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+  }
+  .focus-card h3 {
+    font-size: 1rem;
+    color: #e2e8f0;
+    margin: 0 0 0.4rem 0;
+  }
+  .focus-card p {
+    font-size: 0.85rem;
+    color: #6b7b95;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .cred-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+  .cred-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    padding: 0.3em 0.75em;
+    border-radius: 9999px;
+    border: 1px solid #2a3a4e;
+    background: #1e2a3a;
+    color: #a4b1cd;
+    transition: all 0.2s ease;
+  }
+  .cred-pill .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .cred-pill .dot.green { background: #9fef00; }
+  .cred-pill .dot.orange { background: #ffab40; }
+  .cred-pill .dot.blue { background: #4fc3f7; }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+  .contact-card {
+    background: #1e2a3a;
+    border: 1px solid #2a3a4e;
+    border-radius: 10px;
+    padding: 1.25rem;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.2s ease;
+  }
+  .contact-card:hover {
+    border-color: #9fef00;
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(159, 239, 0, 0.08);
+    color: inherit;
+  }
+  .contact-card .contact-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+  }
+  .contact-card .contact-icon.gh {
+    background: rgba(159, 239, 0, 0.1);
+    color: #9fef00;
+  }
+  .contact-card .contact-icon.email {
+    background: rgba(79, 195, 247, 0.1);
+    color: #4fc3f7;
+  }
+  .contact-card .contact-icon.site {
+    background: rgba(179, 136, 255, 0.1);
+    color: #b388ff;
+  }
+  .contact-card .contact-label {
+    font-size: 0.75rem;
+    color: #6b7b95;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .contact-card .contact-value {
+    color: #e2e8f0;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 600px) {
+    .focus-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<div class="about-hero">
+  <div class="hero-text">
+    <h2>$ whoami<span>_</span></h2>
+    <p class="tagline">cybersecurity researcher // breaking boxes & building tools</p>
+    <p>Cybersecurity guy from Australia focused on red teaming and offensive security. I lean toward the human side — social engineering, physical security, understanding where people's trust breaks down — but I spend plenty of time in terminals too, breaking boxes on HackTheBox and building tooling to make the process better.</p>
+    <p>I also picked up lockpicking along the way, because security doesn't stop at the keyboard.</p>
+  </div>
+</div>
+
+<div class="about-section">
   <h2>Background</h2>
-  <p>Came up through a few desk jobs before committing to cybersecurity full-time. Finished my <strong>B.S. in Information Technology</strong> (Cybersecurity & Networking) and earned my <strong>CompTIA Security+</strong> in 2024. Currently finishing a <strong>Master of Cybersecurity</strong> and working toward the <strong>AWS Security Specialty</strong> cert.</p>
-
+  <p>Came up through a few desk jobs before committing to cybersecurity full-time. Finished my <strong>B.I.T</strong> in Information Technology (Cybersecurity &amp; Networking) at Southern Cross University and earned my <strong>CompTIA Security+</strong> in 2024. Currently finishing a <strong>Master of Cybersecurity</strong> (Cloud Security) at the University of Sydney and working toward the <strong>AWS Solutions Architect Associate</strong>.</p>
   <p>The goal is to contribute to Australia's cybersecurity space in a meaningful way — always looking for opportunities where I can keep learning and actually make an impact.</p>
 
-  <h2>What I'm Into</h2>
-  <ul>
-    <li><strong>Social Engineering</strong> — The human side of security, from phishing to physical intrusion</li>
-    <li><strong>Red Teaming</strong> — Full-scope adversary simulation</li>
-    <li><strong>AI + Security</strong> — Fine-tuning LLMs for offensive security workflows</li>
-    <li><strong>Lockpicking</strong> — Physical security is still security</li>
-    <li><strong>Tool Development</strong> — Building what I need when it doesn't exist</li>
-  </ul>
+  <div class="cred-row">
+    <span class="cred-pill"><span class="dot green"></span>B.I.T — SCU</span>
+    <span class="cred-pill"><span class="dot green"></span>CompTIA Security+</span>
+    <span class="cred-pill"><span class="dot orange"></span>MCS — USyd</span>
+    <span class="cred-pill"><span class="dot orange"></span>AWS SAA-C03</span>
+  </div>
+</div>
 
+<div class="about-section">
+  <h2>What I'm Into</h2>
+  <div class="focus-grid">
+    <div class="focus-card">
+      <div class="card-icon">🎭</div>
+      <h3>Social Engineering</h3>
+      <p>The human side of security — phishing, pretexting, physical intrusion, and understanding where trust breaks down.</p>
+    </div>
+    <div class="focus-card">
+      <div class="card-icon">🔴</div>
+      <h3>Red Teaming</h3>
+      <p>Full-scope adversary simulation. Thinking like an attacker to find what scanners miss.</p>
+    </div>
+    <div class="focus-card">
+      <div class="card-icon">🤖</div>
+      <h3>AI + Security</h3>
+      <p>Fine-tuning LLMs for offensive security workflows. Building smarter tooling with local models.</p>
+    </div>
+    <div class="focus-card">
+      <div class="card-icon">🔓</div>
+      <h3>Lockpicking</h3>
+      <p>Physical security is still security. Bypassing locks, understanding mechanism design.</p>
+    </div>
+    <div class="focus-card">
+      <div class="card-icon">🛠️</div>
+      <h3>Tool Development</h3>
+      <p>Building what I need when it doesn't exist — scanners, harnesses, automation pipelines.</p>
+    </div>
+  </div>
+</div>
+
+<div class="about-section">
   <h2>Contact</h2>
-  <p>Find me on <a href="https://github.com/BuggInYourCloud">GitHub</a>.</p>
+  <div class="contact-grid">
+    <a href="https://github.com/BuggInYourCloud" class="contact-card" target="_blank">
+      <div class="contact-icon gh">⟩</div>
+      <div>
+        <div class="contact-label">GitHub</div>
+        <div class="contact-value">BuggInYourCloud</div>
+      </div>
+    </a>
+    <a href="mailto:BuggInYourCloud@proton.me" class="contact-card">
+      <div class="contact-icon email">@</div>
+      <div>
+        <div class="contact-label">Email</div>
+        <div class="contact-value">BuggInYourCloud@proton.me</div>
+      </div>
+    </a>
+    <a href="https://bugginyourcloud.github.io" class="contact-card" target="_blank">
+      <div class="contact-icon site">⟡</div>
+      <div>
+        <div class="contact-label">Site</div>
+        <div class="contact-value">bugginyourcloud.github.io</div>
+      </div>
+    </a>
+  </div>
 </div>
