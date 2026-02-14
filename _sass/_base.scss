@@ -7,6 +7,7 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;
 }
 
 body {
@@ -124,4 +125,12 @@ table {
 ::selection {
   background: rgba($neon-green, 0.3);
   color: $text-heading;
+}
+
+// Keyboard focus
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid $neon-green;
+  outline-offset: 2px;
+  border-radius: $radius-sm;
 }
