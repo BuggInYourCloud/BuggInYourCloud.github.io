@@ -4,14 +4,14 @@ title: "Home"
 ---
 
 <style>
-  .masters-tracker {
+  .tracker {
     background: #1e2a3a;
     border: 1px solid #2a3a4e;
     border-radius: 12px;
     padding: 1.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
-  .masters-header {
+  .tracker-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -19,20 +19,37 @@ title: "Home"
     flex-wrap: wrap;
     gap: 0.5rem;
   }
-  .masters-header h3 {
+  .tracker-header h3 {
     color: #e2e8f0;
     font-size: 1.25rem;
     margin: 0;
   }
-  .masters-gpa {
+  .tracker-header h3 a {
+    color: #e2e8f0;
+    text-decoration: none;
+  }
+  .tracker-header h3 a:hover {
+    color: #9fef00;
+  }
+  .tracker-badge {
     font-family: 'JetBrains Mono', 'Fira Code', monospace;
     font-size: 0.85rem;
-    color: #9fef00;
-    background: rgba(159, 239, 0, 0.1);
     padding: 0.2em 0.6em;
     border-radius: 4px;
   }
-  .masters-meta {
+  .tracker-badge.green {
+    color: #9fef00;
+    background: rgba(159, 239, 0, 0.1);
+  }
+  .tracker-badge.orange {
+    color: #ffab40;
+    background: rgba(255, 171, 64, 0.1);
+  }
+  .tracker-badge.blue {
+    color: #4fc3f7;
+    background: rgba(79, 195, 247, 0.1);
+  }
+  .tracker-meta {
     color: #6b7b95;
     font-size: 0.85rem;
     margin-bottom: 1rem;
@@ -118,6 +135,23 @@ title: "Home"
     border-radius: 4px;
     font-family: 'JetBrains Mono', 'Fira Code', monospace;
   }
+  /* Continuous progress bar (HTB / AWS module bar) */
+  .progress-bar-solid {
+    background: rgba(42, 58, 78, 0.5);
+    border-radius: 6px;
+    height: 22px;
+    overflow: hidden;
+    margin-bottom: 0.75rem;
+    position: relative;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.5s ease;
+  }
+  .progress-bar-fill.green { background: #9fef00; }
+  .progress-bar-fill.orange { background: #ffab40; }
+  .progress-bar-fill.blue { background: #4fc3f7; }
 </style>
 
 {% assign masters = site.data.masters %}
@@ -129,6 +163,14 @@ title: "Home"
 {% assign current_count = current_units | size %}
 {% assign remaining_count = remaining_units | size %}
 
+{% assign aws = site.data.aws_study %}
+{% assign aws_done = aws.modules | where: "status", "completed" | size %}
+{% assign aws_wip = aws.modules | where: "status", "current" | size %}
+{% assign aws_total = aws.modules | size %}
+
+{% assign box_count = site.writeups | size %}
+{% assign box_goal = 100 %}
+
 <div class="container">
   <section class="hero">
     <h1>~/Bugg<span class="accent">InYourCloud</span></h1>
@@ -137,14 +179,14 @@ title: "Home"
 
   <h2 class="section-title"><span class="accent">#</span> Current Path</h2>
 
-  <!-- Masters Tracker (data-driven from _data/masters.yml) -->
-  <div class="masters-tracker">
-    <div class="masters-header">
+  <!-- Masters Tracker -->
+  <div class="tracker">
+    <div class="tracker-header">
       <div>
         <h3>{{ masters.program }}</h3>
-        <p class="masters-meta">{{ masters.university }} &middot; {{ masters.faculty }} &middot; <span class="specialisation-badge">{{ masters.specialisation }}</span></p>
+        <p class="tracker-meta">{{ masters.university }} &middot; {{ masters.faculty }} &middot; <span class="specialisation-badge">{{ masters.specialisation }}</span></p>
       </div>
-      <span class="masters-gpa">GPA {{ masters.gpa }}</span>
+      <span class="tracker-badge green">GPA {{ masters.gpa }}</span>
     </div>
 
     <div class="progress-bar-container">
@@ -180,38 +222,56 @@ title: "Home"
     {% endif %}
   </div>
 
-  <!-- Other current path cards -->
-  <div class="card-grid">
-    <div class="card">
-      <h3 class="card-title">AWS Solutions Architect Associate</h3>
-      <p class="card-meta">SAA-C03</p>
-      <p class="card-description">Building toward cloud security specialisation. Following the Cantrill course with Tutorials Dojo practice exams.</p>
-      <div class="card-tags">
-        <span class="tag">aws</span>
-        <span class="tag">certification</span>
+  <!-- AWS SAA-C03 Tracker -->
+  <div class="tracker">
+    <div class="tracker-header">
+      <div>
+        <h3><a href="{{ '/aws-study/' | relative_url }}">AWS Solutions Architect Associate</a></h3>
+        <p class="tracker-meta">SAA-C03 &middot; {{ aws.course }} course &middot; {{ aws.practice }} practice exams</p>
       </div>
+      <span class="tracker-badge orange">In Progress</span>
     </div>
-    <div class="card">
-      <h3 class="card-title">HackTheBox</h3>
-      <p class="card-meta">Grinding CLI skills</p>
-      <p class="card-description">Working through boxes to build practical red team skills and command-line proficiency.</p>
-      <div class="card-tags">
-        <span class="tag">htb</span>
-        <span class="tag">offensive</span>
-      </div>
+
+    <div class="progress-bar-container">
+      {% for mod in aws.modules %}
+      <div class="progress-segment {{ mod.status }}"></div>
+      {% endfor %}
+    </div>
+    <div class="progress-label">
+      <span><span class="count">{{ aws_done }}</span> / {{ aws_total }} modules completed</span>
+      <span>{{ aws_wip }} current</span>
     </div>
   </div>
 
-  <h2 class="section-title"><span class="accent">#</span> Latest Write-ups</h2>
+  <!-- HTB 100-Box Goal Tracker -->
+  <div class="tracker">
+    <div class="tracker-header">
+      <div>
+        <h3><a href="{{ '/ctfs/' | relative_url }}">HackTheBox</a></h3>
+        <p class="tracker-meta">2026 goal: {{ box_goal }} boxes pwned</p>
+      </div>
+      <span class="tracker-badge blue">{{ box_count }} / {{ box_goal }}</span>
+    </div>
+
+    <div class="progress-bar-solid">
+      <div class="progress-bar-fill green" style="width: {{ box_count | times: 100 | divided_by: box_goal }}%;"></div>
+    </div>
+    <div class="progress-label">
+      <span><span class="count">{{ box_count }}</span> boxes completed</span>
+      <span>{{ box_goal | minus: box_count }} to go</span>
+    </div>
+  </div>
+
+  <h2 class="section-title" style="margin-top: 3rem;"><span class="accent">#</span> Latest Write-ups</h2>
   <div class="card-grid">
     {% assign recent = site.writeups | sort: "date" | reverse %}
-    {% for writeup in recent limit:4 %}
+    {% for writeup in recent limit:3 %}
       {% include writeup-card.html writeup=writeup %}
     {% endfor %}
   </div>
 
   {% assign total = site.writeups | size %}
-  {% if total > 4 %}
+  {% if total > 3 %}
   <p style="text-align: center; margin-top: 2rem;">
     <a href="{{ '/ctfs/' | relative_url }}" style="color: #9fef00;">View all write-ups &rarr;</a>
   </p>
