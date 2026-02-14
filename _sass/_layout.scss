@@ -49,9 +49,27 @@
     padding: $spacing-xs $spacing-sm;
     border-radius: $radius-sm;
     transition: all $transition;
+    position: relative;
 
-    &:hover, &.active {
+    &:hover {
       color: $neon-green;
+      background: rgba($neon-green, 0.05);
+    }
+
+    &.active {
+      color: $neon-green;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -6px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 20px;
+        height: 2px;
+        background: $neon-green;
+        border-radius: 2px;
+      }
     }
   }
 }
@@ -121,8 +139,15 @@
     a {
       color: $text-muted;
       font-size: 0.85rem;
+      transition: all $transition;
+      padding: $spacing-xs;
+      border-radius: $radius-sm;
 
-      &:hover { color: $neon-green; }
+      &:hover {
+        color: $neon-green;
+        background: rgba($neon-green, 0.05);
+        transform: translateY(-1px);
+      }
     }
   }
 }
