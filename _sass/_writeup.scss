@@ -76,6 +76,10 @@
   }
 
   img {
+    max-width: 480px;
+    width: 100%;
+    height: auto;
+    display: block;
     border-radius: $radius-md;
     border: 1px solid $border;
     margin: $spacing-lg 0;
