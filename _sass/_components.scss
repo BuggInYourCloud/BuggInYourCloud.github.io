@@ -4,15 +4,16 @@
   border: 1px solid $border;
   border-radius: $radius-lg;
   padding: $spacing-lg;
-  transition: all $transition;
+  transition: all 0.25s ease;
   text-decoration: none;
   display: block;
   color: inherit;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 
   &:hover {
     border-color: $neon-green;
-    box-shadow: 0 0 20px rgba($neon-green, 0.1);
-    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba($neon-green, 0.12), 0 4px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-4px);
     color: inherit;
   }
 
@@ -114,6 +115,12 @@
   border-radius: $radius-sm;
   font-size: 0.75rem;
   font-family: $font-mono;
+  transition: all $transition;
+
+  &:hover {
+    background: rgba($neon-blue, 0.2);
+    transform: translateY(-1px);
+  }
 
   &.tag-tool {
     background: rgba($neon-blue, 0.1);
@@ -123,6 +130,10 @@
   &.tag-script {
     background: rgba($neon-orange, 0.1);
     color: $neon-orange;
+
+    &:hover {
+      background: rgba($neon-orange, 0.2);
+    }
   }
 }
 
@@ -226,6 +237,9 @@
   padding: $spacing-2xl;
   color: $text-muted;
   font-style: italic;
+  background: rgba($surface, 0.5);
+  border: 1px dashed $border;
+  border-radius: $radius-lg;
 }
 
 // Tool / cert card variant
