@@ -13,6 +13,14 @@
     border: 1px solid $border;
     border-radius: $radius-lg;
     padding: $spacing-lg;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+      border-color: rgba($neon-green, 0.3);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      transform: translateY(-2px);
+    }
 
     h3 {
       font-size: 1rem;
