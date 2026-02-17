@@ -43,7 +43,7 @@ a {
   transition: color $transition;
 
   &:hover {
-    color: $neon-green;
+    color: $accent-blue;
   }
 }
 
@@ -58,7 +58,7 @@ code {
   background: $surface;
   padding: 0.15em 0.4em;
   border-radius: $radius-sm;
-  color: $neon-green;
+  color: $accent-blue;
 }
 
 pre {
@@ -93,7 +93,7 @@ li {
 }
 
 blockquote {
-  border-left: 3px solid $neon-green;
+  border-left: 3px solid $accent-blue;
   padding-left: $spacing-lg;
   color: $text-muted;
   font-style: italic;
@@ -123,13 +123,13 @@ table {
 }
 
 ::selection {
-  background: rgba($neon-green, 0.3);
+  background: rgba($accent-blue, 0.3);
   color: $text-heading;
 }
 
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid $neon-green;
+  outline: 2px solid $accent-blue;
   outline-offset: 2px;
   border-radius: $radius-sm;
 }
@@ -224,7 +224,7 @@ button:focus-visible {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: $neon-green;
+  color: $accent-blue;
   margin-bottom: $spacing-lg;
 }
 
@@ -250,4 +250,34 @@ button:focus-visible {
     z-index: 1;
   }
   &:hover::after { opacity: 1; }
+}
+
+// ── Skip to content (a11y) ──
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: $spacing-md;
+  background: $bg-secondary;
+  color: $accent-blue;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $radius-md;
+  z-index: 200;
+  font-family: $font-mono;
+  font-size: 0.85rem;
+  border: 1px solid $border;
+  transition: top 200ms ease;
+
+  &:focus {
+    top: $spacing-md;
+  }
+}
+
+// ── Reduced motion (a11y) ──
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

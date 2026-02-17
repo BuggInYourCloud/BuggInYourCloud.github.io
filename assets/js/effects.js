@@ -112,6 +112,26 @@
     updateFill();
   }
 
+  /* ── Cursor Spotlight (flat, no tilt) ── */
+  document.querySelectorAll('[data-spotlight]').forEach(function(el) {
+    el.addEventListener('mousemove', function(e) {
+      var r = el.getBoundingClientRect();
+      el.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+      el.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+    });
+  });
+
+  /* ── Cursor Spotlight (delegated to inner card) ── */
+  document.querySelectorAll('[data-tilt-card]').forEach(function(node) {
+    var card = node.querySelector('.cert-card');
+    if (!card) return;
+    node.addEventListener('mousemove', function(e) {
+      var r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+      card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+    });
+  });
+
   /* ── Activity Heatmap ── */
   var heatmapEl = document.getElementById('heatmap');
   if (heatmapEl && window.writeupDates) {

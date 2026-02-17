@@ -15,7 +15,7 @@
   .sx, .s1, .ss, .sr   { color: #ffd866; }                     // strings
   .na                   { color: $neon-blue; }                  // attr name
   .nb, .nc, .no         { color: #78dce8; }                     // builtins
-  .nf, .nx              { color: $neon-green; }                 // function
+  .nf, .nx              { color: $accent-blue; }                 // function
   .mi, .mf, .mh, .mo   { color: #ab9df2; }                     // numbers
   .o, .ow               { color: #ff6188; }                     // operators
   .p                    { color: $text-primary; }               // punctuation

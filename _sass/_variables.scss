@@ -5,14 +5,27 @@ $surface:       #1e2a3a;
 $surface-hover: #253347;
 $border:        #2a3a4e;
 
-$neon-green:    #60a5fa;
-$neon-green-dim:#3b82f6;
-$neon-blue:     #4fc3f7;
-$neon-purple:   #b388ff;
-$neon-red:      #ff4444;
-$neon-orange:   #ffab40;
-$neon-yellow:   #ffee58;
+// Accent colors
+$accent-blue:     #60a5fa;
+$accent-blue-dim: #3b82f6;
+$accent-blue-light: #93c5fd;
+$neon-blue:       #4fc3f7;
+$neon-purple:     #b388ff;
+$neon-red:        #ff4444;
+$neon-orange:     #ffab40;
+$neon-yellow:     #ffee58;
+$success-green:   #4ade80;
 
+// Slate scale (Tailwind slate — used throughout for subtle text/borders)
+$slate-800:     #1e293b;
+$slate-700:     #334155;
+$slate-600:     #475569;
+$slate-500:     #64748b;
+$slate-400:     #94a3b8;
+$slate-300:     #cbd5e1;
+$slate-200:     #e2e8f0;
+
+// Text
 $text-primary:  #a4b1cd;
 $text-heading:  #e2e8f0;
 $text-muted:    #6b7b95;
@@ -38,7 +51,7 @@ $spacing-2xl:   3rem;
 // Border radius
 $radius-sm:     4px;
 $radius-md:     8px;
-$radius-lg:     12px;
+$radius-lg:     16px;
 
 // Breakpoints
 $bp-sm:         576px;
@@ -51,3 +64,11 @@ $container-max:  1200px;
 
 // Transitions
 $transition:     0.2s ease;
+$transition-card: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+
+// Card shared values (used across all hero/card components)
+$card-bg:         rgba(15, 23, 42, 0.45);
+$card-bg-hover:   rgba(15, 23, 42, 0.7);
+$card-border:     rgba(96, 165, 250, 0.06);
+$card-border-hover: rgba(96, 165, 250, 0.15);
+$card-shadow:     0 0 60px rgba(96, 165, 250, 0.06), 0 20px 50px rgba(0, 0, 0, 0.35);
