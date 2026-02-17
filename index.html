@@ -87,7 +87,7 @@ title: "Home"
   <!-- Masters Detail -->
   <div class="tracker-detail reveal">
     <h3>{{ masters.program }}</h3>
-    <p class="meta">{{ masters.university }} &middot; {{ masters.faculty }} &middot; <span class="specialisation-badge">{{ masters.specialisation }}</span> &middot; GPA <strong style="color: #60a5fa;">{{ masters.gpa }}</strong></p>
+    <p class="meta">{{ masters.university }} &middot; {{ masters.faculty }} &middot; <span class="specialisation-badge">{{ masters.specialisation }}</span> &middot; GPA <strong class="hl">{{ masters.gpa }}</strong></p>
 
     <div class="prog-bar">
       {% for unit in masters.units %}
@@ -123,7 +123,7 @@ title: "Home"
   </div>
 
   <!-- Latest Write-ups -->
-  <div class="reveal" style="margin-top: 3rem;">
+  <div class="reveal latest-section">
     <p class="section-label">Latest Write-ups</p>
   </div>
   <div class="card-grid reveal reveal-stagger">
@@ -135,8 +135,8 @@ title: "Home"
 
   {% assign total = site.writeups | size %}
   {% if total > 3 %}
-  <p style="text-align: center; margin-top: 2rem;">
-    <a href="{{ '/ctfs/' | relative_url }}" style="color: #60a5fa;">View all write-ups &rarr;</a>
+  <p class="view-all">
+    <a href="{{ '/ctfs/' | relative_url }}">View all write-ups &rarr;</a>
   </p>
   {% endif %}
 </div>

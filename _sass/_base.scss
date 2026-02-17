@@ -8,6 +8,17 @@ html {
   font-size: 16px;
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
+
+  // Themed scrollbar
+  &::-webkit-scrollbar { width: 8px; }
+  &::-webkit-scrollbar-track { background: $bg-secondary; }
+  &::-webkit-scrollbar-thumb {
+    background: $border;
+    border-radius: 4px;
+    &:hover { background: rgba($accent-blue, 0.3); }
+  }
+  scrollbar-width: thin;
+  scrollbar-color: $border $bg-secondary;
 }
 
 body {
@@ -25,13 +36,14 @@ h1, h2, h3, h4, h5, h6 {
   color: $text-heading;
   font-weight: 700;
   line-height: 1.3;
+  letter-spacing: -0.02em;
   margin-bottom: $spacing-md;
 }
 
-h1 { font-size: 2.25rem; }
+h1 { font-size: 2.25rem; font-weight: 800; }
 h2 { font-size: 1.75rem; }
 h3 { font-size: 1.375rem; }
-h4 { font-size: 1.125rem; }
+h4 { font-size: 1.125rem; letter-spacing: 0; }
 
 p {
   margin-bottom: $spacing-md;
@@ -145,24 +157,24 @@ button:focus-visible {
 .orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(90px);
-  opacity: 0.06;
+  filter: blur(100px);
+  opacity: 0.07;
 }
 .orb-1 {
   width: 500px; height: 500px;
-  background: #60a5fa;
+  background: $accent-blue;
   top: -15%; right: -10%;
   animation: drift 25s ease-in-out infinite;
 }
 .orb-2 {
   width: 400px; height: 400px;
-  background: #818cf8;
+  background: $neon-purple;
   bottom: 10%; left: -8%;
   animation: drift 25s ease-in-out infinite -8s;
 }
 .orb-3 {
   width: 350px; height: 350px;
-  background: #60a5fa;
+  background: $accent-blue;
   top: 50%; right: 15%;
   animation: drift 25s ease-in-out infinite -16s;
 }
@@ -226,6 +238,18 @@ button:focus-visible {
   letter-spacing: 0.12em;
   color: $accent-blue;
   margin-bottom: $spacing-lg;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+
+  &::before {
+    content: '';
+    width: 18px;
+    height: 2px;
+    background: linear-gradient(90deg, $accent-blue, transparent);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
 }
 
 // ── Cursor spotlight for tiltable elements ──
@@ -241,7 +265,7 @@ button:focus-visible {
     border-radius: inherit;
     background: radial-gradient(
       500px circle at var(--mx, 50%) var(--my, 50%),
-      rgba(96, 165, 250, 0.06) 0%,
+      rgba($accent-blue, 0.06) 0%,
       transparent 100%
     );
     pointer-events: none;

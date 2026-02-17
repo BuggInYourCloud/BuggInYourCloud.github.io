@@ -32,6 +32,13 @@
 
   .th-top { @extend %detail-top; }
 
+  .th-badges {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
   .th-tagline {
     color: $slate-500;
     font-size: 0.95rem;

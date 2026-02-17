@@ -18,8 +18,8 @@ layout: default
         {% include difficulty-badge.html difficulty=page.difficulty %}
         <span class="os-badge">{{ page.os }}</span>
         <span class="badge badge-{{ page.status }}">{{ page.status }}</span>
-        <span style="color: #475569; font-size: 0.8rem;">{{ page.date | date: "%B %d, %Y" }}</span>
-        {% if page.ttl %}<span style="color: #475569; font-size: 0.8rem;">&#9202; {{ page.ttl }}</span>{% endif %}
+        <span class="wu-date">{{ page.date | date: "%B %d, %Y" }}</span>
+        {% if page.ttl %}<span class="wu-date">&#9202; {{ page.ttl }}</span>{% endif %}
       </div>
 
       <div class="wu-flags">
