@@ -25,8 +25,8 @@ permalink: /tools/
   </div>
 </div>
 
-<!-- Featured Project: CyberSec Qwen3 -->
-{% assign featured = tools_list | where: "title", "CyberSec Qwen3" | first %}
+<!-- Featured Project: CryptoOS Arcade -->
+{% assign featured = tools_list | where: "title", "CryptoOS Arcade" | first %}
 {% if featured %}
 <div class="reveal">
   <p class="section-label">Featured Project</p>
@@ -34,57 +34,68 @@ permalink: /tools/
 <div class="featured-project reveal" data-spotlight>
   <div class="fp-header">
     <span class="fp-badge">Featured</span>
-    {% if featured.status == "on-hold" %}
-    <span class="fp-status on-hold"><span class="status-dot"></span> On Hold</span>
-    {% endif %}
   </div>
   <h3 class="fp-title">{{ featured.title }}</h3>
   <p class="fp-tagline">{{ featured.tagline }}</p>
 
-  <!-- Training Pipeline Flow -->
-  <div class="pipeline-flow">
-    <div class="pipe-node sft">
-      <span class="pn-label">SFT</span>
-      <span class="pn-sub">4,308 samples</span>
+  <!-- Room Flow -->
+  <div class="room-flow">
+    <div class="room-node r-xor">
+      <span class="rn-label">XOR</span>
+      <span class="rn-sub">Fundamentals</span>
     </div>
-    <div class="pipe-arrow"><span>&rarr;</span></div>
-    <div class="pipe-node dpo">
-      <span class="pn-label">DPO</span>
-      <span class="pn-sub">175 pairs</span>
+    <div class="room-arrow"><span>&rarr;</span></div>
+    <div class="room-node r-prg">
+      <span class="rn-label">PRG</span>
+      <span class="rn-sub">Primitives</span>
     </div>
-    <div class="pipe-arrow"><span>&rarr;</span></div>
-    <div class="pipe-node grpo">
-      <span class="pn-label">GRPO</span>
-      <span class="pn-sub">2,220 prompts</span>
+    <div class="room-arrow"><span>&rarr;</span></div>
+    <div class="room-node r-block">
+      <span class="rn-label">Modes</span>
+      <span class="rn-sub">Block Ciphers</span>
+    </div>
+    <div class="room-arrow"><span>&rarr;</span></div>
+    <div class="room-node r-mac">
+      <span class="rn-label">AEAD</span>
+      <span class="rn-sub">Integrity</span>
+    </div>
+    <div class="room-arrow"><span>&rarr;</span></div>
+    <div class="room-node r-dh">
+      <span class="rn-label">DH</span>
+      <span class="rn-sub">Key Exchange</span>
+    </div>
+    <div class="room-arrow"><span>&rarr;</span></div>
+    <div class="room-node r-sig">
+      <span class="rn-label">PKI</span>
+      <span class="rn-sub">Signatures</span>
     </div>
   </div>
 
   <!-- Key Metrics -->
   <div class="fp-metrics">
     <div class="fp-metric">
-      <div class="m-val green" data-counter="63">0</div>
-      <div class="m-key">Pass Rate %</div>
+      <div class="m-val" data-counter="6">0</div>
+      <div class="m-key">Rooms</div>
     </div>
     <div class="fp-metric">
-      <div class="m-val orange">+<span data-counter="27" data-decimals="1">0</span></div>
-      <div class="m-key">Reward Score</div>
+      <div class="m-val green" data-counter="30">0</div>
+      <div class="m-key">Interactive Levels</div>
     </div>
     <div class="fp-metric">
-      <div class="m-val" data-counter="4">0</div>
-      <div class="m-key">HTB Boxes</div>
+      <div class="m-val orange" data-counter="0">1</div>
+      <div class="m-key">Dependencies</div>
     </div>
     <div class="fp-metric">
-      <div class="m-val purple" data-counter="14">0</div>
-      <div class="m-key">Model (B params)</div>
+      <div class="m-val purple" data-counter="4500">0</div>
+      <div class="m-key">Lines of Code</div>
     </div>
   </div>
 
-  <!-- HTB Box Results -->
-  <div class="fp-boxes">
-    <div class="fp-box"><span class="check"></span> Facts</div>
-    <div class="fp-box"><span class="check"></span> CodePartTwo</div>
-    <div class="fp-box"><span class="check"></span> Pterodactyl</div>
-    <div class="fp-box"><span class="check"></span> Cap</div>
+  <!-- Play Button -->
+  <div style="text-align: center; margin-top: 0.5rem;">
+    <a href="{{ '/assets/crypto-arcade/index.html' | relative_url }}" target="_blank" rel="noopener" class="fp-play-btn">
+      Play Now <span class="play-arrow">&rarr;</span>
+    </a>
   </div>
 </div>
 {% endif %}
